@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-signup',
@@ -6,10 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  public form = {
+    nom: null,
+    prenom: null,
+    email: null,
+    password: null,
+    confirmPassword: null,
+  };
+  public error = null;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  onSubmit() {
+  }
 }

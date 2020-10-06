@@ -7,3 +7,13 @@
 @import "assets/lib/leaflet.markercluster/MarkerCluster.css";
 @import "assets/lib/leaflet.markercluster/MarkerCluster.Default.css";
 @import "assets/css/theme.min.css";
+
+.ng-touched.ng-invalid:not(form)  {
+  border: 1px solid #a94442; /* green */
+  border-left: 5px solid #a94442; /* red */
+}
+.ng-touched.ng-valid:not(form)  {
+  border: 1px solid #05a900; /* green */
+  border-left: 5px solid #05a900; /* green */
+}
+
