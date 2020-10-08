@@ -12,31 +12,57 @@
           <div class="col-md-12 d-flex flex-center">
             <div class="p-4 p-md-5 flex-grow-1">
               <h3>Sign Up</h3>
-              <form #loginForm=ngForm (ngSubmit)="onSubmit()">
-                <div *ngIf="error" class="alert alert-danger">
-                  {{error}}
+              <form #signupForm=ngForm (ngSubmit)="onSubmit()">
+                <div *ngIf="errors" class="div">
+                  <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger">
+                    {{ item.key }}
+                    <li *ngFor="let val of item.value">{{val}}</li>
+                    </ul>
                 </div>
                 <div class="form-row">
-                  <div class="form-group col-6"><label for="card-password">Prenom</label><input class="form-control"
-                                                                                                  type="password"
-                                                                                                  name="password"
-                                                                                                  id="prenom"
-                                                                                                  [(ngModel)]="form.password"
-                                                                                                  required minlength="8"
-                                                                                                  #password="ngModel"/>
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
-                      <div *ngIf="password.errors.required">
-                        Email is required.
-                      </div>
-                      <div *ngIf="password.errors.minlength">
-                        Name must be at least 8 characters long.
-                      </div>
-                    </div>
+                  <div class="form-group col-6"><label for="prenom">Prenom</label><input class="form-control"
+                                                                                         type="text"
+                                                                                         name="prenom"
+                                                                                         id="prenom"
+                                                                                         [(ngModel)]="form.prenom"
+                                                                                         required minlength="4"
+                                                                                         pattern="[a-zA-Z ]*"
+                                                                                         #prenom="ngModel"/>
+                    <ul *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)" class="alert alert-danger">
+                      <li *ngIf="prenom.errors.pattern">
+                        Prenom doit contenire que de carectere alphabitique.
+                      </li>
+                      <li *ngIf="prenom.errors.required">
+                        Prenom is required.
+                      </li>
+                      <li *ngIf="prenom.errors.minlength">
+                        prenom must be at least 4 characters long.
+                      </li>
+                    </ul>
                   </div>
-                  <div class="form-group col-6"><label for="card-confirm-password">Nom</label><input
-                    class="form-control" type="password" id="nom"/></div>
+                  <div class="form-group col-6"><label for="nom">Nom</label><input
+                    class="form-control" type="text" id="nom"
+                    name="nom"
+                    [(ngModel)]="form.nom"
+                    required minlength="4"
+                    pattern="[a-zA-Z ]*"
+                    #nom="ngModel"/>
+                    <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+                      <li *ngIf="nom.errors.pattern">
+                        nom doit contenire que de carectere alphabitique.
+                      </li>
+                      <li *ngIf="nom.errors.required">
+                        nom is required.
+                      </li>
+                      <li *ngIf="nom.errors.minlength">
+                        nom must be at least 4 characters long.
+                      </li>
+                    </ul>
+
+                  </div>
 
                 </div>
+
 
                 <div class="form-group"><label for="card-email">Email address</label><input class="form-control"
                                                                                             type="email" name="email"
@@ -45,33 +71,40 @@
                                                                                             required #email="ngModel"
                                                                                             [email]="true"/>
 
-                  <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                  <ul *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
 
-                    <div *ngIf="email.invalid">
+                    <li *ngIf="email.invalid">
                       Format mail inalid
-                    </div>
-                    <div *ngIf="email.errors.required">
+                    </li>
+                    <li *ngIf="email.errors.required">
                       Email is required.
-                    </div>
-                  </div>
+                    </li>
+                  </ul>
                 </div>
-                <div class="form-group"><label for="card-email">Telephone</label><input class="form-control"
-                                                                                            type="email" name="email"
-                                                                                            id="telephone"
-                                                                                            [(ngModel)]="form.email"
-                                                                                            required #email="ngModel"
-                                                                                            [email]="true"/>
+                <div class="form-group"><label for="telephone">Telephone</label><input class="form-control"
+                                                                                       type="text" name="telephone"
+                                                                                       id="telephone"
+                                                                                       [(ngModel)]="form.telephone"
+                                                                                       required #telephone="ngModel"
+                                                                                       minlength="8" maxlength="8"
+                                                                                       pattern="[0-9]*"/>
+                  <ul *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="alert alert-danger">
 
-                  <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-
-                    <div *ngIf="email.invalid">
-                      Format mail inalid
-                    </div>
-                    <div *ngIf="email.errors.required">
-                      Email is required.
-                    </div>
-                  </div>
+                    <li *ngIf="telephone.errors.pattern">
+                      telephone doit contenire que de carectere alphabitique.
+                    </li>
+                    <li *ngIf="telephone.errors.required">
+                      telephone is required.
+                    </li>
+                    <li *ngIf="telephone.errors.minlength">
+                      telephone must be at least 8 characters long.
+                    </li>
+                  </ul>
                 </div>
+
+
+
+
                 <div class="form-row">
                   <div class="form-group col-6"><label for="card-password">Password</label><input class="form-control"
                                                                                                   type="password"
@@ -80,18 +113,32 @@
                                                                                                   [(ngModel)]="form.password"
                                                                                                   required minlength="8"
                                                                                                   #password="ngModel"/>
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
-                      <div *ngIf="password.errors.required">
+                    <ul *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                      <li *ngIf="password.errors.required">
                         Email is required.
-                      </div>
-                      <div *ngIf="password.errors.minlength">
+                      </li>
+                      <li *ngIf="password.errors.minlength">
                         Name must be at least 8 characters long.
-                      </div>
-                    </div>
+                      </li>
+                    </ul>
                   </div>
-                  <div class="form-group col-6"><label for="card-confirm-password">Confirm Password</label><input
-                    class="form-control" type="password" id="card-confirm-password"/></div>
+                  <div class="form-group col-6"><label for="password_confirmation">Confirm Password</label><input
+                    class="form-control" type="password" id="password_confirmation" name="password_confirmation"
+                    [(ngModel)]="form.password_confirmation" (ngModelChange)="mustMatch($event)"
+                    #confirmPassword="ngModel"/>
+                    <h1>!!!</h1>
+<!--
+                    <ul *ngIf="confirmPassword.errors && confirmPassword.touched" class="alert alert-danger">
+                      <li *ngIf="confirmPassword.errors.required">
+                        telephone is required.
+                      </li>
+                      <li *ngIf="confirmPassword.errors.incorrect">
+                        passwor not confirmed
+                      </li>
+                    </ul>
+-->
 
+                  </div>
                 </div>
                 <div class="custom-control custom-checkbox"><input class="custom-control-input" type="checkbox"
                                                                    id="card-register-checkbox"/><label
@@ -100,7 +147,7 @@
 
                 <div class="form-group">
                   <button class="btn btn-primary btn-block mt-3" type="submit" name="submit"
-                          [disabled]="loginForm.invalid">Login
+                          [disabled]="signupForm.invalid">Sign Up
                   </button>
                 </div>
               </form>
@@ -124,12 +171,12 @@
                 <hr class="text-300"/>
                 <div
                   class="position-absolute absolute-centered t-0 px-3 bg-white text-sans-serif fs--1 text-500 text-nowrap">
-                  Sign Up
+
                 </div>
               </div>
               <div class="form-group mb-0">
                 <div class="form-group">
-                  <a routerLink="/signup" class="btn btn-info btn-block mt-3">Sign Up</a>
+                  <a routerLink="/login" class="btn btn-info btn-block mt-3">Login</a>
                 </div>
 
               </div>

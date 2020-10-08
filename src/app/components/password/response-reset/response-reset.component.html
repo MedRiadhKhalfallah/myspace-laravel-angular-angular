@@ -1,1 +1,55 @@
-<p>response-reset works!</p>
+<!-- ===============================================-->
+<!--    Main Content-->
+<!-- ===============================================-->
+<div class="row min-vh-100 flex-center no-gutters" style="margin-top: -5%;">
+  <div class="col-lg-8 col-xxl-8 py-3"><img class="bg-auth-circle-shape" src="/assets/img/illustrations/bg-shape.png"
+                                            alt="" width="250"><img class="bg-auth-circle-shape-2"
+                                                                    src="../../assets/img/illustrations/shape-1.png"
+                                                                    alt="" width="150">
+    <div class="card overflow-hidden z-index-1">
+      <div class="card-body p-0">
+        <div class="row no-gutters h-100">
+          <div class="col-md-12 d-flex flex-center">
+            <div class="p-4 p-md-5 flex-grow-1">
+              <h3>Reset password</h3>
+              <form #responseresetForm=ngForm (ngSubmit)="onSubmit()">
+                <div *ngIf="error" class="alert alert-danger">
+                  {{error}}
+                </div>
+                <div class="form-group"><label for="password">New Password</label><input class="form-control"
+                                                                                         type="password"
+                                                                                         id="card-reset-password"
+                                                                                         id="password"
+                                                                                         name="password"
+                                                                                         [(ngModel)]="form.password"
+                                                                                         required minlength="8"
+                                                                                         #password="ngModel"/>
+                  <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                    <div *ngIf="password.errors.required">
+                      Email is required.
+                    </div>
+                    <div *ngIf="password.errors.minlength">
+                      Name must be at least 8 characters long.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group"><label for="password_confirmation">Confirm Password</label><input
+                  class="form-control" type="password" id="password_confirmation" name="password_confirmation"
+                  [(ngModel)]="form.password_confirmation"
+                  required minlength="8"
+                  #password="ngModel"/></div>
+                <button class="btn btn-primary btn-block mt-3" [disabled]="responseresetForm.invalid" type="submit"
+                        name="submit">Set password
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===============================================-->
+<!--    End of Main Content-->
+<!-- ===============================================-->

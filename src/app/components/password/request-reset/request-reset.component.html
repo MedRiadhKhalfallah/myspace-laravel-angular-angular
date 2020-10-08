@@ -1,1 +1,59 @@
-<p>request-reset works!</p>
+<!-- ===============================================-->
+<!--    Main Content-->
+<!-- ===============================================-->
+<div class="row min-vh-100 flex-center no-gutters" style="margin-top: -5%;">
+  <div class="col-lg-8 col-xxl-8 py-3"><img class="bg-auth-circle-shape" src="/assets/img/illustrations/bg-shape.png"
+                                            alt="" width="250"><img class="bg-auth-circle-shape-2"
+                                                                    src="../../assets/img/illustrations/shape-1.png"
+                                                                    alt="" width="150">
+    <div class="card overflow-hidden z-index-1">
+      <div class="card-body p-0">
+        <div class="row no-gutters h-100">
+          <div class="col-md-12 d-flex flex-center">
+            <div class="p-4 p-md-5 flex-grow-1">
+              <div class="text-center text-md-left">
+                <h4 class="mb-0"> Forgot your password?</h4>
+                <p class="mb-4">Enter your email and we'll send you a reset link.</p>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-sm-8 col-md">
+                  <form #requestresetForm=ngForm (ngSubmit)="onSubmit()">
+                    <div *ngIf="error" class="alert alert-danger">
+                      {{error}}
+                    </div>
+                    <div class="form-group"><input class="form-control"
+                                                   type="email" name="email"
+                                                   id="card-email"
+                                                   [(ngModel)]="form.email"
+                                                   required #email="ngModel"
+                                                   [email]="true"/>
+
+                      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+
+                        <div *ngIf="email.invalid">
+                          Format mail inalid
+                        </div>
+                        <div *ngIf="email.errors.required">
+                          Email is required.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-primary btn-block mt-3" type="submit" name="submit" [disabled]="requestresetForm.invalid">Send reset link
+                      </button>
+                    </div>
+                  </form>
+                  <!--                  <a class="fs&#45;&#45;1 text-600" href="#!">I can't recover my account using this page<span class="d-inline-block ml-1">&rarr;</span></a>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===============================================-->
+<!--    End of Main Content-->
+<!-- ===============================================-->
