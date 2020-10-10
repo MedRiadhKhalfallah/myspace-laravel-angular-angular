@@ -16,6 +16,8 @@ import {AuthService} from "./services/auth.service";
 import {AfterLoginService} from "./services/after-login.service";
 import {BeforeLoginService} from "./services/before-login.service";
 import {SnotifyModule, SnotifyService, ToastDefaults} from "ng-snotify";
+import { UserComponent } from './components/admin/user/user.component';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -25,14 +27,16 @@ import {SnotifyModule, SnotifyService, ToastDefaults} from "ng-snotify";
     SignupComponent,
     ProfileComponent,
     RequestResetComponent,
-    ResponseResetComponent
+    ResponseResetComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SnotifyModule
+    SnotifyModule,
+    CommonModule
   ],
   providers: [JarwisService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
