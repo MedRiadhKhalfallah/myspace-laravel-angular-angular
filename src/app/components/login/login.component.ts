@@ -29,14 +29,19 @@ export class LoginComponent implements OnInit {
   }
 
   handleError(error) {
-    this.error = error.error.error
+    this.error = error.error.error;
   }
 
   handleResponse(data) {
     console.log(data);
+      localStorage.setItem('roles', data.roles);
+      localStorage.setItem('user', data.user.original);
+
     this.token.handle(data.access_token);
     this.auth.changeAuthStatus(true);
-    this.router.navigateByUrl('/profile');
+    this.router.navigateByUrl('/profile').then(() => {
+      window.location.reload();
+    });
   }
 
   ngOnInit(): void {

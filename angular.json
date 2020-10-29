@@ -24,6 +24,9 @@
               "src/assets"
             ],
             "styles": [
+//              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css"
             ],
             "scripts": [
@@ -45,6 +48,10 @@
               "src/assets/lib/leaflet/leaflet.js",
               "src/assets/lib/leaflet.markercluster/leaflet.markercluster.js",
               "src/assets/lib/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js",
+              "src/assets/lib/owl.carousel/owl.carousel.js",
+              "src/assets/lib/fancybox/jquery.fancybox.min.js",
+              "src/assets/lib/flatpickr/flatpickr.min.js",
+              "src/assets/lib/dropzone/dropzone.min.js",
               "src/assets/js/theme.min.js"
             ]
           },
@@ -108,6 +115,8 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -139,6 +148,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "frontend"
 }

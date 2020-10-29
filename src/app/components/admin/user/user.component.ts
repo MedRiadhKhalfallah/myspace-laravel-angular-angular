@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
   }
 
   handleError(error) {
-    this.error = error.error.error
+    this.error = error.error.message
   }
 
   handleResponse(data) {

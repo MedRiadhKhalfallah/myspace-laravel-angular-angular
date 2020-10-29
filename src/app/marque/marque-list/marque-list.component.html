@@ -1,0 +1,75 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">nom</th>
+          <th scope="col">logo</th>
+          <th scope="col">action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let marque of marqueList ">
+          <th scope="row">{{marque.marque_id}}</th>
+          <td>{{marque.marque_name}}</td>
+          <td><img width="60px" height="60px" src="{{marque.image_path}}"
+                   alt="{{marque.image_name}}">
+          </td>
+          <td>
+            <button class="btn btn-info" type="button" (click)="showChildModalView(marque)"
+                    style="margin-right: 2px;"><span
+              class='far fa-eye'></span></button>
+            <button class="btn btn-warning" type="button" (click)="showChildModal(marque)"
+                    style="margin-right: 2px;"><span
+              class='fas fa-edit'></span></button>
+            <button class="btn btn-danger" (click)="deleteMarque(marque.marque_id)"
+                    [disabled]="loading[marque.marque_id]">
+              <span *ngIf="!loading[marque.marque_id]" class='far fa-trash-alt'></span>
+              <span *ngIf="loading[marque.marque_id]" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Modifier Marque</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-marque-create [marque]="marque" (loadDataEdit)="handleResponse({},marque.id)"></app-marque-create>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalView="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-view" class="modal-title pull-left">Afficher marque</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalView()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-marque-view [marque]="marque"></app-marque-view>
+      </div>
+    </div>
+  </div>
+</div>
+

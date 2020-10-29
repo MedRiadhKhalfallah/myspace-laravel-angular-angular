@@ -1,0 +1,41 @@
+<p>role works!</p>
+<div class="card mb-3">
+<div class="card-body px-0 pt-0">
+  <div class="dashboard-data-table">
+
+<table class="table table-sm table-dashboard data-table no-wrap mb-0 fs--1 w-100">
+  <thead class="bg-200">
+  <tr>
+    <th class="sort">Nom</th>
+    <th class="sort">prenom</th>
+    <th class="sort">email</th>
+    <th class="sort">Role</th>
+    <th class="sort">Action</th>
+  </tr>
+  </thead>
+  <tbody class="bg-white">
+  <tr *ngFor="let user of usersRoles">
+    <td class="align-middle">{{user.nom}}</td>
+    <td class="align-middle">{{user.prenom}}</td>
+    <td class="align-middle">{{user.email}}</td>
+    <td class="align-middle">
+      <ul>
+        <li *ngFor="let role of user.roles">{{role.name}}</li>
+      </ul>
+    </td>
+    <td class="align-middle"><button></button></td>
+  </tr>
+  </tbody>
+  <tfoot class="bg-200">
+  <tr>
+    <th class="sort">Nom</th>
+    <th class="sort">prenom</th>
+    <th class="sort">email</th>
+    <th class="sort">Role</th>
+    <th class="sort">Action</th>
+  </tr>
+  </tfoot>
+</table>
+  </div>
+</div>
+</div>

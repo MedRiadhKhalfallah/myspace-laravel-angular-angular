@@ -1,22 +1,49 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "./services/auth.service";
-import {Observable} from "rxjs";
-import {Router} from "@angular/router";
-import {TokenService} from "./services/token.service";
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AuthService} from './services/auth.service';
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
+import {TokenService} from './services/token.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
   public loggedIn: boolean;
+  public roles: string;
+  public user: string;
+  public adminRole;
+  public utilisateurRole;
 
   constructor(private auth: AuthService, private router: Router, private token: TokenService) {
+    this.adminRole = false;
+    this.utilisateurRole = false;
   }
 
   ngOnInit(): void {
+    if (!this.token.loggedIn) {
+      this.router.navigateByUrl('/home');
+    } else {
+      this.roles = localStorage.getItem('roles');
+      this.user = localStorage.getItem('user');
+    }
+    if (Array.isArray(this.roles)) {
+      if (this.roles.indexOf('admin') !== -1) {
+        this.adminRole = true && this.token.loggedIn;
+      } else if (this.roles.indexOf('utilisateur') !== -1) {
+        this.utilisateurRole = true && this.token.loggedIn;
+      }
+    } else {
+      if (this.roles === 'admin') {
+        this.adminRole = true && this.token.loggedIn;
+      } else if (this.roles === 'utilisateur') {
+        this.utilisateurRole = true && this.token.loggedIn;
+      }
+
+    }
     this.auth.authStatus.subscribe(value => this.loggedIn = value);
+    //js
     var isNavbarTop = JSON.parse(localStorage.getItem('isNavbarTop'));
     if (isNavbarTop) {
       var navbarVertical = document.querySelector('.navbar-vertical');
@@ -36,11 +63,17 @@ export class AppComponent implements OnInit {
     }
   }
 
-  logout(event: MouseEvent) {
+  public logout(event: MouseEvent): any {
     event.preventDefault();
     this.auth.changeAuthStatus(false);
     this.token.remove();
+    localStorage.removeItem('roles');
+    localStorage.removeItem('user');
     this.router.navigateByUrl('/login');
 
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+  }
+
 }

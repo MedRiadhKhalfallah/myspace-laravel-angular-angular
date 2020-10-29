@@ -1,0 +1,335 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div *ngIf="!loading" class="content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-3 btn-reveal-trigger">
+        <div class="card-header position-relative min-vh-25 mb-8">
+          <div class="cover-image">
+            <div class="bg-holder rounded-soft rounded-bottom-0"
+                 style="background-image:url({{profile.image_coverture_path}});"></div>
+            <!--/.bg-holder-->
+            <input class="d-none" id="upload-cover-image" type="file" (change)="onFileCovertureSelect($event)"><label
+            class="cover-image-file-input"
+            for="upload-cover-image"><span
+            class="fas fa-camera mr-2"></span><span>Change cover photo</span></label>
+          </div>
+          <div class="avatar avatar-5xl avatar-profile shadow-sm img-thumbnail rounded-circle">
+            <div class="h-100 w-100 rounded-circle overflow-hidden position-relative"><img
+              src="{{profile.image_profile_path}}" width="200" alt="" data-dz-thumbnail>
+              <input class="d-none" id="profile-image" type="file" (change)="onFileSelect($event)">
+              <label
+                class="mb-0 overlay-icon d-flex flex-center" for="profile-image"><span
+                class="bg-holder overlay overlay-0"></span><span class="z-index-1 text-white text-center fs--1"><span
+                class="fas fa-camera"></span><span class="d-block">Update</span></span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-lg-8 pr-lg-2">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5 class="mb-0">Profile Settings</h5>
+        </div>
+        <div class="card-body bg-light">
+          <form #profileUpdateForm=ngForm (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group"><label for="username">Username</label><input class="form-control"
+                                                                                     id="username" name="username"
+                                                                                     type="text"
+                                                                                     [(ngModel)]="profile.username"
+                                                                                     minlength="4"
+                                                                                     pattern="[a-zA-Z 0-9]*"
+                                                                                     #username="ngModel">
+                  <ul *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+                    <li *ngIf="username.errors.pattern">
+                      Username doit contenire que de carectere alphabitique et des chiffres.
+                    </li>
+                    <li *ngIf="username.errors.minlength">
+                      Username must be at least 4 characters long.
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+              <div class="col-lg-6" style="margin-top: 25px;">
+                Verifier :
+                <span style="color: green; font-size: 30px;" *ngIf="profile.email_verified_at != null"
+                      class="far fa-calendar-check"></span>
+                <span style="color: red; font-size: 30px;" *ngIf="profile.email_verified_at == null"
+                      class="far fa-times-circle"></span>
+
+                <button style="float: right;" *ngIf="profile.email_verified_at == null" class="btn btn-info mr-1 mb-1"
+                        type="button">
+                  Verifier mail
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="prenom">Prénom</label>
+                  <input class="form-control" id="prenom" name="prenom" type="text" [(ngModel)]="profile.prenom"
+                         required minlength="4"
+                         pattern="[a-zA-Z ]*"
+                         #prenom="ngModel">
+                  <ul *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)" class="alert alert-danger">
+                    <li *ngIf="prenom.errors.pattern">
+                      Prenom doit contenire que de carectere alphabitique.
+                    </li>
+                    <li *ngIf="prenom.errors.required">
+                      Prenom is required.
+                    </li>
+                    <li *ngIf="prenom.errors.minlength">
+                      prenom must be at least 4 characters long.
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="nom">Nom</label>
+                  <input class="form-control" id="nom" name="nom" type="text" [(ngModel)]="profile.nom"
+                         required minlength="4"
+                         pattern="[a-zA-Z ]*"
+                         #nom="ngModel">
+                  <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+                    <li *ngIf="nom.errors.pattern">
+                      nom doit contenire que de carectere alphabitique.
+                    </li>
+                    <li *ngIf="nom.errors.required">
+                      nom is required.
+                    </li>
+                    <li *ngIf="nom.errors.minlength">
+                      nom must be at least 4 characters long.
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="sex">Genre</label>
+                  <select class="form-control" id="sex" name="sex" type="text" [(ngModel)]="profile.sex">
+                    <option value="1">Homme</option>
+                    <option value="0">Femme</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6">
+
+                <div class="form-group">
+                  <label for="date_de_naissance">Date de naissance</label>
+                  <input type="text"
+                         class="form-control"
+                         [minDate]="minDate"
+                         [maxDate]="maxDate"
+                         #dp="bsDatepicker"
+                         bsDatepicker [(bsValue)]="myDateValue"
+                         [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' ,containerClass: 'theme-blue'}"
+                         id="date_de_naissance" name="date_de_naissance"
+                         [(ngModel)]="profile.date_de_naissance"
+                         autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group"><label for="email">Email</label><input class="form-control" id="email"
+                                                                               name="email" type="text"
+                                                                               [value]="profile.email" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group"><label for="telephone">Télephone</label><input class="form-control"
+                                                                                       id="telephone" name="telephone"
+                                                                                       type="text"
+                                                                                       [(ngModel)]="profile.telephone"
+                                                                                       required #telephone="ngModel"
+                                                                                       minlength="8" maxlength="8"
+                                                                                       pattern="[0-9]*">
+                  <ul *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="alert alert-danger">
+
+                    <li *ngIf="telephone.errors.pattern">
+                      telephone doit contenire que de carectere alphabitique.
+                    </li>
+                    <li *ngIf="telephone.errors.required">
+                      telephone is required.
+                    </li>
+                    <li *ngIf="telephone.errors.minlength">
+                      telephone must be at least 8 characters long.
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group"><label for="site_web">Site web</label><input class="form-control" id="site_web"
+                                                                                     name="site_web" type="text"
+                                                                                     [(ngModel)]="profile.site_web">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group"><label for="site_fb">Site facebook</label><input class="form-control"
+                                                                                         id="site_fb"
+                                                                                         name="site_fb" type="text"
+                                                                                         [(ngModel)]="profile.site_fb">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-12">
+                <div class="form-group"><label for="description">Description</label>
+                  <textarea class="form-control" id="description" name="description" cols="30" rows="13"
+                            [(ngModel)]="profile.description"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end">
+              <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loading">Update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 pl-lg-2">
+      <div class="sticky-top sticky-sidebar">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">Change Password</h5>
+          </div>
+          <div class="card-body bg-light">
+            <div *ngIf="errorPassword" class="div">
+              <ul class="alert alert-danger fa-ul">
+                <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{errorPassword}}</li>
+              </ul>
+            </div>
+            <div *ngIf="successPassword" class="div">
+              <ul class="alert alert-success fa-ul">
+                <li><span class="fa-li"><i class="fas rounded-circle"></i></span>{{errorPassword}}</li>
+              </ul>
+            </div>
+
+            <form #motdepasseUpdateForm=ngForm (ngSubmit)="onSubmitMotDePasse()">
+
+              <div class="form-group">
+                <label for="oldPassword">Old Password</label>
+                <div class="input-group">
+                  <input class="form-control"
+                         id="oldPassword"
+                         name="oldPassword"
+                         type="{{passwordType}}"
+                         [(ngModel)]="formPassword.oldPassword"
+                         required minlength="8"
+                         #oldpassword="ngModel">
+                  <div class="input-group-append" (click)="hidePassword()">
+                    <span *ngIf="hide" class="input-group-text">
+                      <i class="fa far fa-eye"></i>
+                    </span>
+                    <span *ngIf="!hide" class="input-group-text">
+                      <i class="far fa-eye-slash"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <ul *ngIf="oldpassword.invalid && (oldpassword.dirty || oldpassword.touched)"
+                    class="alert alert-danger">
+                  <li *ngIf="oldpassword.errors.required">
+                    MDP is required.
+                  </li>
+                  <li *ngIf="oldpassword.errors.minlength">
+                    Mot de passe must be at least 8 characters long.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="form-group"><label for="password">New Password</label>
+                <div class="input-group">
+                  <input class="form-control"
+                         id="password" name="password"
+                         type="{{passwordType}}"
+                         [(ngModel)]="formPassword.password"
+                         required minlength="8"
+                         #password="ngModel">
+                  <div class="input-group-append" (click)="hidePassword()">
+                    <span *ngIf="hide" class="input-group-text">
+                      <i class="fa far fa-eye"></i>
+                    </span>
+                    <span *ngIf="!hide" class="input-group-text">
+                      <i class="far fa-eye-slash"></i>
+                    </span>
+                  </div>
+                </div>
+                <ul *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                  <li *ngIf="password.errors.required">
+                    MDP is required.
+                  </li>
+                  <li *ngIf="password.errors.minlength">
+                    Mot de passe must be at least 8 characters long.
+                  </li>
+                </ul>
+
+              </div>
+
+              <div class="form-group"><label for="password_confirmation">Confirm Password</label>
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    id="password_confirmation" name="password_confirmation"
+                    type="{{passwordType}}" [(ngModel)]="formPassword.password_confirmation" required minlength="8"
+                    #confirmationpassword="ngModel">
+                  <div class="input-group-append" (click)="hidePassword()">
+                    <span *ngIf="hide" class="input-group-text">
+                      <i class="fa far fa-eye"></i>
+                    </span>
+                    <span *ngIf="!hide" class="input-group-text">
+                      <i class="far fa-eye-slash"></i>
+                    </span>
+                  </div>
+                </div>
+                <ul *ngIf="confirmationpassword.invalid && (confirmationpassword.dirty || confirmationpassword.touched)"
+                    class="alert alert-danger">
+                  <li *ngIf="confirmationpassword.errors.required">
+                    MDP is required.
+                  </li>
+                  <li *ngIf="confirmationpassword.errors.minlength">
+                    Mot de passe must be at least 8 characters long.
+                  </li>
+                </ul>
+
+              </div>
+              <button class="btn btn-primary btn-block" type="submit"
+                      [disabled]="motdepasseUpdateForm.invalid || loadingPassword">Update Password
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Danger Zone</h5>
+          </div>
+          <div class="card-body bg-light">
+            <h5 class="fs-0">Delete this account</h5>
+            <p class="fs--1">Once you delete a account, there is no going back. Please be certain.</p>
+            <button class="btn btn-falcon-danger d-block" (click)="desactiverProfile()">Deactivate Account
+              <span *ngIf="loadingDesactiverProfile" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
