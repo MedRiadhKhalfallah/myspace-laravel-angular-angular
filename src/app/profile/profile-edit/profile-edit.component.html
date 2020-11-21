@@ -196,6 +196,16 @@
                 </div>
               </div>
             </div>
+            <div *ngIf="adminRole" class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="sex">Roles :</label>
+                  <ul>
+                    <li *ngFor="let role of profile.roles">{{ role.name }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
             <div class="col-12 d-flex justify-content-end">
               <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loading">Update
               </button>

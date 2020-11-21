@@ -1,0 +1,22 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Recherche modele</h5>
+  </div>
+  <div class="card-body bg-light">
+    <div class="row">
+      <div class="col-12">
+        <form #modeleSearchForm=ngForm (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="nom">Nom model</label>
+            <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom" [(ngModel)]="form.nom">
+          </div>
+          <div class="form-group">
+            <label for="nom_marque">Nom marque</label>
+            <input class="form-control" id="nom_marque" name="nom_marque" type="text" placeholder="nom marque" [(ngModel)]="form.nom_marque">
+          </div>
+          <button class="btn btn-warning mb-3 float-right" type="submit" [disabled]="modeleSearchForm.invalid">Recherche</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

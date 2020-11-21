@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProfileService} from '../service/profile.service';
+import {TokenService} from "../../services/token.service";
+import {UserServiceService} from "../../services/user-service.service";
 
 @Component({
   selector: 'app-profile-edit',
@@ -44,6 +46,12 @@ export class ProfileEditComponent implements OnInit {
   };
   hide: boolean = true;
   passwordType = 'password';
+  public adminRole;
+  public loggedIn: boolean;
+  public roles: string;
+  public user: string;
+  public utilisateurRole;
+  public id=null;
 
   hidePassword() {
     this.hide = !this.hide;
@@ -54,11 +62,39 @@ export class ProfileEditComponent implements OnInit {
     }
   }
 
-  constructor(private profileService: ProfileService, private router: Router) {
+  constructor(private profileService: ProfileService, private router: Router, private token: TokenService,private route: ActivatedRoute,private userService: UserServiceService) {
+    this.adminRole = false;
   }
 
   ngOnInit(): void {
-    this.loadData();
+    if (!this.token.loggedIn) {
+      this.router.navigateByUrl('/home');
+    } else {
+      this.roles = localStorage.getItem('roles');
+      this.user = localStorage.getItem('user');
+    }
+
+    if (Array.isArray(this.roles)) {
+      if (this.roles.indexOf('admin') !== -1) {
+        this.adminRole = true && this.token.loggedIn;
+      } else if (this.roles.indexOf('utilisateur') !== -1) {
+        this.utilisateurRole = true && this.token.loggedIn;
+      }
+    } else {
+      if (this.roles === 'admin') {
+        this.adminRole = true && this.token.loggedIn;
+      } else if (this.roles === 'utilisateur') {
+        this.utilisateurRole = true && this.token.loggedIn;
+      }
+    }
+    this.route.queryParams.subscribe(params => {
+      this.id = this.route.snapshot.paramMap.get('id');
+    });
+if(this.id){
+  this.loadUserData(this.id);
+}else{
+  this.loadData();
+}
   }
 
   public handleError(error): any {
@@ -78,6 +114,13 @@ export class ProfileEditComponent implements OnInit {
   public loadData(): any {
     this.loading = true;
     this.profileService.getProfile().subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error)
+    );
+  }
+  public loadUserData(id): any {
+    this.loading = true;
+    this.userService.findUserById(id).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );

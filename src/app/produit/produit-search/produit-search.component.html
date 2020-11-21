@@ -1,0 +1,18 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Recherche produit</h5>
+  </div>
+  <div class="card-body bg-light">
+    <div class="row">
+      <div class="col-12">
+        <form #produitSearchForm=ngForm (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom" [(ngModel)]="form.nom">
+          </div>
+          <button class="btn btn-warning mb-3 float-right" type="submit" [disabled]="produitSearchForm.invalid">Recherche</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

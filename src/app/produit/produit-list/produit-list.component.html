@@ -1,0 +1,79 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">nom</th>
+          <th scope="col">user</th>
+          <th scope="col">Categorie</th>
+          <th scope="col">Sous Categorie</th>
+          <th scope="col">etat</th>
+          <th scope="col">action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let produit of produitList ">
+          <th scope="row">{{produit.id}}</th>
+          <td>{{produit.name}}</td>
+          <td>{{produit.user.prenom}} {{produit.user.nom}}</td>
+          <td>{{produit.categorie.name}}</td>
+          <td>{{produit.sousCategorie.name}}</td>
+          <td>{{produit.etat}}</td>
+          <td>
+            <button class="btn btn-info" type="button" (click)="showChildModalView(produit)"
+                    style="margin-right: 2px;"><span
+              class='far fa-eye'></span></button>
+            <button class="btn btn-warning" type="button" (click)="showChildModal(produit)"
+                    style="margin-right: 2px;"><span
+              class='fas fa-edit'></span></button>
+            <button class="btn btn-danger" (click)="deleteProduit(produit.produit_id)"
+                    [disabled]="loading[produit.produit_id]">
+              <span *ngIf="!loading[produit.produit_id]" class='far fa-trash-alt'></span>
+              <span *ngIf="loading[produit.produit_id]" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Modifier Produit</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-produit-create [produit]="produit" (loadDataEdit)="handleResponse({},produit.id)"></app-produit-create>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalView="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-view" class="modal-title pull-left">Afficher produit</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalView()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-produit-view [produit]="produit"></app-produit-view>
+      </div>
+    </div>
+  </div>
+</div>
+

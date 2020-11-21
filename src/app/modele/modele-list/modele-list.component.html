@@ -1,0 +1,75 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Etat</th>
+          <th scope="col">Marque</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let modele of modeleList ">
+          <th scope="row">{{modele.modele_id}}</th>
+          <td>{{modele.modele_name}}</td>
+          <td>{{modele.etat}}</td>
+          <td>#{{modele.marque.id}} - {{modele.marque.name}}</td>
+          <td>
+            <button class="btn btn-info" type="button" (click)="showChildModalView(modele)"
+                    style="margin-right: 2px;"><span
+              class='far fa-eye'></span></button>
+            <button class="btn btn-warning" type="button" (click)="showChildModal(modele)"
+                    style="margin-right: 2px;"><span
+              class='fas fa-edit'></span></button>
+            <button class="btn btn-danger" (click)="deleteModele(modele.modele_id)"
+                    [disabled]="loading[modele.modele_id]">
+              <span *ngIf="!loading[modele.modele_id]" class='far fa-trash-alt'></span>
+              <span *ngIf="loading[modele.modele_id]" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Modifier Modele</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-modele-create [modele]="modele" (loadDataEdit)="handleResponse({},modele.id)"></app-modele-create>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalView="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-view" class="modal-title pull-left">Afficher modele</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalView()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-modele-view [modele]="modele"></app-modele-view>
+      </div>
+    </div>
+  </div>
+</div>
+

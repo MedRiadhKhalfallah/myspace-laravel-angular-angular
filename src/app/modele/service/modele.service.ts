@@ -1,62 +1,58 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
+import { Injectable } from '@angular/core';
+import {environment} from "../../../environments/environment";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
+export class ModeleService {
 
   private baseUrl = environment.baseUrl;
-  private baseUrlProfile = environment.baseUrl + '/profile';
+  private baseUrlModele = environment.baseUrl + '/modeles/';
 
   constructor(private http: HttpClient) {
   }
 
-  public getProfile(): any {
-    let headers: HttpHeaders = new HttpHeaders();
-    const token = localStorage.getItem('token');
-    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
-    return this.http.get(this.baseUrlProfile, {headers});
-  }
-
-  public getProfileWithId(id): any {
-    let headers: HttpHeaders = new HttpHeaders();
-    const token = localStorage.getItem('token');
-    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
-    return this.http.get(this.baseUrlProfile + '/' + id, {headers});
-  }
-
-  public updateProfile(data): any {
-    let headers: HttpHeaders = new HttpHeaders();
-    const token = localStorage.getItem('token');
-    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
-    // headers = headers.append('X-HTTP-Method-Override', 'PATCH'); // Not added yet as this is the reason for the question
-    return this.http.put(this.baseUrlProfile + '/' + data.id, data, {headers});
-  }
-
-  public updatePassword(data): any {
-    let headers: HttpHeaders = new HttpHeaders();
-    const token = localStorage.getItem('token');
-    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
-    return this.http.put(this.baseUrlProfile + '/password/' + data.id, data, {headers});
-  }
-
-  public updateImageProfile(id, data): any {
+  public updateModele(id, data): any {
     let headers: HttpHeaders = new HttpHeaders();
     const token = localStorage.getItem('token');
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
     headers = headers.append('X-HTTP-Method-Override', 'PATCH'); // Not added yet as this is the reason for the question
-    return this.http.post(this.baseUrlProfile + '/profile-image/' + id, data, {headers});
+    return this.http.post(this.baseUrlModele + id, data, {headers});
   }
 
-  public updateImageCoverture(id, data): any {
+  public createModele(data): any {
     let headers: HttpHeaders = new HttpHeaders();
     const token = localStorage.getItem('token');
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
-    headers = headers.append('X-HTTP-Method-Override', 'PATCH'); // Not added yet as this is the reason for the question
-    return this.http.post(this.baseUrlProfile + '/coverture-image/' + id, data, {headers});
+    return this.http.post(this.baseUrlModele , data, {headers});
   }
 
+  public getModele(): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.get(this.baseUrlModele + '/1', {headers});
+  }
 
+  public deleteModele(id): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.delete(this.baseUrlModele + id, {headers});
+  }
+
+  public getModeleList(): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.get(this.baseUrlModele, {headers});
+  }
+
+  public modeleSearchWithCriteria(searchobject): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.post(this.baseUrl + '/modeleSearch', searchobject, {headers});
+  }
 }

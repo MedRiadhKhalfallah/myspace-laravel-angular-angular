@@ -24,14 +24,17 @@
               "src/assets"
             ],
             "styles": [
-//              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
+              "node_modules/animate.css/animate.min.css",
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/config.navbar-vertical.min.js",
               "src/assets/js/jquery.min.js",
+              "src/assets/js/config.navbar-vertical.min.js",
               "src/assets/js/popper.min.js",
               "src/assets/js/bootstrap.min.js",
               "src/assets/lib/@fortawesome/all.min.js",
@@ -48,10 +51,12 @@
               "src/assets/lib/leaflet/leaflet.js",
               "src/assets/lib/leaflet.markercluster/leaflet.markercluster.js",
               "src/assets/lib/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js",
-              "src/assets/lib/owl.carousel/owl.carousel.js",
               "src/assets/lib/fancybox/jquery.fancybox.min.js",
               "src/assets/lib/flatpickr/flatpickr.min.js",
               "src/assets/lib/dropzone/dropzone.min.js",
+              "src/assets/lib/owl.carousel/owl.carousel.js",
+              "src/assets/lib/raty-js/jquery.raty.js",
+//              "src/assets/lib/lightbox2/js/lightbox.min.js",
               "src/assets/js/theme.min.js"
             ]
           },

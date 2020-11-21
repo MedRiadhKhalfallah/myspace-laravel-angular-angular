@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="error" class="div">
+      <ul class="alert alert-danger fa-ul">
+        <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+      </ul>
+    </div>
+    <div *ngIf="errors" class="div">
+      <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+        - {{ item.key }}
+        <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+        </li>
+      </ul>
+    </div>
+    <div class="form-row">
+
+      <form #modeleCreateForm=ngForm (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Nom</label>
+          <input class="form-control" id="name" name="name" type="text" placeholder="Nom" [(ngModel)]="form.name"
+                 required minlength="4"
+                 pattern="[a-zA-Z 0-9]*"
+                 #name="ngModel"/>
+          <ul *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <li *ngIf="name.errors.pattern">
+              Prename doit contenire que de carectere alphabitique.
+            </li>
+            <li *ngIf="name.errors.required">
+              Prename is required.
+            </li>
+            <li *ngIf="name.errors.minlength">
+              name must be at least 4 characters long.
+            </li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <label for="name">Logo</label>
+          <select [(ngModel)]="form.marque_id" name="marque_id">
+            <option *ngFor="let marque of marqueList" [value]="marque.marque_id">
+              {{marque.marque_name}}
+            </option>
+          </select>
+        </div>
+        {{form | json}}
+        <button class="btn btn-warning mb-3 float-right" type="submit" [disabled]="modeleCreateForm.invalid || loading">
+          Enregistrer
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

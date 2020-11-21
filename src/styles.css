@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+/*@import "assets/lib/lightbox2/css/lightbox.min.css";*/
 @import "assets/lib/perfect-scrollbar/perfect-scrollbar.css";
 @import "assets/lib/datatables-bs4/dataTables.bootstrap4.min.css";
 @import "assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.css";
 @import "assets/lib/leaflet/leaflet.css";
 @import "assets/lib/leaflet.markercluster/MarkerCluster.css";
 @import "assets/lib/leaflet.markercluster/MarkerCluster.Default.css";
+@import "assets/lib/owl.carousel/owl.carousel.css";
+@import "assets/lib/fancybox/jquery.fancybox.min.css";
+@import "assets/lib/raty-js/jquery.raty.css";
 @import "assets/css/theme.min.css";
 
 .ng-touched.ng-invalid:not(form)  {
