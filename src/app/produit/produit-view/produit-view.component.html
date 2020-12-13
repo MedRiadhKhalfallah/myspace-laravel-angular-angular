@@ -1,56 +1,39 @@
-<div>Some tags before</div>
-<div class="card mb-3">
+<div class="card mb-3" *ngIf="produit !== undefined">
   <div class="card-body">
     <div class="row">
       <div class="col-lg-6 mb-4 mb-lg-0">
-<!--
-        <owl-carousel-o [options]="customOptions">
-          <ng-template carouselSlide><img class="rounded" src="../assets/img/products/1.jpg" alt=""></ng-template>
-          <ng-template carouselSlide><img class="rounded" src="../assets/img/products/1-2.jpg" alt=""></ng-template>
-          <ng-template carouselSlide><img class="rounded" src="../assets/img/products/1-3.jpg" alt=""></ng-template>
-        </owl-carousel-o>
--->
-          <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-        <div>Some tags after</div>
+        <!--
+                <owl-carousel-o [options]="customOptions">
+                  <ng-template carouselSlide><img class="rounded" src="../assets/img/products/1.jpg" alt=""></ng-template>
+                  <ng-template carouselSlide><img class="rounded" src="../assets/img/products/1-2.jpg" alt=""></ng-template>
+                  <ng-template carouselSlide><img class="rounded" src="../assets/img/products/1-3.jpg" alt=""></ng-template>
+                </owl-carousel-o>
+        -->
+        <ngx-gallery *ngIf="!mobile" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
 
 
       </div>
       <div class="col-lg-6">
-        <h5>Apple MacBook Pro (15" Retina, Touch Bar, 2.2GHz 6-Core Intel Core i7, 16GB RAM, 256GB SSD) - Space Gray
-          (Latest Model)</h5><a class="fs&#45;&#45;1 mb-2 d-block" href="#!">Computer &amp; Accessories</a><a
-        class="fs&#45;&#45;2 mb-3 d-inline-block text-decoration-none" href="#review" data-tab-target="#review" data-fancyscroll
-        data-offset="80"><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span
-        class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span
-        class="fa fa-star-half-alt text-warning star-icon"></span><span class="ml-1 text-600">(8)</span></a>
-        <p class="fs&#45;&#45;1">Testing conducted by Apple in October 2018 using preproduction 2.9GHz 6‑core Intel Core
-          i9‑based 15-inch MacBook Pro systems with Radeon Pro Vega 20 graphics, and shipping 2.9GHz 6‑core Intel Core
-          i9‑based 15‑inch MacBook Pro systems with Radeon Pro 560X graphics, both configured with 32GB of RAM and 4TB
-          SSD.</p>
-        <h4 class="d-flex align-items-center"><span class="text-warning mr-2">$1200</span><span
-          class="mr-1 fs&#45;&#45;1 text-500"><del class="mr-1">$2400</del><strong>-50%</strong></span></h4>
-        <p class="fs&#45;&#45;1 mb-1"><span>Shipping Cost: </span><strong>$50</strong></p>
-        <p class="fs&#45;&#45;1">Stock: <strong class="text-success">Available</strong></p>
-        <p class="fs&#45;&#45;1 mb-3">Tags: <a class="ml-2" href="#!">Computer,</a><a class="ml-1" href="#!">Mac Book,</a><a
-          class="ml-1" href="#!">Mac Book Pro,</a><a class="ml-1" href="#!">Laptop</a></p>
-        <div class="row">
-          <div class="col-auto pr-0">
-            <div class="input-group input-group-sm">
-              <div class="input-group-prepend">
-                <button class="btn btn-sm btn-outline-secondary border-300" data-field="input-quantity"
-                        data-type="minus">-
-                </button>
-              </div>
-              <input class="form-control text-center input-quantity input-spin-none" type="number" min="0" value="0"
-                     aria-label="Amount (to the nearest dollar)" style="max-width: 50px">
-              <div class="input-group-append">
-                <button class="btn btn-sm btn-outline-secondary border-300" data-field="input-quantity"
-                        data-type="plus">+
-                </button>
-              </div>
-            </div>
+        <h5>{{produit.name}}</h5>
+        <a class="fs&#45;&#45;1 mb-2 d-block" href="#!">{{produit.categorie.name}} &amp; {{produit.sousCategorie.name}}</a>
+
+        <div class="row" *ngIf="mobile">
+          <div *ngFor="let image of produit.images" class="col-sm-4 col-lg-3 mb-4">
+            <img class="rounded img-fluid" src="{{produit.baseUrl +'/storage/profiles_images/' + image.path}}" alt="">
           </div>
-          <div class="col-auto"><a class="btn btn-sm btn-primary" href="#!"><span class="fas fa-cart-plus"></span> Add
-            To Cart</a></div>
+        </div>
+
+        <a class="fs&#45;&#45;2 mb-3 d-inline-block text-decoration-none" href="#review" data-tab-target="#review"
+           data-fancyscroll
+           data-offset="80"><span class="fa fa-star text-warning"></span><span
+          class="fa fa-star text-warning"></span><span
+          class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span
+          class="fa fa-star-half-alt text-warning star-icon"></span><span class="ml-1 text-600">(8)</span></a>
+        <p class="fs&#45;&#45;1">{{produit.description}}</p>
+        <h4 class="d-flex align-items-center"><span class="text-warning mr-2">{{produit.prix}} DT</span></h4>
+        <p class="fs&#45;&#45;1 mb-1"><span *ngIf="produit.livraison">Shipping Cost: </span><strong>{{produit.prix_livraison}}</strong></p>
+        <p class="fs&#45;&#45;1">Stock: <strong class="text-success" *ngIf="produit.etat">Available</strong><strong class="text-danger" *ngIf="!produit.etat">Not available</strong></p>
+        <div class="row">
           <div class="col-sm-auto pl-3 pl-sm-0"><a class="btn btn-sm btn-outline-danger border-300 mr-2 mt-2 mt-sm-0"
                                                    href="#!" data-toggle="tooltip" data-placement="top"
                                                    title="Add to Wish List"><span
@@ -61,10 +44,9 @@
     <br>
     <br>
     <br>
-    <div class="row">
-      <img class="rounded" src="http://127.0.0.1:8000/storage/profiles_images/74216763_149958563328408_6962247035502024530_n_1604523310.jpg" alt="">
-
-      <p>description ici</p>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
       <table class="table table-bordered fs&#45;&#45;1">
         <tbody>
         <tr *ngIf="produit.name">
@@ -173,6 +155,8 @@
         </tr>
         </tbody>
       </table>
+
     </div>
   </div>
 </div>
+

@@ -1,47 +1,291 @@
-<div class="row">
-  <div class="col-12">
-    <div *ngIf="error" class="div">
-      <ul class="alert alert-danger fa-ul">
-        <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
-      </ul>
-    </div>
-    <div *ngIf="errors" class="div">
-      <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
-        - {{ item.key }}
-        <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
-        </li>
-      </ul>
-    </div>
-    <div class="form-row">
+<div class="row no-gutters">
+  <div class="col-lg-8 pr-lg-2">
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5 class="mb-0">Event Details</h5>
+      </div>
+      <div class="card-body bg-light">
+        <form>
+          <div class="form-row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="event-name">Titre</label>
+                <input class="form-control" id="event-name" type="text" placeholder="Event Title">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">Categorie</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">Sous categorie</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
 
-      <form #produitCreateForm=ngForm (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="name">Nom</label>
-          <input class="form-control" id="name" name="name" type="text" placeholder="Nom" [(ngModel)]="form.name"
-                 required minlength="4"
-                 pattern="[a-zA-Z ]*"
-                 #name="ngModel"/>
-          <ul *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-            <li *ngIf="name.errors.pattern">
-              Prename doit contenire que de carectere alphabitique.
-            </li>
-            <li *ngIf="name.errors.required">
-              Prename is required.
-            </li>
-            <li *ngIf="name.errors.minlength">
-              name must be at least 4 characters long.
-            </li>
-          </ul>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="event-address">Prix</label>
+                <input class="form-control" id="event-address" type="text" placeholder="Address">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group">
+                <label for="event-description">Description</label>
+                <textarea class="form-control" id="event-description" rows="6"> </textarea>
+              </div>
+            </div>
+
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5 class="mb-0">Voiture</h5>
+      </div>
+      <div class="card-body bg-light">
+        <form>
+          <div class="form-row">
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">Marque</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">Model</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">Couleur</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">Type de carrosserie</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">Etat de vehicule</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">Boite</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">Cylindre</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="event-address">Kilometrage</label>
+                <input class="form-control" id="event-address" type="text" placeholder="Address">
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="event-address">annee</label>
+                <input class="form-control" id="event-address" type="text" placeholder="Address">
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">carburant</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">puissance fiscale</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5 class="mb-0">Immoble</h5>
+      </div>
+      <div class="card-body bg-light">
+        <form>
+          <div class="form-row">
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="event-address">Chambre</label>
+                <input class="form-control" id="event-address" type="text" placeholder="Address">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="event-address">salle de bain</label>
+                <input class="form-control" id="event-address" type="text" placeholder="Address">
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="event-address">Superficie</label>
+                <input class="form-control" id="event-address" type="text" placeholder="Address">
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5 class="mb-0">Upload Photos</h5>
+      </div>
+      <div class="card-body bg-light">
+        <input type="file">
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5 class="mb-0">Adresse</h5>
+      </div>
+      <div class="card-body bg-light">
+        <form>
+          <div class="form-row">
+
+            <div class="col-12">
+              <hr class="border-dashed border-bottom-0">
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="event-venue">Venue</label>
+                <input class="form-control" id="event-venue" type="text" placeholder="Venue">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="event-address">Address</label>
+                <input class="form-control" id="event-address" type="text" placeholder="Address"></div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="event-city">City</label>
+                <input class="form-control" id="event-city" type="text" placeholder="City">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="event-state">State</label>
+                <input class="form-control" id="event-state" type="text" placeholder="state">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="event-country">Country</label>
+                <input class="form-control" id="event-country" type="text" placeholder="country">
+              </div>
+            </div>
+            <div class="col-12">
+              <hr class="border-dashed border-bottom-0">
+            </div>
+
+
+            <div class="col-sm-6">
+              <div class="form-group mb-0">
+                <label for="time-zone">livraison</label>
+                <select class="custom-select" id="time-zone">
+                  <option>GMT-12:00 Etc/GMT-12</option>
+                  <option>GMT-11:00 Etc/GMT-11</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="event-address">Prix livraison</label>
+                <input class="form-control" id="event-address" type="text" placeholder="Address">
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-lg-4 pl-lg-2">
+    <div class="sticky-top sticky-sidebar">
+      <div class="card mb-3 mb-lg-0">
+        <div class="card-header">
+          <h5 class="mb-0">Other Info</h5>
         </div>
-        <div class="form-group">
-          <label for="name">Logo</label>
-          <input type="file" (change)="onFileSelect($event)" required multiple>
+        <div class="card-body bg-light">
+          etat
         </div>
-        <button class="btn btn-warning mb-3 float-right" type="submit" [disabled]="produitCreateForm.invalid || loading">
-          Enregistrer
-          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </button>
-      </form>
+      </div>
     </div>
   </div>
 </div>

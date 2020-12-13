@@ -86,6 +86,7 @@ export class ProduitCreateComponent implements OnInit , OnChanges {
   public onFileSelect(event): any {
     // this.selectedFile = <File[]>event.target.files;
     this.selectedFile = <File>event.target.files[0];
+    console.log(this.selectedFile);
   }
 
 }

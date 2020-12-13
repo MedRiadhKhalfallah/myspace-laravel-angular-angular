@@ -28,11 +28,11 @@ export class ProduitService {
     return this.http.post(this.baseUrlProduit , data, {headers});
   }
 
-  public getProduit(): any {
+  public getProduit(id): any {
     let headers: HttpHeaders = new HttpHeaders();
     const token = localStorage.getItem('token');
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
-    return this.http.get(this.baseUrlProduit + '/1', {headers});
+    return this.http.get(this.baseUrlProduit + id, {headers});
   }
 
   public deleteProduit(id): any {

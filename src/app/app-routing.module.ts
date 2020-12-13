@@ -15,6 +15,7 @@ import {ProfileViewComponent} from "./profile/profile-view/profile-view.componen
 import {ModeleIndexComponent} from "./modele/modele-index/modele-index.component";
 import {ProduitIndexComponent} from "./produit/produit-index/produit-index.component";
 import {ProduitViewComponent} from "./produit/produit-view/produit-view.component";
+import {ProduitCreateComponent} from "./produit/produit-create/produit-create.component";
 
 const routes: Routes = [
   {
@@ -63,8 +64,12 @@ const routes: Routes = [
     canActivate: [AfterLoginService]
   },
   {
-    path: 'produits/view',
+    path: 'produits/view/:id',
     component: ProduitViewComponent,
+  },
+  {
+    path: 'produits/create',
+    component: ProduitCreateComponent,
   },
   {
     path: 'profile',
