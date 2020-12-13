@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-edit',
@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
+  @Input() item; // decorate the property with @Input()
+  public loading = false;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.item);
   }
 
+  onSubmit(){
+
+  }
 }
