@@ -3,6 +3,7 @@ import {UserServiceService} from "../../../services/user-service.service";
 import {ModalDirective, BsModalRef} from 'ngx-bootstrap/modal';
 import {Router} from '@angular/router';
 
+// @ts-ignore
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html',
@@ -15,7 +16,7 @@ export class RoleComponent implements OnInit {
   public error;
   public loading = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
-  currentItem = 'Television';
+  currentItem = {};
 
   constructor(private userService: UserServiceService
     , private router: Router
@@ -24,6 +25,7 @@ export class RoleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadData();
     /*
         this.marqueService.deleteMarque().subscribe(
           data => this.handleResponse(data),
@@ -55,14 +57,11 @@ export class RoleComponent implements OnInit {
           error => this.handleError(error)
         );
     */
-    this.userService.getUsers().subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error)
-    );
   }
 
   handleError(error) {
-    this.error = error.error.message
+    this.error = error.error.message;
+    this.loading = false;
   }
 
   handleResponse(data) {
@@ -76,6 +75,7 @@ export class RoleComponent implements OnInit {
       let tabUser = [{'nomPrenom': user.nom + ' ' + user.prenom}, {'email': user.email}, {'roles': tabUserRoles}];
       this.tabUsersRoles.push(tabUser);
     });
+    this.loading = false;
   }
 
   showChildModal(data): void {
@@ -86,6 +86,15 @@ export class RoleComponent implements OnInit {
   hideChildModal(): void {
     this.currentItem = null;
     this.childModal.hide();
+  }
+
+  public loadData(): any {
+    this.hideChildModal();
+    this.loading = true;
+    this.userService.getUsers().subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error)
+    );
   }
 
 

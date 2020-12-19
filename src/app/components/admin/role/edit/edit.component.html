@@ -1,6 +1,6 @@
 <app-loading *ngIf="loading"></app-loading>
 
-<div *ngIf="!loading" class="content">
+<div *ngIf="!loading && item" class="content">
   <div class="row">
     <div class="col-12">
       <div class="card mb-3 btn-reveal-trigger">
@@ -65,11 +65,20 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li *ngFor="let role of item.roles">{{role.name}}</li>
-                </ul>
+
+              <div class="form-group">
+                <label for="roles">Roles :</label>
+                <div *ngFor="let role of rolesName">
+                  <input type="checkbox"
+                         name="roles"
+                         id="roles"
+                         value="{{role}}"
+                         [checked]="findRole(role) >= 0"
+                         (change)="updateCheckedOptions(role, $event)"/>
+                  {{role}}
+                </div>
               </div>
+
             </div>
             <div class="col-12 d-flex justify-content-end">
               <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loading">Update

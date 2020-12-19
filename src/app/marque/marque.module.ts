@@ -9,6 +9,7 @@ import {AppModule} from '../app.module';
 import {FormsModule} from '@angular/forms';
 import {ModalModule} from 'ngx-bootstrap/modal';
 
+// @ts-ignore
 @NgModule({
   declarations: [MarqueIndexComponent, MarqueCreateComponent, MarqueListComponent, MarqueSearchComponent, MarqueViewComponent],
   imports: [

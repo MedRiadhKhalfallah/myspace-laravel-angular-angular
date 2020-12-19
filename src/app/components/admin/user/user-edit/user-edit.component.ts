@@ -1,13 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {ProfileService} from '../service/profile.service';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ProfileService} from "../../../../profile/service/profile.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.css']
+  selector: 'app-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.css']
 })
-export class ProfileEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnChanges {
+
   public selectedFile: File = null;
   public error;
   public errorPassword;
@@ -15,6 +16,10 @@ export class ProfileEditComponent implements OnInit {
   public loading = false;
   public loadingPassword = false;
   public loadingDesactiverProfile = false;
+  public profileEtat;
+  @Input() item: any; // decorate the property with @Input()
+  @Output() loadDataEdit: EventEmitter<any> = new EventEmitter<any>();
+
   public formPassword = {
     id: null,
     oldPassword: null,
@@ -56,8 +61,13 @@ export class ProfileEditComponent implements OnInit {
   constructor(private profileService: ProfileService, private router: Router) {
   }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.item) {
       this.loadData();
+    }
+  }
+
+  ngOnInit(): void {
   }
 
   public handleError(error): any {
@@ -72,23 +82,18 @@ export class ProfileEditComponent implements OnInit {
     this.loading = false;
     console.log(data);
     this.profile = data;
+    this.profileEtat=this.profile.etat;
   }
 
   public loadData(): any {
     this.loading = true;
-    this.profileService.getProfile().subscribe(
+    this.profileService.getProfileById(this.item.id).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
-  }
-
-  public sendMailVerificationLink(): any {
-    return this.profileService.sendMailVerificationLink({'email':this.profile.email}).subscribe(
-      data => this.handleSubmitResponse(data),
-      error => this.handleSubmitError(error)
-    );
 
   }
+
   public onSubmit(): any {
     return this.profileService.updateProfile(this.profile).subscribe(
       data => this.handleSubmitResponse(data),
@@ -99,6 +104,8 @@ export class ProfileEditComponent implements OnInit {
 
   public handleSubmitResponse(data): any {
     this.loading = false;
+    return this.loadDataEdit.emit();
+
     console.log(data);
   }
 
@@ -124,18 +131,33 @@ export class ProfileEditComponent implements OnInit {
   public handleSubmitDePasseResponse(data): any {
     this.loadingPassword = false;
     this.successPassword = 'mot de passe a jour';
+    return this.loadDataEdit.emit();
+
   }
 
   public handleSubmitDePasseError(error): any {
     this.loadingPassword = false;
     this.errorPassword = error.error.error;
   }
+
   public desactiverProfile(): any {
     if (this.formPassword.password !== this.formPassword.password_confirmation) {
       this.errorPassword = 'mot de passe non conforme';
     } else {
       this.loadingDesactiverProfile = true;
-      this.profile.etat=false;
+      this.profile.etat = false;
+      return this.profileService.updateProfile(this.profile).subscribe(
+        data => this.handleDesactiverProfileResponse(data),
+        error => this.handleDesactiverProfileError(error)
+      );
+    }
+  }
+  public activerProfile(): any {
+    if (this.formPassword.password !== this.formPassword.password_confirmation) {
+      this.errorPassword = 'mot de passe non conforme';
+    } else {
+      this.loadingDesactiverProfile = true;
+      this.profile.etat = true;
       return this.profileService.updateProfile(this.profile).subscribe(
         data => this.handleDesactiverProfileResponse(data),
         error => this.handleDesactiverProfileError(error)
@@ -146,6 +168,8 @@ export class ProfileEditComponent implements OnInit {
   public handleDesactiverProfileResponse(data): any {
     this.loadingDesactiverProfile = false;
     this.successPassword = 'profile desactivé';
+    return this.loadDataEdit.emit();
+
   }
 
   public handleDesactiverProfileError(error): any {
@@ -164,6 +188,7 @@ export class ProfileEditComponent implements OnInit {
     );
 
   }
+
   public handleImageProfileResponse(data): any {
     this.loadData();
   }
@@ -172,6 +197,7 @@ export class ProfileEditComponent implements OnInit {
     console.log(error);
     this.loading = false;
   }
+
   public onFileCovertureSelect(event): any {
     this.selectedFile = <File>event.target.files[0];
     this.loading = true;

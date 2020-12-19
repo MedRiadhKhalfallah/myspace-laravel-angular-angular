@@ -55,7 +55,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-edit [item]="currentItem"></app-edit>
+        <app-edit [item]="currentItem" (loadDataEdit)="loadData()"></app-edit>
       </div>
     </div>
   </div>

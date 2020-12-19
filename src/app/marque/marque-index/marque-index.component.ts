@@ -35,7 +35,7 @@ export class MarqueIndexComponent implements OnInit {
     this.loading = false;
     this.error = error.error.message;
     if (this.error === 'User does not have the right roles.') {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/');
     }
   }
 

@@ -11,7 +11,8 @@ import {TokenService} from './services/token.service';
 })
 export class AppComponent implements OnInit, OnChanges {
   public loggedIn: boolean;
-  public roles: string;
+  public rolesString: string;
+  public roles = null;
   public user: string;
   public adminRole;
   public utilisateurRole;
@@ -25,7 +26,10 @@ export class AppComponent implements OnInit, OnChanges {
     if (!this.token.loggedIn) {
       this.router.navigateByUrl('/home');
     } else {
-      this.roles = localStorage.getItem('roles');
+      this.rolesString = localStorage.getItem('roles');
+      if (this.rolesString) {
+        this.roles = this.rolesString.split(",");
+      }
       this.user = localStorage.getItem('user');
     }
     if (Array.isArray(this.roles)) {
