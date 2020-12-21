@@ -15,6 +15,7 @@ export class ProfileEditComponent implements OnInit {
   public loading = false;
   public loadingPassword = false;
   public loadingDesactiverProfile = false;
+  public loadingSendMail = false;
   public formPassword = {
     id: null,
     oldPassword: null,
@@ -72,6 +73,8 @@ export class ProfileEditComponent implements OnInit {
     this.loading = false;
     console.log(data);
     this.profile = data;
+    localStorage.setItem('profileImg', this.profile.image_profile_path);
+
   }
 
   public loadData(): any {
@@ -83,6 +86,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   public sendMailVerificationLink(): any {
+    this.loadingSendMail = true;
     return this.profileService.sendMailVerificationLink({'email':this.profile.email}).subscribe(
       data => this.handleSubmitResponse(data),
       error => this.handleSubmitError(error)
@@ -99,6 +103,7 @@ export class ProfileEditComponent implements OnInit {
 
   public handleSubmitResponse(data): any {
     this.loading = false;
+    this.loadingSendMail = false;
     console.log(data);
   }
 

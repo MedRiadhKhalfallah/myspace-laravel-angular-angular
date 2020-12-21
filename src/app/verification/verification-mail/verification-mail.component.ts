@@ -12,7 +12,10 @@ export class VerificationMailComponent implements OnInit {
   public loading=false;
   public btn;
 
-  constructor(private route: ActivatedRoute, private profileService: ProfileService
+  constructor(
+    private route: ActivatedRoute,
+    private profileService: ProfileService,
+    private router: Router
   ) {
     route.queryParams.subscribe(params => {
       this.token = params['token']
@@ -30,8 +33,9 @@ export class VerificationMailComponent implements OnInit {
     this.loading=false
     if(localStorage.getItem('token')){
       this.btn='profile';
+      this.router.navigate(['/profile']);
     }else{
-      this.btn='home';
+      this.router.navigate(['/']);
     }
   }
   valide() {

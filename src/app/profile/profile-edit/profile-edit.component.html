@@ -65,6 +65,8 @@
                 <button style="float: right;" *ngIf="profile.email_verified_at == null" class="btn btn-info mr-1 mb-1"
                         type="button" (click)="sendMailVerificationLink()" >
                   Verifier mail
+                  <span *ngIf="loadingSendMail" class="spinner-border spinner-border-sm" role="status"
+                                                    aria-hidden="true"></span>
                 </button>
               </div>
             </div>

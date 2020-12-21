@@ -1,95 +1,65 @@
+<div *ngIf="error" class="div">
+  <ul class="alert alert-danger fa-ul">
+    <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+  </ul>
+</div>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page" routerLink="users">Users</li>
+  </ol>
+</nav>
 <app-loading *ngIf="loading"></app-loading>
-<div class="card mb-3" *ngIf="!loading">
-  <div *ngIf="error" class="alert alert-danger">
-    {{error|json}}
-  </div>
+<app-user-search (searchUser)="loadData($event)" *ngIf="!loading"></app-user-search>
+<br>
 
-  <div class="card-header">
-    <div class="row align-items-center justify-content-between">
-      <div class="col-6 col-sm-auto d-flex align-items-center pr-0">
-        <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Recent Purchases</h5>
-      </div>
-      <div class="col-6 col-sm-auto ml-auto text-right pl-0">
-        <div class="d-none" id="purchases-actions">
-          <div class="input-group input-group-sm"><select class="custom-select cus" aria-label="Bulk actions">
-            <option selected="">Bulk actions</option>
-            <option value="Refund">Refund</option>
-            <option value="Delete">Delete</option>
-            <option value="Archive">Archive</option>
-          </select>
-            <button class="btn btn-falcon-default btn-sm ml-2" type="button">Apply</button>
+<div class="card mb-3" *ngIf="!loading">
+      <div class="card-body bg-light">
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col text-center">Role</th>
+                <th scope="col">Telephone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of users">
+                <td class="align-middle">{{user.id}}</td>
+                <td class="align-middle">{{user.nom}}</td>
+                <td class="align-middle">{{user.prenom}}</td>
+                <td class="align-middle">
+                  <ul>
+                    <li *ngFor="let role of user.roles">{{role.name}}</li>
+                  </ul>
+                </td>
+                <td class="align-middle">{{user.telephone}}</td>
+                <td class="align-middle">{{user.email}}</td>
+                <td class="align-middle">
+                  <button class="btn btn-warning" (click)="showChildModal(user)"><i class="fas fa-edit"></i></button>
+                  &ensp;
+                  <button class="btn btn-danger" (click)="deleteItem(user)"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div id="dashboard-actions">
-          <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus"
-                                                                            data-fa-transform="shrink-3 down-2"></span><span
-            class="d-none d-sm-inline-block ml-1">New</span></button>
-          <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter"
-                                                                                 data-fa-transform="shrink-3 down-2"></span><span
-            class="d-none d-sm-inline-block ml-1">Filter</span></button>
-          <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
-                                                                            data-fa-transform="shrink-3 down-2"></span><span
-            class="d-none d-sm-inline-block ml-1">Export</span></button>
-        </div>
       </div>
-    </div>
-  </div>
-  <div class="card-body px-0 pt-0">
-    <div class="dashboard-data-table">
-      <table class="table table-sm table-dashboard fs--1 data-table border-bottom"
-             data-options='{"responsive":false,"pagingType":"simple","lengthChange":false,"searching":false,"pageLength":20,"columnDefs":[{"targets":[0,6],"orderable":false}],"language":{"info":"_START_ to _END_ Items of _TOTAL_ — <a href=https://prium.github.io/"#!\" class=\"font-weight-semi-bold\"> view all <span class=\"fas fa-angle-right\" data-fa-transform=\"down-1\"></span> </a>"}}'>
-        <thead class="bg-200 text-900">
-        <tr>
-          <th class="no-sort pr-1 align-middle data-table-row-bulk-select">
-            <div class="custom-control custom-checkbox"><input class="custom-control-input checkbox-bulk-select"
-                                                               id="checkbox-bulk-purchases-select" type="checkbox"
-                                                               data-checkbox-body="#purchases"
-                                                               data-checkbox-actions="#purchases-actions"
-                                                               data-checkbox-replaced-element="#dashboard-actions"/><label
-              class="custom-control-label" for="checkbox-bulk-purchases-select"></label></div>
-          </th>
-          <th class="sort pr-1 align-middle">#</th>
-          <th class="sort pr-1 align-middle">Nom</th>
-          <th class="sort pr-1 align-middle">Prenom</th>
-          <th class="sort pr-1 align-middle text-center">Role</th>
-          <th class="sort pr-1 align-middle">Telephone</th>
-          <th class="sort pr-1 align-middle">Email</th>
-          <th class="no-sort pr-1 align-middle data-table-row-action">Action</th>
-        </tr>
-        </thead>
-        <tbody id="purchases">
-        <tr class="btn-reveal-trigger" *ngFor="let user of users">
-          <td class="align-middle">
-            <div class="custom-control custom-checkbox"><input class="custom-control-input checkbox-bulk-select-target"
-                                                               type="checkbox" id="checkbox-0"/><label
-              class="custom-control-label" for="checkbox-0"></label></div>
-          </td>
-          <th class="align-middle"><a routerLink="user/id">{{user.id}}</a></th>
-          <th class="align-middle">{{user.nom}}</th>
-          <td class="align-middle">{{user.prenom}}</td>
-          <td class="align-middle">
-            <ul>
-              <li *ngFor="let role of user.roles">{{role.name}}</li>
-            </ul>
-          </td>
-          <td class="align-middle">{{user.telephone}}</td>
-          <td class="align-middle">{{user.email}}</td>
-          <td class="align-middle">
-                  <button class="btn btn-warning float-left" (click)="showChildModal(user)"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger float-right" (click)="deleteItem(user)"><i class="fas fa-trash"></i></button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>
+
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
      role="dialog" aria-labelledby="dialog-child-name">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-child-name" class="modal-title pull-left">Ajouter marque</h4>
+        <h4 id="dialog-child-name" class="modal-title pull-left">Ajouter user</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
           <span aria-hidden="true">&times;</span>
         </button>

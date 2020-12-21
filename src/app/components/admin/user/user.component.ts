@@ -42,10 +42,10 @@ export class UserComponent implements OnInit {
     this.childModal.hide();
   }
 
-  public loadData(): any {
+  public loadData(searchobject: any={}): any {
     this.loading=true;
     this.hideChildModal();
-    this.userService.getUsers().subscribe(
+    this.userService.userSearchWithCriteria(searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
@@ -64,7 +64,7 @@ export class UserComponent implements OnInit {
     }
   }
   handleResponseDelete(data) {
-    this.loadData();
+    this.loadData({});
   }
 
 

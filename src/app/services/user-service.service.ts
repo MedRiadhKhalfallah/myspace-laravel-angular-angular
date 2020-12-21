@@ -25,4 +25,12 @@ export class UserServiceService {
     let token = localStorage.getItem('token');
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
   }
+
+  public userSearchWithCriteria(searchobject): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.post(this.baseUrl + '/userSearch', searchobject, {headers});
+  }
+
 }

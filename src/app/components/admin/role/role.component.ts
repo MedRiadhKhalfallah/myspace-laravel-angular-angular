@@ -18,45 +18,14 @@ export class RoleComponent implements OnInit {
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
   currentItem = {};
 
-  constructor(private userService: UserServiceService
-    , private router: Router
-              // ,private marqueService: MarqueService
+  constructor(
+    private userService: UserServiceService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
     this.loadData();
-    /*
-        this.marqueService.deleteMarque().subscribe(
-          data => this.handleResponse(data),
-          error => this.handleError(error)
-        );
-    */
-    /*
-        this.marqueService.getMarqueList().subscribe(
-          data => this.handleResponse(data),
-          error => this.handleError(error)
-        );
-    */
-    /*
-      ngOnInit(): void {
-        this.marqueService.getMarque().subscribe(
-          data => this.handleResponse(data),
-          error => this.handleError(error)
-        );
-    */
-    /*
-        this.marqueService.createMarque().subscribe(
-          data => this.handleResponse(data),
-          error => this.handleError(error)
-        );
-    */
-    /*
-        this.marqueService.updateMarque().subscribe(
-          data => this.handleResponse(data),
-          error => this.handleError(error)
-        );
-    */
   }
 
   handleError(error) {
@@ -88,10 +57,10 @@ export class RoleComponent implements OnInit {
     this.childModal.hide();
   }
 
-  public loadData(): any {
+  public loadData(searchobject: any = {}): any {
     this.hideChildModal();
     this.loading = true;
-    this.userService.getUsers().subscribe(
+    this.userService.userSearchWithCriteria(searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );

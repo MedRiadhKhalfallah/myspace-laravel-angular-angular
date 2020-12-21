@@ -13,6 +13,7 @@ export class AppComponent implements OnInit, OnChanges {
   public loggedIn: boolean;
   public rolesString: string;
   public roles = null;
+  public profileImg = null;
   public user: string;
   public adminRole;
   public utilisateurRole;
@@ -65,6 +66,14 @@ export class AppComponent implements OnInit, OnChanges {
       container.classList.remove('container');
       container.classList.add('container-fluid');
     }
+    if (localStorage.getItem('profileImg') && this.profileImg == null) {
+      this.profileImg = localStorage.getItem('profileImg');
+    } else {
+      setTimeout(() => {
+        console.log('hide');
+        this.profileImg = localStorage.getItem('profileImg');
+      }, 1000);
+    }
   }
 
   public logout(event: MouseEvent): any {
@@ -73,11 +82,16 @@ export class AppComponent implements OnInit, OnChanges {
     this.token.remove();
     localStorage.removeItem('roles');
     localStorage.removeItem('user');
+    localStorage.removeItem('profileImg');
     this.router.navigateByUrl('/login');
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (this.profileImg == null) {
+      this.profileImg = localStorage.getItem('profileImg');
+    }
+
   }
 
 }

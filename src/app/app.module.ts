@@ -16,6 +16,7 @@ import {AfterLoginService} from './services/after-login.service';
 import {BeforeLoginService} from './services/before-login.service';
 import {SnotifyModule, SnotifyService, ToastDefaults} from 'ng-snotify';
 import {UserComponent} from './components/admin/user/user.component';
+import {UserSearchComponent} from './components/admin/user/user-search/user-search.component';
 import {CommonModule} from '@angular/common';
 import {RoleComponent} from './components/admin/role/role.component';
 import {EditComponent} from './components/admin/role/edit/edit.component';
@@ -39,6 +40,7 @@ import { VerificationMailComponent } from './verification/verification-mail/veri
     RequestResetComponent,
     ResponseResetComponent,
     UserComponent,
+    UserSearchComponent,
     RoleComponent,
     EditComponent,
     LoadingComponent,
