@@ -7,10 +7,13 @@ import {environment} from '../../../environments/environment';
 })
 export class ProfileService {
 
-  private baseUrl = environment.baseUrl;
-  private baseUrlProfile = environment.baseUrl + '/profile';
+  private baseUrl;
+  private baseUrlProfile;
 
   constructor(private http: HttpClient) {
+    this.baseUrl= environment.baseUrl;
+    this.baseUrlProfile= this.baseUrl + '/profile';
+
   }
 
   public getProfile(): any {

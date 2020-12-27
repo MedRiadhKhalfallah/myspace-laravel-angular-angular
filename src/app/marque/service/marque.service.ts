@@ -7,10 +7,12 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class MarqueService {
 
-  private baseUrl = environment.baseUrl;
-  private baseUrlMarque = environment.baseUrl + '/marques/';
+  private baseUrl;
+  private baseUrlMarque;
 
   constructor(private http: HttpClient) {
+    this.baseUrl= environment.baseUrl;
+    this.baseUrlMarque= this.baseUrl + '/marques/';
   }
 
   public updateMarque(id, data): any {

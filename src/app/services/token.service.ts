@@ -1,16 +1,19 @@
 import {Injectable} from '@angular/core';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
-  private baseUrl = "http://localhost:8000/api";
-  private iss = {
-    login: this.baseUrl + '/login',
-    signup: this.baseUrl + '/signup',
-  };
+  private baseUrl;
+  private iss;
 
   constructor() {
+    this.baseUrl= environment.baseUrl;
+    this.iss  = {
+      login: this.baseUrl + '/login',
+      signup: this.baseUrl + '/signup',
+    };
   }
 
 

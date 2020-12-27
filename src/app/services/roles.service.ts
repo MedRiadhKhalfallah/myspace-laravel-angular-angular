@@ -7,9 +7,10 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class RolesService {
 
-  private baseUrl = environment.baseUrl;
+  private baseUrl;
 
   constructor(private http: HttpClient) {
+    this.baseUrl= environment.baseUrl;
   }
 
   getRoles(searchobject = {}) {
