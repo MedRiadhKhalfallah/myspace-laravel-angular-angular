@@ -13,6 +13,7 @@ export class EditComponent implements OnInit, OnChanges {
   @Output() loadDataEdit: EventEmitter<any> = new EventEmitter<any>();
 
   public loading = false;
+  public loadingUpdate = false;
   public error;
   public roles;
   public rolesName = [];
@@ -43,6 +44,7 @@ export class EditComponent implements OnInit, OnChanges {
 
   handleError(error) {
     this.loading = false;
+    this.loadingUpdate = false;
     this.error = error.error.message
   }
 
@@ -63,6 +65,7 @@ export class EditComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
+    this.loadingUpdate=true;
         this.profileService.updateUserRoles(this.rolesNameData, this.item.id).subscribe(
           data => this.handleResponseUpdate(data),
           error => this.handleError(error)
@@ -70,7 +73,7 @@ export class EditComponent implements OnInit, OnChanges {
   }
 
   handleResponseUpdate(data) {
-    this.loading = false;
+    this.loadingUpdate = false;
     return this.loadDataEdit.emit();
 
   }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {JarwisService} from "../../../services/jarwis.service";
-import {SnotifyService} from "ng-snotify";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-request-reset',
@@ -10,14 +10,16 @@ import {SnotifyService} from "ng-snotify";
 export class RequestResetComponent implements OnInit {
 
   public error = null;
+  public loading = false;
   public form = {email: null};
-
+  public errors = null;
   constructor(private jarwis: JarwisService,
-              private snotifyService: SnotifyService
+              private toastr: ToastrService
   ) {
   }
 
   onSubmit() {
+    this.loading = true;
     return this.jarwis.sendPasswordResetLink(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
@@ -25,12 +27,18 @@ export class RequestResetComponent implements OnInit {
   }
 
   handleError(error) {
-    this.snotifyService.error(error.error.error)
+    this.loading = false;
+    this.errors = error.error.errors;
   }
 
   handleResponse(data) {
-    this.snotifyService.info("e-mail sent");
-    this.form.email = null;
+    this.loading = false;
+    this.toastr.success('mail envoié avec succée', 'succe message',
+      {
+        closeButton: true,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
   }
 
   ngOnInit(): void {

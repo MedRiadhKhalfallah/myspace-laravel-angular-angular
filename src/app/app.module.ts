@@ -25,11 +25,13 @@ import {ProfileModule} from './profile/profile.module';
 import {LoadingComponent} from './components/loading/loading.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
+import { ToastrModule } from 'ngx-toastr';
 
 // RECOMMENDED
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserEditComponent } from './components/admin/user/user-edit/user-edit.component';
 import { VerificationMailComponent } from './verification/verification-mail/verification-mail.component';
+import { DeleteComponent } from './components/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { VerificationMailComponent } from './verification/verification-mail/veri
     EditComponent,
     LoadingComponent,
     UserEditComponent,
-    VerificationMailComponent
+    VerificationMailComponent,
+    DeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -57,13 +60,16 @@ import { VerificationMailComponent } from './verification/verification-mail/veri
     BrowserAnimationsModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
 
   ],
   providers: [JarwisService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
     {provide: 'SnotifyToastConfig', useValue: ToastDefaults}, BsModalRef,
     SnotifyService],
   exports: [
-    LoadingComponent
+    LoadingComponent,
+    DeleteComponent
   ],
   bootstrap: [AppComponent]
 })

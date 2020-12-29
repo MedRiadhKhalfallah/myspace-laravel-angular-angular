@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {MarqueService} from '../service/marque.service';
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-marque-create',
@@ -22,7 +24,7 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
   // public selectedFile: File[] = null;
   public selectedFile: File = null;
 
-  constructor(private marqueService: MarqueService) {
+  constructor(private marqueService: MarqueService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -44,8 +46,11 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
           formData.append('selectedFile[]', this.selectedFile[i], this.selectedFile[i].name);
         }
     */
-
-    formData.append('selectedFile', this.selectedFile, this.selectedFile.name);
+    if (this.selectedFile) {
+      formData.append('selectedFile', this.selectedFile, this.selectedFile.name);
+    } else {
+      formData.append('selectedFile', null);
+    }
     formData.append('name', this.form.name);
     formData.append('etat', 'true');
     if (this.marque) {
@@ -65,15 +70,30 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
   }
 
   public handleResponse(data): any {
+
     this.loading = false;
     this.form = {
       name: null, selectedFile: null, etat: true
     };
     if (this.marque) {
+      this.toastr.success('marque modifié avec succée', 'succe message',
+        {
+          closeButton: true,
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
       return this.loadDataEdit.emit({});
     } else {
+      this.toastr.success('marque ajouté avec succée', 'succe message',
+        {
+          closeButton: true,
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
+
       return this.loadDataAjout.emit({});
     }
+
   }
 
   public handleError(error): any {

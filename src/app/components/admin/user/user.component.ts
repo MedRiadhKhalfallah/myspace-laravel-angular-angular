@@ -12,7 +12,10 @@ export class UserComponent implements OnInit {
   public users;
   public error;
   public loading=true;
+  public userId=null;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
+  @ViewChild('childModalDelete', {static: true}) childModalDelete: ModalDirective;
+
   currentItem = {};
 
   constructor(private userService: UserServiceService, private profileService: ProfileService) {
@@ -51,18 +54,29 @@ export class UserComponent implements OnInit {
     );
 
   }
+  showChildModalDelete(user): void {
+    if (user) {
+      this.userId = user.id;
+      this.childModalDelete.show();
+    }
+  }
 
-  public deleteItem(item): any {
-    this.loading=true;
-    if (confirm('Are you sure you want to delete user?')) {
-      if (item) {
-        this.profileService.deleteById(item.id).subscribe(
+  hideChildModalDelete(): void {
+    this.childModalDelete.hide();
+    this.userId = null;
+  }
+
+  public deleteItem(id): any {
+    this.childModalDelete.hide();
+    if (id) {
+        this.loading=true;
+        this.profileService.deleteById(id).subscribe(
           data => this.handleResponseDelete(data),
           error => this.handleError(error)
         );
       }
-    }
   }
+
   handleResponseDelete(data) {
     this.loadData({});
   }

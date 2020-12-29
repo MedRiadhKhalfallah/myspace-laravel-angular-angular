@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProfileService} from '../service/profile.service';
+import {MarqueService} from "../../marque/service/marque.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-profile-edit',
@@ -13,6 +15,7 @@ export class ProfileEditComponent implements OnInit {
   public errorPassword;
   public successPassword;
   public loading = false;
+  public loadingUpdate = false;
   public loadingPassword = false;
   public loadingDesactiverProfile = false;
   public loadingSendMail = false;
@@ -54,11 +57,11 @@ export class ProfileEditComponent implements OnInit {
     }
   }
 
-  constructor(private profileService: ProfileService, private router: Router) {
+  constructor(private profileService: ProfileService, private router: Router, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
-      this.loadData();
+    this.loadData();
   }
 
   public handleError(error): any {
@@ -87,13 +90,15 @@ export class ProfileEditComponent implements OnInit {
 
   public sendMailVerificationLink(): any {
     this.loadingSendMail = true;
-    return this.profileService.sendMailVerificationLink({'email':this.profile.email}).subscribe(
-      data => this.handleSubmitResponse(data),
+    return this.profileService.sendMailVerificationLink({'email': this.profile.email}).subscribe(
+      data => this.handleSendMailResponse(data),
       error => this.handleSubmitError(error)
     );
 
   }
+
   public onSubmit(): any {
+    this.loadingUpdate = true;
     return this.profileService.updateProfile(this.profile).subscribe(
       data => this.handleSubmitResponse(data),
       error => this.handleSubmitError(error)
@@ -102,14 +107,26 @@ export class ProfileEditComponent implements OnInit {
   }
 
   public handleSubmitResponse(data): any {
-    this.loading = false;
+    this.toastr.success('profile modifié avec succée', 'succe message',
+      {
+        closeButton: true,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
+    this.loadingUpdate = false;
+  }
+  public handleSendMailResponse(data): any {
+    this.toastr.success('mail envoie avec succée', 'succe message',
+      {
+        closeButton: true,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
     this.loadingSendMail = false;
-    console.log(data);
   }
 
   public handleSubmitError(error): any {
-    console.log(error);
-    this.loading = false;
+    this.loadingUpdate = false;
     this.error = error.error.message;
   }
 
@@ -128,6 +145,13 @@ export class ProfileEditComponent implements OnInit {
 
   public handleSubmitDePasseResponse(data): any {
     this.loadingPassword = false;
+    this.toastr.success('mot de passe modifié avec succée', 'succe message',
+      {
+        closeButton: true,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
+
     this.successPassword = 'mot de passe a jour';
   }
 
@@ -135,12 +159,11 @@ export class ProfileEditComponent implements OnInit {
     this.loadingPassword = false;
     this.errorPassword = error.error.error;
   }
+
   public desactiverProfile(): any {
-    if (this.formPassword.password !== this.formPassword.password_confirmation) {
-      this.errorPassword = 'mot de passe non conforme';
-    } else {
+    if (confirm('Are you sure you want to desactive user?')) {
       this.loadingDesactiverProfile = true;
-      this.profile.etat=false;
+      this.profile.etat = false;
       return this.profileService.updateProfile(this.profile).subscribe(
         data => this.handleDesactiverProfileResponse(data),
         error => this.handleDesactiverProfileError(error)
@@ -169,14 +192,23 @@ export class ProfileEditComponent implements OnInit {
     );
 
   }
+
   public handleImageProfileResponse(data): any {
+    this.toastr.success('Image modifie avec succée', 'succe message',
+      {
+        closeButton: true,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
+
     this.loadData();
   }
 
   public handleImageProfileError(error): any {
-    console.log(error);
+    this.errorPassword = error.error.error;
     this.loading = false;
   }
+
   public onFileCovertureSelect(event): any {
     this.selectedFile = <File>event.target.files[0];
     this.loading = true;

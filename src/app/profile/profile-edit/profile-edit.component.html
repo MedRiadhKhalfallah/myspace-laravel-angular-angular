@@ -199,7 +199,9 @@
               </div>
             </div>
             <div class="col-12 d-flex justify-content-end">
-              <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loading">Update
+              <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loadingUpdate">Update
+                <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
+                      aria-hidden="true"></span>
               </button>
             </div>
           </form>
@@ -314,6 +316,8 @@
               </div>
               <button class="btn btn-primary btn-block" type="submit"
                       [disabled]="motdepasseUpdateForm.invalid || loadingPassword">Update Password
+                <span *ngIf="loadingPassword" class="spinner-border spinner-border-sm" role="status"
+                      aria-hidden="true"></span>
               </button>
             </form>
           </div>

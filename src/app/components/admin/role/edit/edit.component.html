@@ -81,7 +81,9 @@
 
             </div>
             <div class="col-12 d-flex justify-content-end">
-              <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loading">Update
+              <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loadingUpdate">Update
+                <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
+                      aria-hidden="true"></span>
               </button>
             </div>
           </form>

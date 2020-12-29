@@ -95,6 +95,7 @@ export class UserEditComponent implements OnInit, OnChanges {
   }
 
   public onSubmit(): any {
+    this.loading = true;
     return this.profileService.updateProfile(this.profile).subscribe(
       data => this.handleSubmitResponse(data),
       error => this.handleSubmitError(error)
@@ -105,12 +106,9 @@ export class UserEditComponent implements OnInit, OnChanges {
   public handleSubmitResponse(data): any {
     this.loading = false;
     return this.loadDataEdit.emit();
-
-    console.log(data);
   }
 
   public handleSubmitError(error): any {
-    console.log(error);
     this.loading = false;
     this.error = error.error.message;
   }
@@ -141,9 +139,7 @@ export class UserEditComponent implements OnInit, OnChanges {
   }
 
   public desactiverProfile(): any {
-    if (this.formPassword.password !== this.formPassword.password_confirmation) {
-      this.errorPassword = 'mot de passe non conforme';
-    } else {
+    if (confirm('Are you sure you want to desactive user?')) {
       this.loadingDesactiverProfile = true;
       this.profile.etat = false;
       return this.profileService.updateProfile(this.profile).subscribe(
@@ -153,9 +149,7 @@ export class UserEditComponent implements OnInit, OnChanges {
     }
   }
   public activerProfile(): any {
-    if (this.formPassword.password !== this.formPassword.password_confirmation) {
-      this.errorPassword = 'mot de passe non conforme';
-    } else {
+    if (confirm('Are you sure you want to active user?')) {
       this.loadingDesactiverProfile = true;
       this.profile.etat = true;
       return this.profileService.updateProfile(this.profile).subscribe(

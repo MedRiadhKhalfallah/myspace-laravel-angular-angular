@@ -18,8 +18,12 @@
               <div class="row justify-content-center">
                 <div class="col-sm-8 col-md">
                   <form #requestresetForm=ngForm (ngSubmit)="onSubmit()">
-                    <div *ngIf="error" class="alert alert-danger">
-                      {{error}}
+                    <div *ngIf="errors" class="div">
+                      <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+                        - {{ item.key }}
+                        <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+                        </li>
+                      </ul>
                     </div>
                     <div class="form-group"><input class="form-control"
                                                    type="email" name="email"
@@ -39,11 +43,13 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <button class="btn btn-primary btn-block mt-3" type="submit" name="submit" [disabled]="requestresetForm.invalid">Send reset link
+                      <button class="btn btn-primary btn-block mt-3" type="submit" name="submit"
+                              [disabled]="requestresetForm.invalid || loading">Send reset link
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                              aria-hidden="true"></span>
                       </button>
                     </div>
                   </form>
-                  <!--                  <a class="fs&#45;&#45;1 text-600" href="#!">I can't recover my account using this page<span class="d-inline-block ml-1">&rarr;</span></a>-->
                 </div>
               </div>
             </div>

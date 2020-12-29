@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {JarwisService} from "../../../services/jarwis.service";
-import {SnotifyService} from "ng-snotify";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-response-reset',
@@ -10,16 +10,19 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class ResponseResetComponent implements OnInit {
 
-  public error = null;
+  public errors = null;
+  public loading = false;
   public form = {
     password: null,
     password_confirmation: null,
     token: null
   };
+  hide: boolean = true;
+  passwordType = 'password';
 
   constructor(private jarwis: JarwisService,
-              private snotifyService: SnotifyService,
               private route: ActivatedRoute,
+              private toastr: ToastrService,
               private router: Router
   ) {
     route.queryParams.subscribe(params => {
@@ -28,6 +31,7 @@ export class ResponseResetComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading=true;
     return this.jarwis.changePassword(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
@@ -35,12 +39,28 @@ export class ResponseResetComponent implements OnInit {
   }
 
   handleError(error) {
-    this.snotifyService.error(error.error.error)
+    this.loading=false;
+    this.errors = error.error.errors;
   }
 
   handleResponse(data) {
+    this.loading=false;
+    this.toastr.success('mot de passe modifié avec succée', 'succe message',
+      {
+        closeButton: true,
+        progressBar: true,
+        progressAnimation: 'increasing'
+      });
+
     this.router.navigateByUrl('/login');
-    this.snotifyService.info("e-mail sent");
+  }
+  hidePassword() {
+    this.hide = !this.hide;
+    if (this.hide) {
+      this.passwordType = 'password';
+    } else {
+      this.passwordType = 'text';
+    }
   }
 
   ngOnInit(): void {
