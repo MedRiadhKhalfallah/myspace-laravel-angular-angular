@@ -11,8 +11,13 @@ import {Router} from '@angular/router';
 })
 export class MarqueIndexComponent implements OnInit {
 
-  public marqueList;
+  public marqueList = [];
   public error;
+  public limit;
+  public searchobject;
+  public first = true;
+  public disableShowMore = false;
+  public offset;
   public loading = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
@@ -20,6 +25,8 @@ export class MarqueIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.limit = 10;
+    this.offset = 0;
     this.loadData({});
   }
 
@@ -41,12 +48,24 @@ export class MarqueIndexComponent implements OnInit {
 
   public handleResponse(data): any {
     this.loading = false;
-    this.marqueList = data;
+    this.first = false;
+    this.marqueList = this.marqueList.concat(data);
+    if (data.length < this.limit) {
+      this.disableShowMore = true;
+    }
+  }
+
+  public showMore(): any {
+    this.offset = this.marqueList.length;
+    this.loadData(this.searchobject);
   }
 
   public loadData(searchobject: any): any {
     this.hideChildModal();
     this.loading = true;
+    this.searchobject = searchobject;
+    searchobject.limit = this.limit;
+    searchobject.offset = this.offset;
     this.marqueService.marqueSearchWithCriteria(searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
