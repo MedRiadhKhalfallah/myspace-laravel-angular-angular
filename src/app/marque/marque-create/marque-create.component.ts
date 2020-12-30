@@ -75,6 +75,9 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
     this.form = {
       name: null, selectedFile: null, etat: true
     };
+    this.error = null;
+    this.errors = null;
+
     if (this.marque) {
       this.toastr.success('marque modifié avec succée', 'succe message',
         {

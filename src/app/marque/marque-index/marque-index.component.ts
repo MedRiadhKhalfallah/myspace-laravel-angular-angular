@@ -19,6 +19,7 @@ export class MarqueIndexComponent implements OnInit {
   public disableShowMore = false;
   public offset;
   public loading = false;
+  public loadingShowMore = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
   constructor(private marqueService: MarqueService, private router: Router) {
@@ -40,6 +41,7 @@ export class MarqueIndexComponent implements OnInit {
 
   public handleError(error): any {
     this.loading = false;
+    this.loadingShowMore = false;
     this.error = error.error.message;
     if (this.error === 'User does not have the right roles.') {
       this.router.navigateByUrl('/');
@@ -49,13 +51,21 @@ export class MarqueIndexComponent implements OnInit {
   public handleResponse(data): any {
     this.loading = false;
     this.first = false;
-    this.marqueList = this.marqueList.concat(data);
+    if (this.loadingShowMore) {
+      this.marqueList = this.marqueList.concat(data);
+    } else {
+      this.marqueList = data;
+    }
     if (data.length < this.limit) {
       this.disableShowMore = true;
+    } else {
+      this.disableShowMore = false;
     }
+    this.loadingShowMore = false;
   }
 
   public showMore(): any {
+    this.loadingShowMore = true;
     this.offset = this.marqueList.length;
     this.loadData(this.searchobject);
   }

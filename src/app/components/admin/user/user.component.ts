@@ -13,6 +13,13 @@ export class UserComponent implements OnInit {
   public error;
   public loading=true;
   public userId=null;
+  public first = true;
+  public disableShowMore = false;
+  public offset;
+  public loadingShowMore = false;
+  public limit;
+  public searchobject;
+
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
   @ViewChild('childModalDelete', {static: true}) childModalDelete: ModalDirective;
 
@@ -22,6 +29,8 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.limit = 10;
+    this.offset = 0;
     this.loadData();
   }
 
@@ -32,7 +41,18 @@ export class UserComponent implements OnInit {
 
   handleResponse(data) {
     this.loading=false;
-    this.users = data;
+    this.first = false;
+    if (this.loadingShowMore) {
+      this.users = this.users.concat(data);
+    } else {
+      this.users = data;
+    }
+    if (data.length < this.limit) {
+      this.disableShowMore = true;
+    } else {
+      this.disableShowMore = false;
+    }
+    this.loadingShowMore = false;
   }
 
   showChildModal(data): void {
@@ -48,12 +68,23 @@ export class UserComponent implements OnInit {
   public loadData(searchobject: any={}): any {
     this.loading=true;
     this.hideChildModal();
+    this.searchobject = searchobject;
+    searchobject.limit = this.limit;
+    searchobject.offset = this.offset;
+
     this.userService.userSearchWithCriteria(searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
 
   }
+
+  public showMore(): any {
+    this.loadingShowMore = true;
+    this.offset = this.users.length;
+    this.loadData(this.searchobject);
+  }
+
   showChildModalDelete(user): void {
     if (user) {
       this.userId = user.id;

@@ -15,6 +15,13 @@ export class RoleComponent implements OnInit {
   public tabUsersRoles = [];
   public error;
   public loading = false;
+  public first = true;
+  public disableShowMore = false;
+  public offset;
+  public loadingShowMore = false;
+  public limit;
+  public searchobject;
+
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
   currentItem = {};
 
@@ -25,6 +32,8 @@ export class RoleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.limit = 10;
+    this.offset = 0;
     this.loadData();
   }
 
@@ -34,7 +43,20 @@ export class RoleComponent implements OnInit {
   }
 
   handleResponse(data) {
-    this.usersRoles = data;
+    this.loading = false;
+    this.first = false;
+    if (this.loadingShowMore) {
+      this.usersRoles = this.usersRoles.concat(data);
+    } else {
+      this.usersRoles = data;
+    }
+    if (data.length < this.limit) {
+      this.disableShowMore = true;
+    } else {
+      this.disableShowMore = false;
+    }
+    this.loadingShowMore = false;
+
 
     this.usersRoles.forEach(user => {
       let tabUserRoles = [];
@@ -45,6 +67,12 @@ export class RoleComponent implements OnInit {
       this.tabUsersRoles.push(tabUser);
     });
     this.loading = false;
+  }
+
+  public showMore(): any {
+    this.loadingShowMore = true;
+    this.offset = this.usersRoles.length;
+    this.loadData(this.searchobject);
   }
 
   showChildModal(data): void {
@@ -59,6 +87,10 @@ export class RoleComponent implements OnInit {
 
   public loadData(searchobject: any = {}): any {
     this.hideChildModal();
+    this.searchobject = searchobject;
+    searchobject.limit = this.limit;
+    searchobject.offset = this.offset;
+
     this.loading = true;
     this.userService.userSearchWithCriteria(searchobject).subscribe(
       data => this.handleResponse(data),
