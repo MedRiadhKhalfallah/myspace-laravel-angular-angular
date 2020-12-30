@@ -12,7 +12,7 @@ export class MarqueService {
 
   constructor(private http: HttpClient) {
     this.baseUrl= environment.baseUrl;
-    this.baseUrlMarque= this.baseUrl + '/marques/';
+    this.baseUrlMarque= this.baseUrl + '/marques';
   }
 
   public updateMarque(id, data): any {
@@ -20,7 +20,7 @@ export class MarqueService {
     const token = localStorage.getItem('token');
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
     headers = headers.append('X-HTTP-Method-Override', 'PATCH'); // Not added yet as this is the reason for the question
-    return this.http.post(this.baseUrlMarque + id, data, {headers});
+    return this.http.post(this.baseUrlMarque +'/'+ id, data, {headers});
   }
 
   public createMarque(data): any {
@@ -41,7 +41,7 @@ export class MarqueService {
     let headers: HttpHeaders = new HttpHeaders();
     const token = localStorage.getItem('token');
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
-    return this.http.delete(this.baseUrlMarque + id, {headers});
+    return this.http.delete(this.baseUrlMarque +'/'+ id, {headers});
   }
 
   public getMarqueList(): any {
