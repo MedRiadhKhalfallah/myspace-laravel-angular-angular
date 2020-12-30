@@ -11,15 +11,23 @@ import {Router} from '@angular/router';
 })
 export class MarqueIndexComponent implements OnInit {
 
-  public marqueList;
+  public marqueList = [];
   public error;
+  public limit;
+  public searchobject;
+  public first = true;
+  public disableShowMore = false;
+  public offset;
   public loading = false;
+  public loadingShowMore = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
   constructor(private marqueService: MarqueService, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.limit = 10;
+    this.offset = 0;
     this.loadData({});
   }
 
@@ -33,20 +41,41 @@ export class MarqueIndexComponent implements OnInit {
 
   public handleError(error): any {
     this.loading = false;
+    this.loadingShowMore = false;
     this.error = error.error.message;
     if (this.error === 'User does not have the right roles.') {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/');
     }
   }
 
   public handleResponse(data): any {
     this.loading = false;
-    this.marqueList = data;
+    this.first = false;
+    if (this.loadingShowMore) {
+      this.marqueList = this.marqueList.concat(data);
+    } else {
+      this.marqueList = data;
+    }
+    if (data.length < this.limit) {
+      this.disableShowMore = true;
+    } else {
+      this.disableShowMore = false;
+    }
+    this.loadingShowMore = false;
+  }
+
+  public showMore(): any {
+    this.loadingShowMore = true;
+    this.offset = this.marqueList.length;
+    this.loadData(this.searchobject);
   }
 
   public loadData(searchobject: any): any {
     this.hideChildModal();
     this.loading = true;
+    this.searchobject = searchobject;
+    searchobject.limit = this.limit;
+    searchobject.offset = this.offset;
     this.marqueService.marqueSearchWithCriteria(searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)

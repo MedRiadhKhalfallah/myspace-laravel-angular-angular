@@ -13,17 +13,34 @@
             <div class="p-4 p-md-5 flex-grow-1">
               <h3>Reset password</h3>
               <form #responseresetForm=ngForm (ngSubmit)="onSubmit()">
-                <div *ngIf="error" class="alert alert-danger">
-                  {{error}}
+                <div *ngIf="errors" class="div">
+                  <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+                    - {{ item.key }}
+                    <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+                    </li>
+                  </ul>
                 </div>
-                <div class="form-group"><label for="password">New Password</label><input class="form-control"
-                                                                                         type="password"
+                <div class="form-group"><label for="password">New Password</label>
+                  <div class="input-group">
+
+                  <input class="form-control"
+                                                                                         type="{{passwordType}}"
                                                                                          id="card-reset-password"
                                                                                          id="password"
                                                                                          name="password"
                                                                                          [(ngModel)]="form.password"
                                                                                          required minlength="8"
                                                                                          #password="ngModel"/>
+                    <div class="input-group-append" (click)="hidePassword()">
+                    <span *ngIf="hide" class="input-group-text">
+                      <i class="fa far fa-eye"></i>
+                    </span>
+                      <span *ngIf="!hide" class="input-group-text">
+                      <i class="far fa-eye-slash"></i>
+                    </span>
+                    </div>
+
+                  </div>
                   <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
                     <div *ngIf="password.errors.required">
                       Email is required.
@@ -33,13 +50,27 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group"><label for="password_confirmation">Confirm Password</label><input
-                  class="form-control" type="password" id="password_confirmation" name="password_confirmation"
+                <div class="form-group"><label for="password_confirmation">Confirm Password</label>
+                  <div class="input-group">
+
+                  <input
+                  class="form-control" type="{{passwordType}}" id="password_confirmation" name="password_confirmation"
                   [(ngModel)]="form.password_confirmation"
                   required minlength="8"
-                  #password="ngModel"/></div>
-                <button class="btn btn-primary btn-block mt-3" [disabled]="responseresetForm.invalid" type="submit"
+                  #password="ngModel"/>
+                    <div class="input-group-append" (click)="hidePassword()">
+                    <span *ngIf="hide" class="input-group-text">
+                      <i class="fa far fa-eye"></i>
+                    </span>
+                      <span *ngIf="!hide" class="input-group-text">
+                      <i class="far fa-eye-slash"></i>
+                    </span>
+                    </div>
+
+                  </div></div>
+                <button class="btn btn-primary btn-block mt-3" [disabled]="responseresetForm.invalid || loading" type="submit"
                         name="submit">Set password
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </button>
               </form>
             </div>

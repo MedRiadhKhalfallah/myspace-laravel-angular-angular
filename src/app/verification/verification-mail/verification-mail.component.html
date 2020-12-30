@@ -1,0 +1,15 @@
+<div class="card-header">
+  <div class="row" style="align-content: center">
+    <h1>Veuillez vérifier votre adresse email</h1>
+  </div>
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <button class="btn btn-success" (click)="valide()">Vérifier adresse email
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+              aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>

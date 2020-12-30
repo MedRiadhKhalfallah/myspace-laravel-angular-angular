@@ -11,7 +11,9 @@ import {TokenService} from './services/token.service';
 })
 export class AppComponent implements OnInit, OnChanges {
   public loggedIn: boolean;
-  public roles: string;
+  public rolesString: string;
+  public roles = null;
+  public profileImg = null;
   public user: string;
   public adminRole;
   public utilisateurRole;
@@ -25,7 +27,10 @@ export class AppComponent implements OnInit, OnChanges {
     if (!this.token.loggedIn) {
       this.router.navigateByUrl('/home');
     } else {
-      this.roles = localStorage.getItem('roles');
+      this.rolesString = localStorage.getItem('roles');
+      if (this.rolesString) {
+        this.roles = this.rolesString.split(",");
+      }
       this.user = localStorage.getItem('user');
     }
     if (Array.isArray(this.roles)) {
@@ -61,6 +66,14 @@ export class AppComponent implements OnInit, OnChanges {
       container.classList.remove('container');
       container.classList.add('container-fluid');
     }
+    if (localStorage.getItem('profileImg') && this.profileImg == null) {
+      this.profileImg = localStorage.getItem('profileImg');
+    } else {
+      setTimeout(() => {
+        console.log('hide');
+        this.profileImg = localStorage.getItem('profileImg');
+      }, 1000);
+    }
   }
 
   public logout(event: MouseEvent): any {
@@ -69,11 +82,16 @@ export class AppComponent implements OnInit, OnChanges {
     this.token.remove();
     localStorage.removeItem('roles');
     localStorage.removeItem('user');
+    localStorage.removeItem('profileImg');
     this.router.navigateByUrl('/login');
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (this.profileImg == null) {
+      this.profileImg = localStorage.getItem('profileImg');
+    }
+
   }
 
 }

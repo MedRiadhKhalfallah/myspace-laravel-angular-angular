@@ -8,6 +8,8 @@
 @import "assets/lib/leaflet.markercluster/MarkerCluster.Default.css";
 @import "assets/css/theme.min.css";
 
+@import '~ngx-toastr/toastr';
+
 .ng-touched.ng-invalid:not(form)  {
   border: 1px solid #a94442; /* green */
   border-left: 5px solid #a94442; /* red */

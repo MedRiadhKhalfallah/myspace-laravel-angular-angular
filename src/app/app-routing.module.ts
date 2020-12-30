@@ -12,6 +12,7 @@ import {RoleComponent} from './components/admin/role/role.component';
 import {MarqueIndexComponent} from './marque/marque-index/marque-index.component';
 import {ProfileEditComponent} from './profile/profile-edit/profile-edit.component';
 import {ProfileViewComponent} from "./profile/profile-view/profile-view.component";
+import {VerificationMailComponent} from "./verification/verification-mail/verification-mail.component";
 
 const routes: Routes = [
   {
@@ -58,7 +59,12 @@ const routes: Routes = [
     path: 'profile/:id',
     component: ProfileViewComponent,
     canActivate: [BeforeLoginService]
+  },
+  {
+    path: 'response-mail-verification',
+    component: VerificationMailComponent
   }
+
 ];
 
 @NgModule({

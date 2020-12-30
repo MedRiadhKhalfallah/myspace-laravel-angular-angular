@@ -11,16 +11,19 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
-  declarations: [ProfileEditComponent, ProfileViewComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ModalModule,
-    AppModule,
-    BrowserAnimationsModule,
-    BsDatepickerModule.forRoot(),
+    declarations: [ProfileEditComponent, ProfileViewComponent],
+    exports: [
+        ProfileEditComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ModalModule,
+        AppModule,
+        BrowserAnimationsModule,
+        BsDatepickerModule.forRoot(),
 
-  ]
+    ]
 })
 export class ProfileModule {
 }

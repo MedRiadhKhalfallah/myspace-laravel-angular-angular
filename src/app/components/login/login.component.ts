@@ -13,6 +13,8 @@ import {AuthService} from "../../services/auth.service";
 export class LoginComponent implements OnInit {
   public error = null;
   public form = {email: null, password: null};
+  hide: boolean = true;
+  passwordType = 'password';
 
   constructor(private jarwis: JarwisService,
               private token: TokenService,
@@ -42,6 +44,14 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/profile').then(() => {
       window.location.reload();
     });
+  }
+  hidePassword() {
+    this.hide = !this.hide;
+    if (this.hide) {
+      this.passwordType = 'password';
+    } else {
+      this.passwordType = 'text';
+    }
   }
 
   ngOnInit(): void {

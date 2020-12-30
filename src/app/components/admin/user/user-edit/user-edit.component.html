@@ -63,10 +63,8 @@
                       class="far fa-times-circle"></span>
 
                 <button style="float: right;" *ngIf="profile.email_verified_at == null" class="btn btn-info mr-1 mb-1"
-                        type="button" (click)="sendMailVerificationLink()" >
+                        type="button">
                   Verifier mail
-                  <span *ngIf="loadingSendMail" class="spinner-border spinner-border-sm" role="status"
-                                                    aria-hidden="true"></span>
                 </button>
               </div>
             </div>
@@ -199,8 +197,8 @@
               </div>
             </div>
             <div class="col-12 d-flex justify-content-end">
-              <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loadingUpdate">Update
-                <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
+              <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loading">Update
+                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
                       aria-hidden="true"></span>
               </button>
             </div>
@@ -227,37 +225,6 @@
             </div>
 
             <form #motdepasseUpdateForm=ngForm (ngSubmit)="onSubmitMotDePasse()">
-
-              <div class="form-group">
-                <label for="oldPassword">Old Password</label>
-                <div class="input-group">
-                  <input class="form-control"
-                         id="oldPassword"
-                         name="oldPassword"
-                         type="{{passwordType}}"
-                         [(ngModel)]="formPassword.oldPassword"
-                         required minlength="8"
-                         #oldpassword="ngModel">
-                  <div class="input-group-append" (click)="hidePassword()">
-                    <span *ngIf="hide" class="input-group-text">
-                      <i class="fa far fa-eye"></i>
-                    </span>
-                    <span *ngIf="!hide" class="input-group-text">
-                      <i class="far fa-eye-slash"></i>
-                    </span>
-                  </div>
-                </div>
-
-                <ul *ngIf="oldpassword.invalid && (oldpassword.dirty || oldpassword.touched)"
-                    class="alert alert-danger">
-                  <li *ngIf="oldpassword.errors.required">
-                    MDP is required.
-                  </li>
-                  <li *ngIf="oldpassword.errors.minlength">
-                    Mot de passe must be at least 8 characters long.
-                  </li>
-                </ul>
-              </div>
 
               <div class="form-group"><label for="password">New Password</label>
                 <div class="input-group">
@@ -329,7 +296,11 @@
           <div class="card-body bg-light">
             <h5 class="fs-0">Delete this account</h5>
             <p class="fs--1">Once you delete a account, there is no going back. Please be certain.</p>
-            <button class="btn btn-falcon-danger d-block" (click)="desactiverProfile()">Deactivate Account
+            <button *ngIf="profileEtat == '1'" class="btn btn-falcon-danger d-block" (click)="desactiverProfile()">Deactivate Account
+              <span *ngIf="loadingDesactiverProfile" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+            <button *ngIf="profileEtat == '0'" class="btn btn-falcon-primary d-block" (click)="activerProfile()">Activate Account
               <span *ngIf="loadingDesactiverProfile" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
             </button>

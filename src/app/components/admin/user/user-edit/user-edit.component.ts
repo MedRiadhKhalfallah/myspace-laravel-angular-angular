@@ -1,24 +1,25 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {ProfileService} from '../service/profile.service';
-import {MarqueService} from "../../marque/service/marque.service";
-import {ToastrService} from "ngx-toastr";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ProfileService} from "../../../../profile/service/profile.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.css']
+  selector: 'app-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.css']
 })
-export class ProfileEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnChanges {
+
   public selectedFile: File = null;
   public error;
   public errorPassword;
   public successPassword;
   public loading = false;
-  public loadingUpdate = false;
   public loadingPassword = false;
   public loadingDesactiverProfile = false;
-  public loadingSendMail = false;
+  public profileEtat;
+  @Input() item: any; // decorate the property with @Input()
+  @Output() loadDataEdit: EventEmitter<any> = new EventEmitter<any>();
+
   public formPassword = {
     id: null,
     oldPassword: null,
@@ -57,11 +58,16 @@ export class ProfileEditComponent implements OnInit {
     }
   }
 
-  constructor(private profileService: ProfileService, private router: Router, private toastr: ToastrService) {
+  constructor(private profileService: ProfileService, private router: Router) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.item) {
+      this.loadData();
+    }
   }
 
   ngOnInit(): void {
-    this.loadData();
   }
 
   public handleError(error): any {
@@ -76,29 +82,20 @@ export class ProfileEditComponent implements OnInit {
     this.loading = false;
     console.log(data);
     this.profile = data;
-    localStorage.setItem('profileImg', this.profile.image_profile_path);
-
+    this.profileEtat=this.profile.etat;
   }
 
   public loadData(): any {
     this.loading = true;
-    this.profileService.getProfile().subscribe(
+    this.profileService.getProfileById(this.item.id).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
-    );
-  }
-
-  public sendMailVerificationLink(): any {
-    this.loadingSendMail = true;
-    return this.profileService.sendMailVerificationLink({'email': this.profile.email}).subscribe(
-      data => this.handleSendMailResponse(data),
-      error => this.handleSubmitError(error)
     );
 
   }
 
   public onSubmit(): any {
-    this.loadingUpdate = true;
+    this.loading = true;
     return this.profileService.updateProfile(this.profile).subscribe(
       data => this.handleSubmitResponse(data),
       error => this.handleSubmitError(error)
@@ -107,26 +104,12 @@ export class ProfileEditComponent implements OnInit {
   }
 
   public handleSubmitResponse(data): any {
-    this.toastr.success('profile modifié avec succée', 'succe message',
-      {
-        closeButton: true,
-        progressBar: true,
-        progressAnimation: 'increasing'
-      });
-    this.loadingUpdate = false;
-  }
-  public handleSendMailResponse(data): any {
-    this.toastr.success('mail envoie avec succée', 'succe message',
-      {
-        closeButton: true,
-        progressBar: true,
-        progressAnimation: 'increasing'
-      });
-    this.loadingSendMail = false;
+    this.loading = false;
+    return this.loadDataEdit.emit();
   }
 
   public handleSubmitError(error): any {
-    this.loadingUpdate = false;
+    this.loading = false;
     this.error = error.error.message;
   }
 
@@ -145,14 +128,9 @@ export class ProfileEditComponent implements OnInit {
 
   public handleSubmitDePasseResponse(data): any {
     this.loadingPassword = false;
-    this.toastr.success('mot de passe modifié avec succée', 'succe message',
-      {
-        closeButton: true,
-        progressBar: true,
-        progressAnimation: 'increasing'
-      });
-
     this.successPassword = 'mot de passe a jour';
+    return this.loadDataEdit.emit();
+
   }
 
   public handleSubmitDePasseError(error): any {
@@ -170,10 +148,22 @@ export class ProfileEditComponent implements OnInit {
       );
     }
   }
+  public activerProfile(): any {
+    if (confirm('Are you sure you want to active user?')) {
+      this.loadingDesactiverProfile = true;
+      this.profile.etat = true;
+      return this.profileService.updateProfile(this.profile).subscribe(
+        data => this.handleDesactiverProfileResponse(data),
+        error => this.handleDesactiverProfileError(error)
+      );
+    }
+  }
 
   public handleDesactiverProfileResponse(data): any {
     this.loadingDesactiverProfile = false;
     this.successPassword = 'profile desactivé';
+    return this.loadDataEdit.emit();
+
   }
 
   public handleDesactiverProfileError(error): any {
@@ -194,18 +184,11 @@ export class ProfileEditComponent implements OnInit {
   }
 
   public handleImageProfileResponse(data): any {
-    this.toastr.success('Image modifie avec succée', 'succe message',
-      {
-        closeButton: true,
-        progressBar: true,
-        progressAnimation: 'increasing'
-      });
-
     this.loadData();
   }
 
   public handleImageProfileError(error): any {
-    this.errorPassword = error.error.error;
+    console.log(error);
     this.loading = false;
   }
 
