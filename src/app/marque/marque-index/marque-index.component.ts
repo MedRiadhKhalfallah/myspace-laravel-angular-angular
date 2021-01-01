@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnInit, ViewChild, TemplateRef, Inject} from '@angular/core';
 import {MarqueService} from '../service/marque.service';
 import {ModalDirective, BsModalRef} from 'ngx-bootstrap/modal';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'app-marque-index',
@@ -22,10 +23,23 @@ export class MarqueIndexComponent implements OnInit {
   public loadingShowMore = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
-  constructor(private marqueService: MarqueService, private router: Router) {
+  constructor(private marqueService: MarqueService,
+              private router: Router,
+              @Inject(DOCUMENT) private document: Document) {
   }
 
   ngOnInit(): void {
+/*
+    window.addEventListener('scroll', function (e) {
+      var a = this.document.documentElement.scrollTop;
+      var b = this.document.documentElement.scrollHeight - this.document.documentElement.clientHeight;
+      var c = a / b;
+      if (c > 0.8) {
+        console.log('click');
+        this.document.getElementById('showMore').click();
+      }
+    });
+*/
     this.limit = 10;
     this.offset = 0;
     this.loadData({});
@@ -42,7 +56,7 @@ export class MarqueIndexComponent implements OnInit {
   public handleError(error): any {
     this.loading = false;
     this.loadingShowMore = false;
-    this.error = error.error.message;
+    // this.error = error.error.message;
     if (this.error === 'User does not have the right roles.') {
       this.router.navigateByUrl('/');
     }

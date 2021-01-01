@@ -8,7 +8,7 @@ import {LoginComponent} from './components/login/login.component';
 import {SignupComponent} from './components/signup/signup.component';
 import {RequestResetComponent} from './components/password/request-reset/request-reset.component';
 import {ResponseResetComponent} from './components/password/response-reset/response-reset.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JarwisService} from './services/jarwis.service';
 import {TokenService} from './services/token.service';
 import {AuthService} from './services/auth.service';
@@ -32,6 +32,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserEditComponent } from './components/admin/user/user-edit/user-edit.component';
 import { VerificationMailComponent } from './verification/verification-mail/verification-mail.component';
 import { DeleteComponent } from './components/delete/delete.component';
+import {HttpRequestInterceptor} from "./HttpRequestInterceptor";
 
 @NgModule({
   declarations: [
@@ -66,7 +67,9 @@ import { DeleteComponent } from './components/delete/delete.component';
   ],
   providers: [JarwisService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
     {provide: 'SnotifyToastConfig', useValue: ToastDefaults}, BsModalRef,
-    SnotifyService],
+    SnotifyService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
+  ],
   exports: [
     LoadingComponent,
     DeleteComponent
