@@ -23,7 +23,7 @@
 <div class="input-group" *ngIf="!first">
   <div class="col-8"></div>
   <div class="col-2">
-    <select [disabled]="disableShowMore" class="form-control" style="width: 50%; margin-left: 115px;"
+    <select [disabled]="disableShowMore" class="form-control"
             [(ngModel)]="limit">
       <option [ngValue]="10">10</option>
       <option [ngValue]="25">25</option>
@@ -31,11 +31,10 @@
     </select>
   </div>
   <div class="col-2">
-    <button class="btn btn-light" (click)="showMore()" [disabled]="loading || disableShowMore">show more
+    <button id="showMore" class="btn btn-light" (click)="showMore()" [disabled]="loading || disableShowMore">show more
       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     </button>
   </div>
-
 </div>
 <br>
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
