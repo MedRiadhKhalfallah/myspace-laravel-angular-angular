@@ -29,6 +29,12 @@ export class LoginComponent implements OnInit {
       error => this.handleError(error)
     );
   }
+  loginGoogle() {
+    return this.jarwis.loginGoogle().subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error)
+    );
+  }
 
   handleError(error) {
     this.error = error.error.error;
