@@ -26,6 +26,8 @@ import {LoadingComponent} from './components/loading/loading.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 
 // RECOMMENDED
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -63,13 +65,33 @@ import {HttpRequestInterceptor} from "./HttpRequestInterceptor";
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-
+    SocialLoginModule
   ],
   providers: [JarwisService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
     {provide: 'SnotifyToastConfig', useValue: ToastDefaults}, BsModalRef,
     SnotifyService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
-  ],
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
+    // SocialAuthServiceConfig
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '759957261016-kh5t30ptlrr4ceoe19d7bc563mulgg9u.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('851988525536025')
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
+    // SocialAuthServiceConfig /
+    ],
   exports: [
     LoadingComponent,
     DeleteComponent

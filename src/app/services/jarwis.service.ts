@@ -9,7 +9,7 @@ export class JarwisService {
   private baseUrl;
 
   constructor(private http: HttpClient) {
-    this.baseUrl= environment.baseUrl;
+    this.baseUrl = environment.baseUrl;
   }
 
   signup(data) {
