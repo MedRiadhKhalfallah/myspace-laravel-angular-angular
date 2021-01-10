@@ -13,6 +13,7 @@ import {MarqueIndexComponent} from './marque/marque-index/marque-index.component
 import {ProfileEditComponent} from './profile/profile-edit/profile-edit.component';
 import {ProfileViewComponent} from "./profile/profile-view/profile-view.component";
 import {VerificationMailComponent} from "./verification/verification-mail/verification-mail.component";
+import {MapsViewComponent} from "./maps/maps-view/maps-view.component";
 
 const routes: Routes = [
   {
@@ -63,6 +64,10 @@ const routes: Routes = [
   {
     path: 'response-mail-verification',
     component: VerificationMailComponent
+  },
+  {
+    path: 'maps',
+    component: MapsViewComponent
   }
 
 ];

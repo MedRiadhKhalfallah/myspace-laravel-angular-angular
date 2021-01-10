@@ -25,14 +25,15 @@ import {ProfileModule} from './profile/profile.module';
 import {LoadingComponent} from './components/loading/loading.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
-import { ToastrModule } from 'ngx-toastr';
+import {ToastrModule} from 'ngx-toastr';
 
 // RECOMMENDED
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { UserEditComponent } from './components/admin/user/user-edit/user-edit.component';
-import { VerificationMailComponent } from './verification/verification-mail/verification-mail.component';
-import { DeleteComponent } from './components/delete/delete.component';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {UserEditComponent} from './components/admin/user/user-edit/user-edit.component';
+import {VerificationMailComponent} from './verification/verification-mail/verification-mail.component';
+import {DeleteComponent} from './components/delete/delete.component';
 import {HttpRequestInterceptor} from "./HttpRequestInterceptor";
+import { MapsViewComponent } from './maps/maps-view/maps-view.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {HttpRequestInterceptor} from "./HttpRequestInterceptor";
     LoadingComponent,
     UserEditComponent,
     VerificationMailComponent,
-    DeleteComponent
+    DeleteComponent,
+    MapsViewComponent
   ],
   imports: [
     BrowserModule,
@@ -62,13 +64,12 @@ import {HttpRequestInterceptor} from "./HttpRequestInterceptor";
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
-
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [JarwisService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
     {provide: 'SnotifyToastConfig', useValue: ToastDefaults}, BsModalRef,
     SnotifyService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
+    {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true}
   ],
   exports: [
     LoadingComponent,
