@@ -13,6 +13,11 @@ import {MarqueIndexComponent} from './marque/marque-index/marque-index.component
 import {ProfileEditComponent} from './profile/profile-edit/profile-edit.component';
 import {ProfileViewComponent} from "./profile/profile-view/profile-view.component";
 import {VerificationMailComponent} from "./verification/verification-mail/verification-mail.component";
+import {SocieteIndexComponent} from "./societe/societe-index/societe-index.component";
+import {SocieteViewComponent} from "./societe/societe-view/societe-view.component";
+import {SocieteCreateComponent} from "./societe/societe-create/societe-create.component";
+import {ProduitIndexComponent} from "./produit/produit-index/produit-index.component";
+import {HomeComponent} from "./home/home.component";
 
 const routes: Routes = [
   {
@@ -63,6 +68,29 @@ const routes: Routes = [
   {
     path: 'response-mail-verification',
     component: VerificationMailComponent
+  },
+  {
+    path: 'societes',
+    component: SocieteIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'societe/view/:id',
+    component: SocieteViewComponent,
+  },
+  {
+    path: 'societe/create',
+    component: SocieteCreateComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'produits',
+    component: ProduitIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: '',
+    component: HomeComponent
   }
 
 ];

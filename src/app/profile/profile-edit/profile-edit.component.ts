@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProfileService} from '../service/profile.service';
-import {MarqueService} from "../../marque/service/marque.service";
 import {ToastrService} from "ngx-toastr";
 
 @Component({

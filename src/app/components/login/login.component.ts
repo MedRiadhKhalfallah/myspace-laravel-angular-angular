@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
     console.log(data);
       localStorage.setItem('roles', data.roles);
       localStorage.setItem('user', data.user.original);
+      localStorage.setItem('societeId', data.societe_id);
 
     this.token.handle(data.access_token);
     this.auth.changeAuthStatus(true);

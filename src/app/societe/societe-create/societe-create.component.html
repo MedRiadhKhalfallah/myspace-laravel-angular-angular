@@ -1,0 +1,303 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="col-12">
+  <div *ngIf="error" class="div">
+    <ul class="alert alert-danger fa-ul">
+      <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+    </ul>
+  </div>
+  <div *ngIf="errors" class="div">
+    <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+      - {{ item.key }}
+      <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="!loading" class="content">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-3 btn-reveal-trigger">
+          <div class="card-header position-relative min-vh-25 mb-8">
+            <div class="row" *ngIf="societe==null">
+              vous pouvez ajouter une photo pour votre entreprise apres la creation
+            </div>
+            <div class="cover-image" *ngIf="societe">
+              <div class="bg-holder rounded-soft rounded-bottom-0"
+                   style="background-image:url({{societe.image_coverture_path}});"></div>
+              <!--/.bg-holder-->
+              <input class="d-none" id="upload-cover-image" type="file" (change)="onFileCovertureSelect($event)"><label
+              class="cover-image-file-input"
+              for="upload-cover-image"><span
+              class="fas fa-camera mr-2"></span><span>Change cover photo</span></label>
+            </div>
+            <div class="avatar avatar-5xl avatar-profile shadow-sm img-thumbnail rounded-circle" *ngIf="societe">
+              <div class="h-100 w-100 rounded-circle overflow-hidden position-relative"><img
+                src="{{societe.image_societe_path}}" width="200" alt="" data-dz-thumbnail>
+                <input class="d-none" id="profile-image" type="file" (change)="onFileSelect($event)">
+                <label
+                  class="mb-0 overlay-icon d-flex flex-center" for="profile-image"><span
+                  class="bg-holder overlay overlay-0"></span><span class="z-index-1 text-white text-center fs--1"><span
+                  class="fas fa-camera"></span><span class="d-block">Update</span></span></label></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-lg-12 pr-lg-2">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">Societe Settings</h5>
+          </div>
+          <div class="card-body bg-light">
+            <form #societeUpdateForm=ngForm (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="adresse">Nom de la societe *</label>
+                    <input class="form-control" id="nom" name="nom" type="text" [(ngModel)]="societe.nom"
+                           required minlength="3" maxlength="255"
+                           pattern="[a-zA-Z0-9 ]*"
+                           #nom="ngModel">
+                    <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+                      <li *ngIf="nom.errors.pattern">
+                        nom doit contenire que de carectere alphabitique et des chiffres.
+                      </li>
+                      <li *ngIf="nom.errors.required">
+                        nom is required.
+                      </li>
+                      <li *ngIf="nom.errors.minlength">
+                        nom must be at least 3 characters long.
+                      </li>
+                      <li *ngIf="nom.errors.maxlength">
+                        nom must be at max 255 characters long.
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="adresse">Adresse *</label>
+                    <input class="form-control" id="adresse" name="adresse" type="text" [(ngModel)]="societe.adresse"
+                           required minlength="3" maxlength="255"
+                           #adresse="ngModel">
+                    <ul *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)" class="alert alert-danger">
+                      <li *ngIf="adresse.errors.pattern">
+                        nom doit contenire que de carectere alphabitique et des chiffres.
+                      </li>
+                      <li *ngIf="adresse.errors.required">
+                        nom is required.
+                      </li>
+                      <li *ngIf="adresse.errors.minlength">
+                        nom must be at least 3 characters long.
+                      </li>
+                      <li *ngIf="adresse.errors.maxlength">
+                        nom must be at max 255 characters long.
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="complement_adresse">Complement adresse</label>
+                    <input class="form-control" id="complement_adresse" name="complement_adresse" type="text"
+                           [(ngModel)]="societe.complement_adresse"
+                           minlength="3" maxlength="255"
+                           #complement_adresse="ngModel">
+                    <ul *ngIf="complement_adresse.invalid && (complement_adresse.dirty || complement_adresse.touched)"
+                        class="alert alert-danger">
+                      <li *ngIf="complement_adresse.errors.pattern">
+                        nom doit contenire que de carectere alphabitique et des chiffres.
+                      </li>
+                      <li *ngIf="complement_adresse.errors.minlength">
+                        nom must be at least 3 characters long.
+                      </li>
+                      <li *ngIf="complement_adresse.errors.maxlength">
+                        nom must be at max 255 characters long.
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="code_postal">Code postal *</label>
+                    <input class="form-control" id="code_postal" name="code_postal" type="text"
+                           [(ngModel)]="societe.code_postal"
+                           required minlength="4" maxlength="4"
+                           pattern="[0-9]*"
+                           #code_postal="ngModel">
+                    <ul *ngIf="code_postal.invalid && (code_postal.dirty || code_postal.touched)"
+                        class="alert alert-danger">
+                      <li *ngIf="code_postal.errors.pattern">
+                        nom doit contenire que des chiffres.
+                      </li>
+                      <li *ngIf="code_postal.errors.required">
+                        nom is required.
+                      </li>
+                      <li *ngIf="code_postal.errors.minlength">
+                        nom must be at least 4 characters long.
+                      </li>
+                      <li *ngIf="code_postal.errors.maxlength">
+                        nom must be at max 4 characters long.
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="ville">Ville *</label>
+                    <input class="form-control" id="ville" name="ville" type="text" [(ngModel)]="societe.ville"
+                           required minlength="3" maxlength="255"
+                           pattern="[a-zA-Z0-9 ]*"
+                           #ville="ngModel">
+                    <ul *ngIf="ville.invalid && (ville.dirty || ville.touched)" class="alert alert-danger">
+                      <li *ngIf="ville.errors.pattern">
+                        nom doit contenire que de carectere alphabitique et des chiffres.
+                      </li>
+                      <li *ngIf="ville.errors.required">
+                        nom is required.
+                      </li>
+                      <li *ngIf="ville.errors.minlength">
+                        nom must be at least 4 characters long.
+                      </li>
+                      <li *ngIf="ville.errors.maxlength">
+                        nom must be at max 4 characters long.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="ville">Numero TVA</label>
+                    <input class="form-control" id="numero_tva" name="numero_tva" type="text"
+                           [(ngModel)]="societe.numero_tva"
+                           minlength="3" maxlength="255"
+                           #numero_tva="ngModel">
+                    <ul *ngIf="numero_tva.invalid && (numero_tva.dirty || numero_tva.touched)"
+                        class="alert alert-danger">
+                      <li *ngIf="numero_tva.errors.minlength">
+                        nom must be at least 4 characters long.
+                      </li>
+                      <li *ngIf="numero_tva.errors.maxlength">
+                        nom must be at max 4 characters long.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group"><label for="card-email">Email address *</label><input class="form-control"
+                                                                                                type="email"
+                                                                                                name="email"
+                                                                                                id="card-email"
+                                                                                                [(ngModel)]="societe.email"
+                                                                                                required
+                                                                                                #email="ngModel"
+                                                                                                [email]="true"/>
+
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+
+                      <div *ngIf="email.invalid">
+                        Format mail inalid
+                      </div>
+                      <div *ngIf="email.errors.required">
+                        Email is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group"><label for="telephone">Télephone mobile *</label><input class="form-control"
+                                                                                                  id="telephone"
+                                                                                                  name="telephone"
+                                                                                                  type="text"
+                                                                                                  [(ngModel)]="societe.telephone_mobile"
+                                                                                                  required
+                                                                                                  #telephone="ngModel"
+                                                                                                  minlength="8"
+                                                                                                  maxlength="8"
+                                                                                                  pattern="[0-9]*">
+                    <ul *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="alert alert-danger">
+
+                      <li *ngIf="telephone.errors.pattern">
+                        telephone doit contenire que de carectere alphabitique.
+                      </li>
+                      <li *ngIf="telephone.errors.required">
+                        telephone is required.
+                      </li>
+                      <li *ngIf="telephone.errors.minlength">
+                        telephone must be at least 8 characters long.
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group"><label for="telephone_fix">Télephone fix</label>
+                    <input class="form-control" id="telephone_fix" name="telephone_fix" type="text"
+                           [(ngModel)]="societe.telephone_fix" #telephone_fix="ngModel" minlength="8"
+                           maxlength="8" pattern="[0-9]*">
+                    <ul *ngIf="telephone_fix.invalid && (telephone_fix.dirty || telephone_fix.touched)"
+                        class="alert alert-danger">
+                      <li *ngIf="telephone_fix.errors.pattern">
+                        telephone doit contenire que de carectere alphabitique.
+                      </li>
+                      <li *ngIf="telephone_fix.errors.minlength">
+                        telephone must be at least 8 characters long.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group"><label for="site_web">Site web</label>
+                    <input class="form-control" id="site_web" name="site_web" type="text"
+                           [(ngModel)]="societe.site_web">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group"><label for="site_fb">Site facebook</label>
+                    <input class="form-control" id="site_fb" name="site_fb"
+                           type="text" [(ngModel)]="societe.site_fb">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group"><label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" cols="30" rows="13"
+                              [(ngModel)]="societe.description"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 d-flex justify-content-end">
+                <a *ngIf="societe" class="btn btn-primary" routerLink="/societe/view/{{societe.id}}" target="_blank">
+                  afficher en tant que visiteur
+                </a>
+                <button class="btn btn-primary" type="submit" [disabled]="societeUpdateForm.invalid || loadingUpdate">
+                  Update
+                  <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

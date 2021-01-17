@@ -41,7 +41,7 @@
 <main class="main" id="top">
 
   <div class="container" data-layout="container">
-    <nav class="navbar navbar-vertical navbar-expand-xl navbar-light">
+    <nav class="navbar navbar-vertical navbar-expand-xl navbar-light" *ngIf="loggedIn">
       <div class="d-flex align-items-center">
         <div class="toggle-icon-wrapper">
           <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-toggle="tooltip"
@@ -72,13 +72,28 @@
               <li class="nav-item active">
                 <a class="nav-link" routerLink="marques" *ngIf="adminRole">Marques</a>
               </li>
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="societes" *ngIf="adminRole">Societes</a>
+              </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="societe/create" *ngIf="adminSocieteRole">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-store"></span></span><span class="nav-link-text"> Societe</span></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="produits" *ngIf="adminSocieteRole || adminRole">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-wrench"></span></span><span class="nav-link-text"> Produits</span></div>
+            </a>
+          </li>
+
         </ul>
       </div>
     </nav>
     <nav class="navbar navbar-light navbar-glass navbar-top sticky-kit navbar-expand-lg">
-
     </nav>
     <div class="content">
       <nav class="navbar navbar-light navbar-glass navbar-top sticky-kit navbar-expand">

@@ -26,6 +26,8 @@ import {LoadingComponent} from './components/loading/loading.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
+import {SocieteModule} from './societe/societe.module';
+import {ProduitModule} from './produit/produit.module';
 
 // RECOMMENDED
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -33,6 +35,7 @@ import { UserEditComponent } from './components/admin/user/user-edit/user-edit.c
 import { VerificationMailComponent } from './verification/verification-mail/verification-mail.component';
 import { DeleteComponent } from './components/delete/delete.component';
 import {HttpRequestInterceptor} from "./HttpRequestInterceptor";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import {HttpRequestInterceptor} from "./HttpRequestInterceptor";
     LoadingComponent,
     UserEditComponent,
     VerificationMailComponent,
-    DeleteComponent
+    DeleteComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

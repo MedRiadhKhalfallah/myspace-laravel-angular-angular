@@ -1,0 +1,80 @@
+<div class="content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-3 btn-reveal-trigger">
+        <div class="card-header position-relative min-vh-25 mb-8">
+          <div class="row" *ngIf="produit.id==null">
+            vous pouvez ajouter une photo pour votre entreprise apres la creation
+          </div>
+          <div class="cover-image" *ngIf="produit.id">
+            <div class="bg-holder rounded-soft rounded-bottom-0"
+                 style="background-image:url({{produit.image_coverture_path}});"></div>
+          </div>
+          <div class="avatar avatar-5xl avatar-profile shadow-sm img-thumbnail rounded-circle" *ngIf="produit.id">
+            <div class="h-100 w-100 rounded-circle overflow-hidden position-relative"><img
+              src="{{produit.image_produit_path}}" width="200" alt="" data-dz-thumbnail>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row no-gutters">
+    <div class="col-lg-8 pr-lg-2">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5 class="mb-0">Produit</h5>
+        </div>
+        <div class="card-body bg-light">
+          <h5 class="fs-0 mb-3">{{produit.nom}}</h5>
+          <p>{{produit.description}}</p>
+          <ul>
+            <li>Facebook : <a href="{{produit.site_fb}}" target="_blank">{{produit.site_fb}}</a></li>
+            <li>Site Web : <a href="{{produit.site_web}}" target="_blank">{{produit.site_web}}</a></li>
+          </ul>
+          <h5 class="fs-0 mt-5 mb-2">Share with friends</h5>
+          <div class="icon-group">
+            <a class="icon-item text-facebook" href="#!"><span class="fab fa-facebook-f"></span></a>
+          </div>
+          <!--map-->
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 pl-lg-2">
+      <div class="sticky-top sticky-sidebar">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">Produit contact</h5>
+          </div>
+          <div class="card-body bg-light">
+
+            <h6>Adresse</h6>
+            <div class="mb-1">
+              {{produit.adresse}}<br/>
+              <span *ngIf="produit.complement_adresse">{{produit.complement_adresse}}<br/></span>
+              {{produit.code_postal}}<br/>
+              {{produit.ville}}
+            </div>
+            <a href="#view-map">View Map</a>
+
+            <h6 class="mt-4">Telephone</h6>
+            <div class="mb-1">
+              Portable : <a href="tel:{{produit.telephone_mobile}}">{{produit.telephone_mobile}}</a>
+            </div>
+            <div class="mb-1" *ngIf="produit.telephone_fix">
+              Fix : <a href="tel:{{produit.telephone_fix}}">{{produit.telephone_fix}}</a>
+            </div>
+
+            <h6 class="mt-4">Email</h6>
+            <div class="mb-1">
+              <a href="mailto:{{produit.email}}">{{produit.email}}</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

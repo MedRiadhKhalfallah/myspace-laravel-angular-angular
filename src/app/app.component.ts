@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnChanges {
   public user: string;
   public adminRole;
   public utilisateurRole;
+  public adminSocieteRole;
 
   constructor(private auth: AuthService, private router: Router, private token: TokenService) {
     this.adminRole = false;
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     if (!this.token.loggedIn) {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/');
     } else {
       this.rolesString = localStorage.getItem('roles');
       if (this.rolesString) {
@@ -38,12 +39,16 @@ export class AppComponent implements OnInit, OnChanges {
         this.adminRole = true && this.token.loggedIn;
       } else if (this.roles.indexOf('utilisateur') !== -1) {
         this.utilisateurRole = true && this.token.loggedIn;
+      } else if (this.roles.indexOf('admin_societe') !== -1) {
+        this.adminSocieteRole = true && this.token.loggedIn;
       }
     } else {
       if (this.roles === 'admin') {
         this.adminRole = true && this.token.loggedIn;
       } else if (this.roles === 'utilisateur') {
         this.utilisateurRole = true && this.token.loggedIn;
+      } else if (this.roles === 'admin_societe') {
+        this.adminSocieteRole = true && this.token.loggedIn;
       }
 
     }

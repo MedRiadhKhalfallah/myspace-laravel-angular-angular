@@ -1,0 +1,151 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="col-12">
+  <div *ngIf="error" class="div">
+    <ul class="alert alert-danger fa-ul">
+      <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+    </ul>
+  </div>
+  <div *ngIf="errors" class="div">
+    <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+      - {{ item.key }}
+      <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="!loading" class="content">
+    <div class="row no-gutters">
+      <div class="col-lg-12 pr-lg-2">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">Produit Settings</h5>
+          </div>
+          <div class="card-body bg-light">
+            <form #produitUpdateForm=ngForm (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="reference">reference</label>
+                    <input class="form-control" id="reference" name="reference" type="text" [(ngModel)]="produit.reference"
+                           required minlength="3" maxlength="255"
+                           pattern="[a-zA-Z0-9 ]*" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="nom">Nom de la produit </label>
+                    <input class="form-control" id="nom" name="nom" type="text" [(ngModel)]="produit.nom"
+                           minlength="3" maxlength="255"
+                           pattern="[a-zA-Z0-9 ]*"
+                           #nom="ngModel">
+                    <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+                      <li *ngIf="nom.errors.pattern">
+                        nom doit contenire que de carectere alphabitique et des chiffres.
+                      </li>
+                      <li *ngIf="nom.errors.minlength">
+                        nom must be at least 3 characters long.
+                      </li>
+                      <li *ngIf="nom.errors.maxlength">
+                        nom must be at max 255 characters long.
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="etat">etat</label>
+                    <select class="form-control" id="etat" name="etat" [(ngModel)]="produit.etat">
+                      <option value="reception produit">reception produit</option>
+                      <option value="en reparation">en reparation</option>
+                      <option value="reparé">reparé</option>
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="nom_client">Nom du client</label>
+                    <input class="form-control" id="nom_client" name="nom_client" type="text" [(ngModel)]="produit.nom_client"
+                           minlength="3" maxlength="255"
+                           pattern="[a-zA-Z0-9 ]*"
+                           #nom_client="ngModel">
+                    <ul *ngIf="nom_client.invalid && (nom_client.dirty || nom_client.touched)" class="alert alert-danger">
+                      <li *ngIf="nom_client.errors.pattern">
+                        nom doit contenire que de carectere alphabitique et des chiffres.
+                      </li>
+                      <li *ngIf="nom_client.errors.minlength">
+                        nom must be at least 3 characters long.
+                      </li>
+                      <li *ngIf="nom_client.errors.maxlength">
+                        nom must be at max 255 characters long.
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group"><label for="telephone">telephone</label>
+                    <input class="form-control" id="telephone" name="telephone" type="text"
+                           [(ngModel)]="produit.telephone" #telephone="ngModel" minlength="8"
+                           maxlength="8" pattern="[0-9]*">
+                    <ul *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)"
+                        class="alert alert-danger">
+                      <li *ngIf="telephone.errors.pattern">
+                        telephone doit contenire que de carectere alphabitique.
+                      </li>
+                      <li *ngIf="telephone.errors.minlength">
+                        telephone must be at least 8 characters long.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group"><label for="email">Email address *</label>
+                    <input class="form-control" type="email" name="email" id="email"
+                           [(ngModel)]="produit.email" #email="ngModel" [email]="true"/>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                      <div *ngIf="email.invalid">
+                        Format mail inalid
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group"><label for="description_agent">description_agent</label>
+                    <textarea class="form-control" id="description_agent" name="description_agent" cols="30" rows="13"
+                              [(ngModel)]="produit.description_agent"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group"><label for="description_client">description_client</label>
+                    <textarea class="form-control" id="description_client" name="description_client" cols="30" rows="13"
+                              [(ngModel)]="produit.description_client"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary" type="submit" [disabled]="produitUpdateForm.invalid || loading">
+                  Update
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button (click)="printPDF()">print</button>
