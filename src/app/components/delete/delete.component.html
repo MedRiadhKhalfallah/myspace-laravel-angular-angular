@@ -1,13 +1,19 @@
 <div class="modal-action__container modal-action--delete">
+  <br>
   <div class="modal-action__content">
     <div class="modal-action__body">
       Are you sure you want to delete this panel?
     </div>
-    <div class="modal-action__footer">
-      <button type="button" class="btn btn-cancel" (click)="cancel()">
+    <br>
+    <img width="35%" src="/assets/img/icons/coix_rouge.png" style="display: block;
+    margin-left: auto;
+    margin-right: auto ">
+    <br>
+    <div class="modal-action__footer float-right">
+      <button type="button" class="btn btn-cancel btn-primary" (click)="cancel()">
         Cancel
       </button>
-      <button type="button" class="btn btn-delete" (click)="delete()">
+      <button type="button" class="btn btn-delete btn-danger" (click)="delete()">
         Delete
       </button>
     </div>

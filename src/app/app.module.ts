@@ -28,7 +28,9 @@ import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import {SocieteModule} from './societe/societe.module';
 import {ProduitModule} from './produit/produit.module';
-
+import {HistoriqueModule} from './historique/historique.module';
+import {EtatModule} from './etat/etat.module';
+import {NgxPrintModule} from 'ngx-print';
 // RECOMMENDED
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserEditComponent } from './components/admin/user/user-edit/user-edit.component';
@@ -36,6 +38,11 @@ import { VerificationMailComponent } from './verification/verification-mail/veri
 import { DeleteComponent } from './components/delete/delete.component';
 import {HttpRequestInterceptor} from "./HttpRequestInterceptor";
 import { HomeComponent } from './home/home.component';
+import { MapComponent } from './map/map.component';
+import {LeafletMarkerClusterModule} from "@asymmetrik/ngx-leaflet-markercluster";
+import { FooterComponent } from './components/footer/footer.component';
+import {StatistiqueEtatComponent} from "./statistique-etat/statistique-etat.component";
+import { RechercheSocieteComponent } from './recherche-societe/recherche-societe.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +60,11 @@ import { HomeComponent } from './home/home.component';
     UserEditComponent,
     VerificationMailComponent,
     DeleteComponent,
-    HomeComponent
+    HomeComponent,
+    MapComponent,
+    FooterComponent,
+    StatistiqueEtatComponent,
+    RechercheSocieteComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +78,8 @@ import { HomeComponent } from './home/home.component';
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-
+    LeafletMarkerClusterModule,
+    NgxPrintModule
   ],
   providers: [JarwisService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
     {provide: 'SnotifyToastConfig', useValue: ToastDefaults}, BsModalRef,

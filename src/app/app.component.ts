@@ -1,6 +1,5 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AuthService} from './services/auth.service';
-import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {TokenService} from './services/token.service';
 
@@ -19,27 +18,33 @@ export class AppComponent implements OnInit, OnChanges {
   public utilisateurRole;
   public adminSocieteRole;
 
-  constructor(private auth: AuthService, private router: Router, private token: TokenService) {
+  constructor(private auth: AuthService,
+              private router: Router,
+              private token: TokenService
+  ) {
     this.adminRole = false;
     this.utilisateurRole = false;
   }
 
   ngOnInit(): void {
-    if (!this.token.loggedIn) {
-      this.router.navigateByUrl('/');
+    if (!this.token.loggedIn()) {
+      // this.router.navigateByUrl('/');
     } else {
       this.rolesString = localStorage.getItem('roles');
       if (this.rolesString) {
         this.roles = this.rolesString.split(",");
       }
+
       this.user = localStorage.getItem('user');
     }
     if (Array.isArray(this.roles)) {
       if (this.roles.indexOf('admin') !== -1) {
         this.adminRole = true && this.token.loggedIn;
-      } else if (this.roles.indexOf('utilisateur') !== -1) {
+      }
+      if (this.roles.indexOf('utilisateur') !== -1) {
         this.utilisateurRole = true && this.token.loggedIn;
-      } else if (this.roles.indexOf('admin_societe') !== -1) {
+      }
+      if (this.roles.indexOf('admin_societe') !== -1) {
         this.adminSocieteRole = true && this.token.loggedIn;
       }
     } else {

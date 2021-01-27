@@ -1,5 +1,5 @@
 <app-loading *ngIf="loading"></app-loading>
-<div class="col-12">
+<div class="col-12" *ngIf="!produitResultat">
   <div *ngIf="error" class="div">
     <ul class="alert alert-danger fa-ul">
       <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
@@ -26,7 +26,8 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="reference">reference</label>
-                    <input class="form-control" id="reference" name="reference" type="text" [(ngModel)]="produit.reference"
+                    <input class="form-control" id="reference" name="reference" type="text"
+                           [(ngModel)]="produit.reference"
                            required minlength="3" maxlength="255"
                            pattern="[a-zA-Z0-9 ]*" disabled>
                   </div>
@@ -57,10 +58,10 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="etat">etat</label>
-                    <select class="form-control" id="etat" name="etat" [(ngModel)]="produit.etat">
-                      <option value="reception produit">reception produit</option>
-                      <option value="en reparation">en reparation</option>
-                      <option value="reparé">reparé</option>
+                    <select  class="form-control" id="etat" name="etat" [(ngModel)]="produit.etat_id">
+                      <option *ngFor="let etat of listEtat" [value]="etat.id">
+                        {{etat.nom}}
+                      </option>
                     </select>
 
                   </div>
@@ -70,11 +71,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="nom_client">Nom du client</label>
-                    <input class="form-control" id="nom_client" name="nom_client" type="text" [(ngModel)]="produit.nom_client"
+                    <input class="form-control" id="nom_client" name="nom_client" type="text"
+                           [(ngModel)]="produit.nom_client"
                            minlength="3" maxlength="255"
                            pattern="[a-zA-Z0-9 ]*"
                            #nom_client="ngModel">
-                    <ul *ngIf="nom_client.invalid && (nom_client.dirty || nom_client.touched)" class="alert alert-danger">
+                    <ul *ngIf="nom_client.invalid && (nom_client.dirty || nom_client.touched)"
+                        class="alert alert-danger">
                       <li *ngIf="nom_client.errors.pattern">
                         nom doit contenire que de carectere alphabitique et des chiffres.
                       </li>
@@ -148,4 +151,107 @@
     </div>
   </div>
 </div>
-<button (click)="printPDF()">print</button>
+<div *ngIf="produitResultat">
+  <div id="pageId">
+    <br>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td width="800px">
+          <img src="{{produitResultat.societe.image_societe_path}}" style="width: 2.5cm;">
+        </td>
+        <td width="200px">
+          <h1>FACTURE</h1>
+          <p><strong>N° {{produitResultat.reference}}</strong></p>
+        </td>
+      </tr>
+    </table>
+    <br><br>
+    <hr>
+    <table>
+      <tr>
+        <td width="500px">
+          <p>
+            <strong>Société</strong><br>
+            <strong>Nom :</strong> {{produitResultat.societe.nom}}<br>
+            <strong>Adresse :</strong>  {{produitResultat.societe.ville}}<br>
+            {{produitResultat.societe.adresse}}<br>
+            {{produitResultat.societe.code_postal}}
+          </p>
+        </td>
+        <td width="500px">
+        </td>
+      </tr>
+    </table>
+    <br>
+    <hr>
+    <table>
+      <tr>
+        <td width="750px">
+        </td>
+        <td width="300px">
+          <p>
+            <strong>Client</strong><br>
+            <strong>Nom</strong> : {{produitResultat.nom_client}}<br>
+            <strong>Tél :</strong> {{produitResultat.telephone}}
+          </p>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <hr>
+    <table border="1" width="100%">
+      <tr>
+        <td width="20%">
+          <strong>Reference produit</strong>
+        </td>
+        <td width="80%">
+          {{produitResultat.reference}}
+        </td>
+      </tr>
+      <tr>
+        <td width="20%">
+          <strong>Nom produit</strong>
+        </td>
+        <td width="80%">
+          {{produitResultat.nom}}
+        </td>
+      </tr>
+      <tr>
+        <td width="20%">
+          <strong>date :</strong>
+        </td>
+        <td width="80%">
+          {{produitResultat.created_at}}
+        </td>
+      </tr>
+      <tr>
+        <td width="20%">
+          <strong>description :</strong>
+        </td>
+        <td width="80%">
+          {{produitResultat.description_client}}
+        </td>
+      </tr>
+    </table>
+    <br><br>
+    <hr>
+
+    <table>
+      <tr>
+        <td width="300px">
+        </td>
+        <td style="text-align:center" width="400px">
+          <strong>maintenanceTN.tn</strong>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-auto">
+    <button printSectionId="pageId" [useExistingCss]="true" ngxPrint class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0 float-right" type="button"><span
+      class="fas fa-print mr-1"> </span>Print
+    </button>
+  </div>
+</div>
+

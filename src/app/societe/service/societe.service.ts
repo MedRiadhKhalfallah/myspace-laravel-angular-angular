@@ -26,7 +26,7 @@ export class SocieteService {
     let headers: HttpHeaders = new HttpHeaders();
     const token = localStorage.getItem('token');
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
-    return this.http.get(this.baseUrlSociete+'/current', {headers});
+    return this.http.get(this.baseUrl +'/societe/current', {headers});
   }
   public getSocieteById(id): any {
     let headers: HttpHeaders = new HttpHeaders();
@@ -77,6 +77,18 @@ export class SocieteService {
     const token = localStorage.getItem('token');
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
     return this.http.post(this.baseUrl + '/societeSearch', searchobject, {headers});
+  }
+  public societeTopSearch(searchobject): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.post(this.baseUrl + '/societeTopSearch', searchobject, {headers});
+  }
+  public societeMapSearch(searchobject): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.post(this.baseUrl + '/societeMapSearch', searchobject, {headers});
   }
 
 
