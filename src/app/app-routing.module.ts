@@ -18,6 +18,10 @@ import {SocieteViewComponent} from "./societe/societe-view/societe-view.componen
 import {SocieteCreateComponent} from "./societe/societe-create/societe-create.component";
 import {ProduitIndexComponent} from "./produit/produit-index/produit-index.component";
 import {HomeComponent} from "./home/home.component";
+import {MapComponent} from "./map/map.component";
+import {HistoriqueIndexComponent} from "./historique/historique-index/historique-index.component";
+import {EtatIndexComponent} from "./etat/etat-index/etat-index.component";
+import {RechercheSocieteComponent} from "./recherche-societe/recherche-societe.component";
 
 const routes: Routes = [
   {
@@ -84,6 +88,10 @@ const routes: Routes = [
     canActivate: [AfterLoginService]
   },
   {
+    path: 'societe/all',
+    component: RechercheSocieteComponent
+  },
+  {
     path: 'produits',
     component: ProduitIndexComponent,
     canActivate: [AfterLoginService]
@@ -91,6 +99,20 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'map',
+    component: MapComponent
+  },
+  {
+    path: 'historiques',
+    component: HistoriqueIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'etats',
+    component: EtatIndexComponent,
+    canActivate: [AfterLoginService]
   }
 
 ];

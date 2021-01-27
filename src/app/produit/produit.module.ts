@@ -11,19 +11,23 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {AppRoutingModule} from "../app-routing.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {ProduitService} from "./service/produit.service";
+import {NgxPrintModule} from "ngx-print";
 
 
 
 @NgModule({
-  declarations: [ProduitCreateComponent, ProduitIndexComponent, ProduitListComponent, ProduitSearshComponent, ProduitViewComponent],
-  imports: [
-    CommonModule,
-    AppModule,
-    FormsModule,
-    ModalModule,
-    AppRoutingModule,
-    BrowserModule,
-  ],
-  providers: [ProduitService]
+    declarations: [ProduitCreateComponent, ProduitIndexComponent, ProduitListComponent, ProduitSearshComponent, ProduitViewComponent],
+    imports: [
+        CommonModule,
+        AppModule,
+        FormsModule,
+        ModalModule,
+        AppRoutingModule,
+        BrowserModule,
+        NgxPrintModule,
+    ],
+    exports: [
+    ],
+    providers: [ProduitService]
 })
 export class ProduitModule { }

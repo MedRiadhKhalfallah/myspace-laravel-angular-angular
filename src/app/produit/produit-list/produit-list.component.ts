@@ -16,6 +16,7 @@ export class ProduitListComponent implements OnInit {
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
   @ViewChild('childModalView', {static: true}) childModalView: ModalDirective;
   @ViewChild('childModalDelete', {static: true}) childModalDelete: ModalDirective;
+  @ViewChild('factureModal', {static: true}) factureModal: ModalDirective;
 
   public error;
   public produit;
@@ -47,6 +48,16 @@ export class ProduitListComponent implements OnInit {
       this.childModalView.show();
 
     }
+  }
+  showFactureModal(produit): void {
+    if (produit) {
+      this.produit = produit;
+      this.factureModal.show();
+
+    }
+  }
+  hideFactureModal(): void {
+    this.factureModal.hide();
   }
 
   hideChildModalView(): void {

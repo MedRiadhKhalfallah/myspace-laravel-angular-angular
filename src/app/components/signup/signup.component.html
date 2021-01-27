@@ -126,24 +126,14 @@
                     class="form-control" type="password" id="password_confirmation" name="password_confirmation"
                     [(ngModel)]="form.password_confirmation" (ngModelChange)="mustMatch($event)"
                     #confirmPassword="ngModel"/>
-                    <h1>!!!</h1>
-<!--
-                    <ul *ngIf="confirmPassword.errors && confirmPassword.touched" class="alert alert-danger">
-                      <li *ngIf="confirmPassword.errors.required">
-                        telephone is required.
-                      </li>
-                      <li *ngIf="confirmPassword.errors.incorrect">
-                        passwor not confirmed
-                      </li>
-                    </ul>
--->
-
                   </div>
                 </div>
+<!--
                 <div class="custom-control custom-checkbox"><input class="custom-control-input" type="checkbox"
                                                                    id="card-register-checkbox"/><label
                   class="custom-control-label" for="card-register-checkbox">I accept the <a href="#!">terms </a>and <a
                   href="#!">privacy policy</a></label></div>
+-->
 
                 <div class="form-group">
                   <button class="btn btn-primary btn-block mt-3" type="submit" name="submit"
@@ -151,22 +141,6 @@
                   </button>
                 </div>
               </form>
-              <div class="w-100 position-relative mt-4">
-                <hr class="text-300"/>
-                <div
-                  class="position-absolute absolute-centered t-0 px-3 bg-white text-sans-serif fs--1 text-500 text-nowrap">
-                  or login with
-                </div>
-              </div>
-              <div class="form-group mb-0">
-                <div class="row no-gutters">
-                  <div class="col-sm-6 pr-sm-1"><a class="btn btn-outline-google-plus btn-sm btn-block mt-2"
-                                                   href="#"><span class="fab fa-google-plus-g mr-2"
-                                                                  data-fa-transform="grow-8"></span> google</a></div>
-                  <div class="col-sm-6 pl-sm-1"><a class="btn btn-outline-facebook btn-sm btn-block mt-2" href="#"><span
-                    class="fab fa-facebook-square mr-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                </div>
-              </div>
               <div class="w-100 position-relative mt-4">
                 <hr class="text-300"/>
                 <div

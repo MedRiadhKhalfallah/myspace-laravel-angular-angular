@@ -62,4 +62,10 @@ export class ProduitService {
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
     return this.http.post(this.baseUrl + '/produitSearch', searchobject, {headers});
   }
+  public getProduisByEtat(): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.get(this.baseUrl + '/produitsByEtat', {headers});
+  }
 }

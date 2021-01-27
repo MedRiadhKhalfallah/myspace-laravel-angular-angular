@@ -24,6 +24,9 @@
             <button class="btn btn-info" type="button" (click)="showChildModalView(produit)"
                     style="margin-right: 2px;"><span
               class='far fa-eye'></span></button>
+            <button class="btn btn-info" type="button" (click)="showFactureModal(produit)"
+                    style="margin-right: 2px;"><span
+              class='far fa-file-alt'></span></button>
             <button class="btn btn-warning" type="button" (click)="showChildModal(produit)"
                     style="margin-right: 2px;"><span
               class='fas fa-edit'></span></button>
@@ -54,6 +57,22 @@
       </div>
       <div class="modal-body">
         <app-produit-create [produit]="produit" (loadDataEdit)="handleResponse({},produit.id)"></app-produit-create>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #factureModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-facture-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-facture-name" class="modal-title pull-left">Facture</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideFactureModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-produit-create [produitResultat]="produit"></app-produit-create>
       </div>
     </div>
   </div>

@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="error" class="div">
+      <ul class="alert alert-danger fa-ul">
+        <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+      </ul>
+    </div>
+    <div *ngIf="errors" class="div">
+      <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+        - {{ item.key }}
+        <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+        </li>
+      </ul>
+    </div>
+    <div class="form-row">
+
+      <form #etatCreateForm=ngForm (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom" [(ngModel)]="etat.nom"
+                 required minlength="4"
+                 pattern="[a-zA-Z ]*"
+                 #nom="ngModel"/>
+          <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+            <li *ngIf="nom.errors.pattern">
+              Prename doit contenire que de carectere alphabitique.
+            </li>
+            <li *ngIf="nom.errors.required">
+              Prename is required.
+            </li>
+            <li *ngIf="nom.errors.minlength">
+              name must be at least 4 characters long.
+            </li>
+          </ul>
+        </div>
+        <div class="form-group">
+          <label for="order">order</label>
+          <input class="form-control" id="order" name="order" type="number" placeholder="Nom" [(ngModel)]="etat.order"
+                 required
+                 #order="ngModel"/>
+          <ul *ngIf="order.invalid && (order.dirty || order.touched)" class="alert alert-danger">
+            <li *ngIf="order.errors.required">
+              Prename is required.
+            </li>
+          </ul>
+        </div>
+        <button class="btn btn-warning mb-3 float-right" type="submit" [disabled]="etatCreateForm.invalid || loading">
+          Enregistrer
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

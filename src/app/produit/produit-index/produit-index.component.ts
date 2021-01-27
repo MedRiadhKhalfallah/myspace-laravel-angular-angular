@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {ProduitService} from "../../produit/service/produit.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
 
 @Component({
@@ -21,17 +21,26 @@ export class ProduitIndexComponent implements OnInit {
   public offset;
   public loading = false;
   public loadingShowMore = false;
+  public etat_id;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
   constructor(private produitService: ProduitService,
               private router: Router,
+              private activatedRoute: ActivatedRoute,
               @Inject(DOCUMENT) private document: Document) {
   }
 
   ngOnInit(): void {
     this.limit = 10;
     this.offset = 0;
-    this.loadData({});
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.etat_id = params['etat'];
+    });
+    if(this.etat_id){
+      this.loadData({'etat_id':this.etat_id});
+    }else{
+      this.loadData({});
+    }
   }
 
   showChildModal(): void {
