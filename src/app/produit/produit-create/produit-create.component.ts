@@ -95,7 +95,7 @@ export class ProduitCreateComponent implements OnInit {
       });
     this.loading = false;
     this.produitResultat = data.data;
-    // this.printPDF();
+    return this.loadDataAjout.emit({});
   }
 
   public handleUpdateResponse(data): any {
@@ -108,6 +108,7 @@ export class ProduitCreateComponent implements OnInit {
         progressAnimation: 'increasing'
       });
     this.loading = false;
+    return this.loadDataEdit.emit({});
   }
 
   public handleGetSocieteResponse(data): any {

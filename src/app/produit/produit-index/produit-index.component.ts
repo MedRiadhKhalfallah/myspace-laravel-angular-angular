@@ -3,6 +3,7 @@ import {ModalDirective} from "ngx-bootstrap/modal";
 import {ProduitService} from "../../produit/service/produit.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
+import {EtatService} from "../../etat/service/etat.service";
 
 @Component({
   selector: 'app-produit-index',
@@ -13,26 +14,27 @@ export class ProduitIndexComponent implements OnInit {
 
 
   public produitList = [];
+  public listEtat = [];
   public error;
-  public limit;
-  public searchobject;
+  public searchobject = {'limit': 10, 'offset': 0};
   public first = true;
   public disableShowMore = false;
-  public offset;
   public loading = false;
   public loadingShowMore = false;
   public etat_id;
+  public societeStorage;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
   constructor(private produitService: ProduitService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
+              private etatService: EtatService,
               @Inject(DOCUMENT) private document: Document) {
   }
 
   ngOnInit(): void {
-    this.limit = 10;
-    this.offset = 0;
+    this.loading=true;
+    this.societeStorage = localStorage.getItem('societe');
     this.activatedRoute.queryParams.subscribe(params => {
       this.etat_id = params['etat'];
     });
@@ -41,6 +43,14 @@ export class ProduitIndexComponent implements OnInit {
     }else{
       this.loadData({});
     }
+
+  }
+  public handleGetEtatResponse(data): any {
+    this.loading = false;
+
+    this.listEtat = data;
+  }
+  public handleGetEtatError(data): any {
   }
 
   showChildModal(): void {
@@ -61,34 +71,39 @@ export class ProduitIndexComponent implements OnInit {
   }
 
   public handleResponse(data): any {
-    this.loading = false;
     this.first = false;
     if (this.loadingShowMore) {
       this.produitList = this.produitList.concat(data);
     } else {
       this.produitList = data;
     }
-    if (data.length < this.limit) {
+    if (data.length < this.searchobject.limit) {
       this.disableShowMore = true;
     } else {
       this.disableShowMore = false;
     }
     this.loadingShowMore = false;
+
+    this.etatService.getEtatList().subscribe(
+      data => this.handleGetEtatResponse(data),
+      error => this.handleGetEtatError(error)
+    );
+
   }
 
   public showMore(): any {
     this.loadingShowMore = true;
-    this.offset = this.produitList.length;
+    this.searchobject.offset = this.produitList.length;
     this.loadData(this.searchobject);
   }
 
   public loadData(searchobject: any): any {
-    this.hideChildModal();
+    //this.hideChildModal();
     this.loading = true;
-    this.searchobject = searchobject;
-    searchobject.limit = this.limit;
-    searchobject.offset = this.offset;
-    this.produitService.produitSearchWithCriteria(searchobject).subscribe(
+    if (Object.keys(searchobject).length != 0) {
+      this.searchobject = searchobject;
+    }
+    this.produitService.produitSearchWithCriteria(this.searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );

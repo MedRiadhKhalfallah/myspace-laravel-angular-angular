@@ -5,7 +5,7 @@
         <div class="card-header">
           <h5 class="mb-0">Historique</h5>
         </div>
-        <div class="card-body bg-light">
+        <div class="card-body bg-light" *ngIf="historique">
 
           <ul>
             <li>Utilisateur : {{historique.user_nom}}</li>

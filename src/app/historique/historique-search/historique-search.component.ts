@@ -10,7 +10,9 @@ export class HistoriqueSearchComponent implements OnInit {
   @Output() searchHistorique: EventEmitter<any> = new EventEmitter<any>();
 
   public form = {
-    user_nom: null
+    user_nom: null,
+    'limit': 10,
+    'offset': 0
   };
 
   constructor() {

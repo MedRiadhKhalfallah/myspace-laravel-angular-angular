@@ -11,7 +11,9 @@ export class ProduitSearshComponent implements OnInit {
   @Output() searchProduit: EventEmitter<any> = new EventEmitter<any>();
 
   public form = {
-    nom: null
+    nom: null,
+    'limit': 10,
+    'offset': 0
   };
 
   constructor() {

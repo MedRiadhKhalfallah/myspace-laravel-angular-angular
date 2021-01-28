@@ -17,11 +17,11 @@
     <div class="row">
       <div class="col-12">
         <div class="card mb-3 btn-reveal-trigger">
-          <div class="card-header position-relative min-vh-25 mb-8">
-            <div class="row" *ngIf="societe==null">
-              vous pouvez ajouter une photo pour votre entreprise apres la creation
-            </div>
-            <div class="cover-image" *ngIf="societe">
+          <div class="card-header position-relative min-vh-25 mb-8" *ngIf="societe.id==null">
+            vous pouvez ajouter une photo pour votre entreprise apres la creation
+          </div>
+          <div class="card-header position-relative min-vh-25 mb-8" *ngIf="societe.id!=null">
+            <div class="cover-image">
               <div class="bg-holder rounded-soft rounded-bottom-0"
                    style="background-image:url({{societe.image_coverture_path}});"></div>
               <!--/.bg-holder-->
@@ -47,7 +47,7 @@
       <div class="col-lg-12 pr-lg-2">
         <div class="card mb-3">
           <div class="card-header">
-            <h5 class="mb-0">Societe Settings</h5>
+            <h5 class="mb-0">Creation société</h5>
           </div>
           <div class="card-body bg-light">
             <form #societeUpdateForm=ngForm (ngSubmit)="onSubmit()">
@@ -285,7 +285,8 @@
                 </div>
               </div>
               <div class="col-12 d-flex justify-content-end">
-                <a *ngIf="societe" class="btn btn-primary" routerLink="/societe/view/{{societe.id}}" target="_blank">
+                <a *ngIf="societe.id!=null" class="btn btn-primary" routerLink="/societe/view/{{societe.id}}"
+                   target="_blank">
                   afficher en tant que visiteur
                 </a>
                 <button class="btn btn-primary" type="submit" [disabled]="societeUpdateForm.invalid || loadingUpdate">
@@ -295,28 +296,6 @@
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row no-gutters">
-  <div class="col-lg-12 pr-lg-2">
-    <div class="card mb-3">
-      <div class="card-body bg-light">
-        <div class="row">
-          <div class="col-12">
-            <div id="mapid"></div>
-          </div>
-          <br>
-          <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-primary" (click)="onSubmit()" [disabled]="loadingUpdate">
-              Update position
-              <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
-                    aria-hidden="true"></span>
-            </button>
           </div>
         </div>
       </div>

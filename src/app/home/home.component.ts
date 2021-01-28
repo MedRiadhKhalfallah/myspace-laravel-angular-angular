@@ -5,11 +5,9 @@ import {SocieteService} from "../societe/service/societe.service";
 import {DatePipe} from "@angular/common";
 import {TokenService} from "../services/token.service";
 
-const iconRetinaUrl = '/assets/lib/leaflet/images/marker-icon-2x.png';
 const iconUrl = '/assets/lib/leaflet/images/marker-icon.png';
 const shadowUrl = '/assets/lib/leaflet/images/marker-shadow.png';
 const iconDefault = L.icon({
-  iconRetinaUrl,
   iconUrl,
   shadowUrl,
   iconSize: [25, 41],

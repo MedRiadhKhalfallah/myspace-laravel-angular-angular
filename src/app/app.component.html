@@ -82,6 +82,12 @@
                 class="fas fa-store"></span></span><span class="nav-link-text"> Societe</span></div>
             </a>
           </li>
+          <li class="nav-item" *ngIf="societeStorage">
+            <a class="nav-link" routerLink="societe/map" *ngIf="adminSocieteRole || adminRole">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-map-marked-alt"></span></span><span class="nav-link-text"> Map</span></div>
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="produits" *ngIf="adminSocieteRole || adminRole">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span

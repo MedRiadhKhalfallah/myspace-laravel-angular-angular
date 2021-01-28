@@ -11,11 +11,12 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {SocieteService} from "./service/societe.service";
 import {AppRoutingModule} from "../app-routing.module";
 import {BrowserModule} from "@angular/platform-browser";
+import { SocieteMapComponent } from './societe-map/societe-map.component';
 
 
 
 @NgModule({
-  declarations: [SocieteCreateComponent, SocieteIndexComponent, SocieteListComponent, SocieteSearchComponent, SocieteViewComponent],
+  declarations: [SocieteCreateComponent, SocieteIndexComponent, SocieteListComponent, SocieteSearchComponent, SocieteViewComponent, SocieteMapComponent],
     imports: [
         CommonModule,
         AppModule,

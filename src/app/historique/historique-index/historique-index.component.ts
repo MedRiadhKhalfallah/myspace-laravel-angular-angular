@@ -11,11 +11,9 @@ export class HistoriqueIndexComponent implements OnInit {
 
   public historiqueList = [];
   public error;
-  public limit;
-  public searchobject;
+  public searchobject = {'limit': 10, 'offset': 0};
   public first = true;
   public disableShowMore = false;
-  public offset;
   public loading = false;
   public loadingShowMore = false;
 
@@ -24,8 +22,6 @@ export class HistoriqueIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.limit = 10;
-    this.offset = 0;
     this.loadData({});
   }
 
@@ -46,7 +42,7 @@ export class HistoriqueIndexComponent implements OnInit {
     } else {
       this.historiqueList = data;
     }
-    if (data.length < this.limit) {
+    if (data.length < this.searchobject.limit) {
       this.disableShowMore = true;
     } else {
       this.disableShowMore = false;
@@ -56,16 +52,16 @@ export class HistoriqueIndexComponent implements OnInit {
 
   public showMore(): any {
     this.loadingShowMore = true;
-    this.offset = this.historiqueList.length;
+    this.searchobject.offset = this.historiqueList.length;
     this.loadData(this.searchobject);
   }
 
   public loadData(searchobject: any): any {
     this.loading = true;
-    this.searchobject = searchobject;
-    searchobject.limit = this.limit;
-    searchobject.offset = this.offset;
-    this.historiqueService.historiqueSearchWithCriteria(searchobject).subscribe(
+    if (Object.keys(searchobject).length != 0) {
+      this.searchobject = searchobject;
+    }
+    this.historiqueService.historiqueSearchWithCriteria(this.searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );

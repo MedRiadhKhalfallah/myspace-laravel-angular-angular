@@ -54,7 +54,7 @@ export class SignupComponent implements OnInit {
   handleResponse(data) {
     localStorage.setItem('roles', data.roles);
     localStorage.setItem('user', data.user);
-    localStorage.setItem('societeId', data.societe_id);
+    localStorage.setItem('societe', data.societe);
     this.token.handle(data.access_token);
     this.auth.changeAuthStatus(true);
     this.router.navigateByUrl('/profile');

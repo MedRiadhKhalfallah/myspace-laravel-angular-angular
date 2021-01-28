@@ -14,11 +14,9 @@ export class MarqueIndexComponent implements OnInit {
 
   public marqueList = [];
   public error;
-  public limit;
-  public searchobject;
+  public searchobject = {'limit': 10, 'offset': 0};
   public first = true;
   public disableShowMore = false;
-  public offset;
   public loading = false;
   public loadingShowMore = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
@@ -29,19 +27,17 @@ export class MarqueIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-/*
-    window.addEventListener('scroll', function (e) {
-      var a = this.document.documentElement.scrollTop;
-      var b = this.document.documentElement.scrollHeight - this.document.documentElement.clientHeight;
-      var c = a / b;
-      if (c > 0.8) {
-        console.log('click');
-        this.document.getElementById('showMore').click();
-      }
-    });
-*/
-    this.limit = 10;
-    this.offset = 0;
+    /*
+        window.addEventListener('scroll', function (e) {
+          var a = this.document.documentElement.scrollTop;
+          var b = this.document.documentElement.scrollHeight - this.document.documentElement.clientHeight;
+          var c = a / b;
+          if (c > 0.8) {
+            console.log('click');
+            this.document.getElementById('showMore').click();
+          }
+        });
+    */
     this.loadData({});
   }
 
@@ -70,7 +66,7 @@ export class MarqueIndexComponent implements OnInit {
     } else {
       this.marqueList = data;
     }
-    if (data.length < this.limit) {
+    if (data.length < this.searchobject.limit) {
       this.disableShowMore = true;
     } else {
       this.disableShowMore = false;
@@ -80,17 +76,17 @@ export class MarqueIndexComponent implements OnInit {
 
   public showMore(): any {
     this.loadingShowMore = true;
-    this.offset = this.marqueList.length;
+    this.searchobject.offset = this.marqueList.length;
     this.loadData(this.searchobject);
   }
 
   public loadData(searchobject: any): any {
     this.hideChildModal();
     this.loading = true;
-    this.searchobject = searchobject;
-    searchobject.limit = this.limit;
-    searchobject.offset = this.offset;
-    this.marqueService.marqueSearchWithCriteria(searchobject).subscribe(
+    if (Object.keys(searchobject).length != 0) {
+      this.searchobject = searchobject;
+    }
+    this.marqueService.marqueSearchWithCriteria(this.searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );

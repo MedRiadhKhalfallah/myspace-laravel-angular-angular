@@ -6,17 +6,19 @@ import { EtatListComponent } from './etat-list/etat-list.component';
 import {AppModule} from "../app.module";
 import {FormsModule} from "@angular/forms";
 import {ModalModule} from "ngx-bootstrap/modal";
+import {RouterModule} from "@angular/router";
 
 
 
 @NgModule({
   declarations: [EtatCreateComponent, EtatIndexComponent, EtatListComponent],
-  imports: [
-    CommonModule,
-    AppModule,
-    FormsModule,
-    ModalModule,
+    imports: [
+        CommonModule,
+        AppModule,
+        FormsModule,
+        ModalModule,
+        RouterModule,
 
-  ]
+    ]
 })
 export class EtatModule { }

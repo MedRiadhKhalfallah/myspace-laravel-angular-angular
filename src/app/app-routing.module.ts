@@ -22,6 +22,7 @@ import {MapComponent} from "./map/map.component";
 import {HistoriqueIndexComponent} from "./historique/historique-index/historique-index.component";
 import {EtatIndexComponent} from "./etat/etat-index/etat-index.component";
 import {RechercheSocieteComponent} from "./recherche-societe/recherche-societe.component";
+import {SocieteMapComponent} from "./societe/societe-map/societe-map.component";
 
 const routes: Routes = [
   {
@@ -85,6 +86,11 @@ const routes: Routes = [
   {
     path: 'societe/create',
     component: SocieteCreateComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'societe/map',
+    component: SocieteMapComponent,
     canActivate: [AfterLoginService]
   },
   {

@@ -9,7 +9,9 @@ export class MarqueSearchComponent implements OnInit {
   @Output() searchMarque: EventEmitter<any> = new EventEmitter<any>();
 
   public form = {
-    nom: null
+    'nom': null,
+    'limit': 10,
+    'offset': 0
   };
 
   constructor() {

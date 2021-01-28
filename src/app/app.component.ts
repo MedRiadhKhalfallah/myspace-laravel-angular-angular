@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnChanges {
   public adminRole;
   public utilisateurRole;
   public adminSocieteRole;
+  public societeStorage;
 
   constructor(private auth: AuthService,
               private router: Router,
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit, OnChanges {
     if (!this.token.loggedIn()) {
       // this.router.navigateByUrl('/');
     } else {
+      this.societeStorage = localStorage.getItem('societe');
       this.rolesString = localStorage.getItem('roles');
       if (this.rolesString) {
         this.roles = this.rolesString.split(",");

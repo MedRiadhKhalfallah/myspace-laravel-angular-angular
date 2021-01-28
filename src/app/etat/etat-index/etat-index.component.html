@@ -10,16 +10,27 @@
     <li class="breadcrumb-item active" aria-current="page" routerLink="etats">Etats</li>
   </ol>
 </nav>
-<div>
-  <button type="button" class="btn btn-primary float-right" (click)="showChildModal()">Ajouter<span
-    class="fas fa-plus-circle"></span></button>
+<div *ngIf="!societeStorage">
+  <ul class="alert alert-danger fa-ul">
+    <li>
+      <span class="fa-li">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>vous devez cree votre societe . pour créer <a routerLink="/societe/create">cliquer ici</a>
+    </li>
+  </ul>
 </div>
-<br>
-<app-loading *ngIf="loading"></app-loading>
-<br>
-<app-etat-list *ngIf="!loading" [etatList]="etatList" (loadDataDelete)="loadData()"></app-etat-list>
-<br>
-<br>
+<div *ngIf="societeStorage">
+  <div>
+    <button type="button" class="btn btn-primary float-right" (click)="showChildModal()">Ajouter<span
+      class="fas fa-plus-circle"></span></button>
+  </div>
+  <br>
+  <app-loading *ngIf="loading"></app-loading>
+  <br>
+  <app-etat-list *ngIf="!loading" [etatList]="etatList" (loadDataDelete)="loadData()"></app-etat-list>
+  <br>
+  <br>
+</div>
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
      role="dialog" aria-labelledby="dialog-child-name">
   <div class="modal-dialog modal-lg">

@@ -38,7 +38,7 @@
                          [value]="produit.nom" disabled>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6" *ngIf="produit.etat">
                 <div class="form-group">
                   <label for="etat">etat</label>
                   <input class="form-control" id="etat" name="etat" type="text"

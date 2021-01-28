@@ -13,6 +13,7 @@ export class EtatIndexComponent implements OnInit {
 
   public etatList = [];
   public error;
+  public societeStorage;
   public loading = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
@@ -22,6 +23,7 @@ export class EtatIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.societeStorage = localStorage.getItem('societe');
     this.loadData();
   }
 
