@@ -1,0 +1,96 @@
+<div class="col-12">
+  <div *ngIf="error" class="div">
+    <ul class="alert alert-danger fa-ul">
+      <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+    </ul>
+  </div>
+  <div *ngIf="errors" class="div">
+    <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+      - {{ item.key }}
+      <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+      </li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <div class="row no-gutters">
+      <div class="col-lg-12 pr-lg-2">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">Facturation de la société</h5>
+          </div>
+          <div class="card-body bg-light">
+            <form #societeUpdateForm=ngForm (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="reference_societe">Référence de la societe</label>
+                    <input class="form-control" id="reference_societe" name="reference_societe" type="text"
+                           [value]="societe.reference_societe" disabled>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="nom">Nom de la societe *</label>
+                    <input class="form-control" id="nom" name="nom" type="text" [value]="societe.nom"
+                           disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="card-email">Adresse e-mail
+                      *</label>
+                    <input class="form-control" type="email" name="email" id="card-email"
+                           [value]="societe.email" disabled/>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="telephone">Téléphone mobile *</label>
+                    <input class="form-control" id="telephone" name="telephone" type="text"
+                           [value]="societe.telephone_mobile" disabled>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group"><label for="telephone_fix">Téléphone fix</label>
+                    <input class="form-control" id="telephone_fix" name="telephone_fix" type="text"
+                           [value]="societe.telephone_fix" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+
+                  <div class="form-group">
+                    <label for="date_de_naissance">Date de naissance</label>
+                    <input type="text"
+                           class="form-control"
+                           #dp="bsDatepicker"
+                           bsDatepicker
+                           [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' ,containerClass: 'theme-blue'}"
+                           id="date_de_naissance" name="date_de_naissance"
+                           [(ngModel)]="societe.date_fin_abonnement"
+                           autocomplete="off">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary" type="submit" [disabled]="societeUpdateForm.invalid || loadingUpdate">
+                  Valider
+                  <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="reference_produit">Reference :</label>
+                  <label for="reference_produit">Référence du produit:</label>
                   <input class="form-control" id="reference_produit" name="reference_produit" type="text"
                          [(ngModel)]="reference" minlength="13" maxlength="13" pattern="[0-9]{13}"
                          required  #reference_produit="ngModel" placeholder="0000000000000" />
@@ -26,7 +26,7 @@
                       Username must be at max 13 characters long.
                     </li>
                     <li *ngIf="reference_produit.errors.required">
-                      ce champ est obligatoire
+                      Ce champ est obligatoire
                     </li>
                   </ul>
                 </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-12 d-flex justify-content-end">
               <button class="btn btn-primary" type="submit" [disabled]="produitReferenceForm.invalid || loading">Rechercher
-                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                <span *ngIf="loadingProduit" class="spinner-border spinner-border-sm" role="status"
                       aria-hidden="true"></span>
               </button>
             </div>
@@ -56,11 +56,11 @@
                     <h6 class="font-weight-semi-bold ls mb-3 text-uppercase">Produit</h6>
                     <div class="row">
                       <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Reference</p>
+                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Référence</p>
                       </div>
                       <div class="col">{{produit.reference}}</div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="produit.etat">
                       <div class="col-5 col-sm-4">
                         <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Etat</p>
                       </div>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="row">
                       <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Tél portable</p>
+                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Tél</p>
                       </div>
                       <div class="col"><a href="tel:{{produit.societe.telephone_mobile}}">{{produit.societe.telephone_mobile}}</a></div>
                     </div>
@@ -150,12 +150,13 @@
       <div class="sticky-top sticky-sidebar">
         <div class="card mb-3">
           <div class="card-header">
-            <h5 class="mb-0">Milleur societe pour ce mois</h5>
+            <h5 class="mb-0">Meilleure société pour ce mois</h5>
           </div>
-          <div class="card-body bg-light">
+          <app-loading *ngIf="loading"></app-loading>
+          <div class="card-body bg-light" *ngIf="!loading">
             <div class="media" *ngFor="let topSociete of topSocietes">
               <div class="avatar avatar-3xl">
-                <img class="rounded-circle" src="{{topSociete.image_societe_path}}" alt=""/>
+                <img class="rounded-circle" src="{{topSociete.image_societe_path}}" alt="{{topSociete.nom}}"/>
               </div>
               <div class="media-body ml-2">
                 <h6 class="mb-0"><a routerLink="societe/view/{{topSociete.id}}">{{topSociete.nom}}</a>

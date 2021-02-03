@@ -14,13 +14,10 @@
   </div>
 
   <div *ngIf="!loading" class="content">
-    <div class="row">
+    <div class="row" *ngIf="societe.id!=null">
       <div class="col-12">
         <div class="card mb-3 btn-reveal-trigger">
-          <div class="card-header position-relative min-vh-25 mb-8" *ngIf="societe.id==null">
-            vous pouvez ajouter une photo pour votre entreprise apres la creation
-          </div>
-          <div class="card-header position-relative min-vh-25 mb-8" *ngIf="societe.id!=null">
+          <div class="card-header position-relative min-vh-25 mb-8">
             <div class="cover-image">
               <div class="bg-holder rounded-soft rounded-bottom-0"
                    style="background-image:url({{societe.image_coverture_path}});"></div>
@@ -28,16 +25,17 @@
               <input class="d-none" id="upload-cover-image" type="file" (change)="onFileCovertureSelect($event)"><label
               class="cover-image-file-input"
               for="upload-cover-image"><span
-              class="fas fa-camera mr-2"></span><span>Change cover photo</span></label>
+              class="fas fa-camera mr-2"></span><span>Changer la photo de couverture</span></label>
             </div>
             <div class="avatar avatar-5xl avatar-profile shadow-sm img-thumbnail rounded-circle" *ngIf="societe">
-              <div class="h-100 w-100 rounded-circle overflow-hidden position-relative"><img
-                src="{{societe.image_societe_path}}" width="200" alt="" data-dz-thumbnail>
+              <div class="h-100 w-100 rounded-circle overflow-hidden position-relative">
+                <img src="{{societe.image_societe_path}}" width="200"
+                     alt="{{societe.nom}}}" data-dz-thumbnail>
                 <input class="d-none" id="profile-image" type="file" (change)="onFileSelect($event)">
                 <label
                   class="mb-0 overlay-icon d-flex flex-center" for="profile-image"><span
                   class="bg-holder overlay overlay-0"></span><span class="z-index-1 text-white text-center fs--1"><span
-                  class="fas fa-camera"></span><span class="d-block">Update</span></span></label></div>
+                  class="fas fa-camera"></span><span class="d-block">Changer la photo de profile</span></span></label></div>
             </div>
           </div>
         </div>
@@ -47,24 +45,36 @@
       <div class="col-lg-12 pr-lg-2">
         <div class="card mb-3">
           <div class="card-header">
-            <h5 class="mb-0">Creation société</h5>
+            <h5 class="mb-0">Creation de la société</h5>
           </div>
           <div class="card-body bg-light">
             <form #societeUpdateForm=ngForm (ngSubmit)="onSubmit()">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="adresse">Nom de la societe *</label>
+                    <label for="reference_societe">Référence de la societe</label>
+                    <input class="form-control" id="reference_societe" name="reference_societe" type="text"
+                           [value]="societe.reference_societe" disabled>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="notre_code_invitation">Code de parrainage</label>
+                    <input class="form-control" id="notre_code_invitation" name="notre_code_invitation" type="text"
+                           [value]="societe.notre_code_invitation" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="nom">Nom de la societe *</label>
                     <input class="form-control" id="nom" name="nom" type="text" [(ngModel)]="societe.nom"
                            required minlength="3" maxlength="255"
-                           pattern="[a-zA-Z0-9 ]*"
                            #nom="ngModel">
                     <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
-                      <li *ngIf="nom.errors.pattern">
-                        nom doit contenire que de carectere alphabitique et des chiffres.
-                      </li>
                       <li *ngIf="nom.errors.required">
-                        nom is required.
+                        Ce champ est obligatoire
                       </li>
                       <li *ngIf="nom.errors.minlength">
                         nom must be at least 3 characters long.
@@ -78,6 +88,20 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
+                    <label for="etat">Secteur d'activité *</label>
+                    <select class="form-control" id="etat" name="etat" [(ngModel)]="societe.type_activite_id" required>
+                      <option *ngFor="let typeActivite of listTypeActivite" [value]="typeActivite.id">
+                        {{typeActivite.nom}}
+                      </option>
+                    </select>
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
                     <label for="adresse">Adresse *</label>
                     <input class="form-control" id="adresse" name="adresse" type="text" [(ngModel)]="societe.adresse"
                            required minlength="3" maxlength="255"
@@ -87,7 +111,7 @@
                         nom doit contenire que de carectere alphabitique et des chiffres.
                       </li>
                       <li *ngIf="adresse.errors.required">
-                        nom is required.
+                        Ce champ est obligatoire
                       </li>
                       <li *ngIf="adresse.errors.minlength">
                         nom must be at least 3 characters long.
@@ -99,13 +123,12 @@
 
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="complement_adresse">Complement adresse</label>
+                    <label for="complement_adresse">Complément d'adresse</label>
                     <input class="form-control" id="complement_adresse" name="complement_adresse" type="text"
                            [(ngModel)]="societe.complement_adresse"
+                           placeholder="Appartement, étage, porte, couloir"
                            minlength="3" maxlength="255"
                            #complement_adresse="ngModel">
                     <ul *ngIf="complement_adresse.invalid && (complement_adresse.dirty || complement_adresse.touched)"
@@ -123,6 +146,9 @@
 
                   </div>
                 </div>
+
+              </div>
+              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="code_postal">Code postal *</label>
@@ -137,10 +163,10 @@
                         nom doit contenire que des chiffres.
                       </li>
                       <li *ngIf="code_postal.errors.required">
-                        nom is required.
+                        Ce champ est obligatoire
                       </li>
                       <li *ngIf="code_postal.errors.minlength">
-                        nom must be at least 4 characters long.
+                        Ce champ doit comporter 4 chiffres
                       </li>
                       <li *ngIf="code_postal.errors.maxlength">
                         nom must be at max 4 characters long.
@@ -149,24 +175,18 @@
 
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="ville">Ville *</label>
                     <input class="form-control" id="ville" name="ville" type="text" [(ngModel)]="societe.ville"
                            required minlength="3" maxlength="255"
-                           pattern="[a-zA-Z0-9 ]*"
                            #ville="ngModel">
                     <ul *ngIf="ville.invalid && (ville.dirty || ville.touched)" class="alert alert-danger">
-                      <li *ngIf="ville.errors.pattern">
-                        nom doit contenire que de carectere alphabitique et des chiffres.
-                      </li>
                       <li *ngIf="ville.errors.required">
-                        nom is required.
+                        Ce champ est obligatoire
                       </li>
                       <li *ngIf="ville.errors.minlength">
-                        nom must be at least 4 characters long.
+                        nom must be at least 3 characters long.
                       </li>
                       <li *ngIf="ville.errors.maxlength">
                         nom must be at max 4 characters long.
@@ -174,87 +194,61 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="ville">Numero TVA</label>
-                    <input class="form-control" id="numero_tva" name="numero_tva" type="text"
-                           [(ngModel)]="societe.numero_tva"
-                           minlength="3" maxlength="255"
-                           #numero_tva="ngModel">
-                    <ul *ngIf="numero_tva.invalid && (numero_tva.dirty || numero_tva.touched)"
-                        class="alert alert-danger">
-                      <li *ngIf="numero_tva.errors.minlength">
-                        nom must be at least 4 characters long.
-                      </li>
-                      <li *ngIf="numero_tva.errors.maxlength">
-                        nom must be at max 4 characters long.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+
               </div>
               <div class="row">
                 <div class="col-lg-6">
-                  <div class="form-group"><label for="card-email">Email address *</label><input class="form-control"
-                                                                                                type="email"
-                                                                                                name="email"
-                                                                                                id="card-email"
-                                                                                                [(ngModel)]="societe.email"
-                                                                                                required
-                                                                                                #email="ngModel"
-                                                                                                [email]="true"/>
+                  <div class="form-group">
+                    <label for="card-email">Adresse e-mail
+                      *</label>
+                    <input class="form-control" type="email" name="email" id="card-email"
+                           [(ngModel)]="societe.email" required #email="ngModel" [email]="true"/>
 
                     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-
-                      <div *ngIf="email.invalid">
-                        Format mail inalid
-                      </div>
                       <div *ngIf="email.errors.required">
-                        Email is required.
+                        Ce champ est obligatoire
+                      </div>
+                      <div *ngIf="email.invalid">
+                        L'e-mail doit être de la forme: e-mail@valide.com
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-lg-6">
-                  <div class="form-group"><label for="telephone">Télephone mobile *</label><input class="form-control"
-                                                                                                  id="telephone"
-                                                                                                  name="telephone"
-                                                                                                  type="text"
-                                                                                                  [(ngModel)]="societe.telephone_mobile"
-                                                                                                  required
-                                                                                                  #telephone="ngModel"
-                                                                                                  minlength="8"
-                                                                                                  maxlength="8"
-                                                                                                  pattern="[0-9]*">
+                  <div class="form-group">
+                    <label for="telephone">Téléphone mobile *</label>
+                    <input class="form-control" id="telephone" name="telephone" type="text"
+                           [(ngModel)]="societe.telephone_mobile" required #telephone="ngModel" minlength="8"
+                           maxlength="8" pattern="[0-9]*">
                     <ul *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="alert alert-danger">
 
                       <li *ngIf="telephone.errors.pattern">
-                        telephone doit contenire que de carectere alphabitique.
+                        Téléphone doit contenire que de carectere alphabitique.
                       </li>
                       <li *ngIf="telephone.errors.required">
-                        telephone is required.
+                        Ce champ est obligatoire
                       </li>
                       <li *ngIf="telephone.errors.minlength">
-                        telephone must be at least 8 characters long.
+                        Ce champ doit comporter 8 chiffres
                       </li>
                     </ul>
 
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-lg-6">
-                  <div class="form-group"><label for="telephone_fix">Télephone fix</label>
+                  <div class="form-group"><label for="telephone_fix">Téléphone fix</label>
                     <input class="form-control" id="telephone_fix" name="telephone_fix" type="text"
                            [(ngModel)]="societe.telephone_fix" #telephone_fix="ngModel" minlength="8"
                            maxlength="8" pattern="[0-9]*">
                     <ul *ngIf="telephone_fix.invalid && (telephone_fix.dirty || telephone_fix.touched)"
                         class="alert alert-danger">
                       <li *ngIf="telephone_fix.errors.pattern">
-                        telephone doit contenire que de carectere alphabitique.
+                        Ce champ doit contenir que des chiffres
                       </li>
                       <li *ngIf="telephone_fix.errors.minlength">
-                        telephone must be at least 8 characters long.
+                        Ce champ doit comporter 8 chiffres
                       </li>
                     </ul>
                   </div>
@@ -278,19 +272,29 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <div class="form-group"><label for="description">Description</label>
+                  <div class="form-group"><label for="description">Description de votre société</label>
                     <textarea class="form-control" id="description" name="description" cols="30" rows="13"
                               [(ngModel)]="societe.description"></textarea>
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="votre_code_invitation">Si vous avez un code de parrainage merci de renseigner ici</label>
+                    <input class="form-control" id="votre_code_invitation" name="votre_code_invitation"
+                           type="text" [(ngModel)]="societe.votre_code_invitation">
+                  </div>
+                </div>
+              </div>
+
               <div class="col-12 d-flex justify-content-end">
                 <a *ngIf="societe.id!=null" class="btn btn-primary" routerLink="/societe/view/{{societe.id}}"
                    target="_blank">
-                  afficher en tant que visiteur
+                  Afficher en tant que visiteur
                 </a>
                 <button class="btn btn-primary" type="submit" [disabled]="societeUpdateForm.invalid || loadingUpdate">
-                  Update
+                  Valider
                   <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
                         aria-hidden="true"></span>
                 </button>

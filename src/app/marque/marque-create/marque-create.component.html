@@ -19,14 +19,10 @@
           <label for="name">Nom</label>
           <input class="form-control" id="name" name="name" type="text" placeholder="Nom" [(ngModel)]="form.name"
                  required minlength="4"
-                 pattern="[a-zA-Z ]*"
                  #name="ngModel"/>
           <ul *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-            <li *ngIf="name.errors.pattern">
-              Prename doit contenire que de carectere alphabitique.
-            </li>
             <li *ngIf="name.errors.required">
-              Prename is required.
+              Ce champ est obligatoire
             </li>
             <li *ngIf="name.errors.minlength">
               name must be at least 4 characters long.

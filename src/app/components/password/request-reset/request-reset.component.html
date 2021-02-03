@@ -2,18 +2,24 @@
 <!--    Main Content-->
 <!-- ===============================================-->
 <div class="row min-vh-100 flex-center no-gutters" style="margin-top: -5%;">
-  <div class="col-lg-8 col-xxl-8 py-3"><img class="bg-auth-circle-shape" src="/assets/img/illustrations/bg-shape.png"
-                                            alt="" width="250"><img class="bg-auth-circle-shape-2"
-                                                                    src="../../assets/img/illustrations/shape-1.png"
-                                                                    alt="" width="150">
+  <div class="col-lg-8 col-xxl-8 py-3">
+    <img class="bg-auth-circle-shape" src="/assets/img/illustrations/bg-shape.png"
+         alt="Image back de reset mot de passe" width="250">
+    <img class="bg-auth-circle-shape-2"
+         src="../../assets/img/illustrations/shape-1.png"
+         alt="Image back de reset mot de passe" width="150">
     <div class="card overflow-hidden z-index-1">
       <div class="card-body p-0">
         <div class="row no-gutters h-100">
           <div class="col-md-12 d-flex flex-center">
             <div class="p-4 p-md-5 flex-grow-1">
               <div class="text-center text-md-left">
-                <h4 class="mb-0"> Forgot your password?</h4>
-                <p class="mb-4">Enter your email and we'll send you a reset link.</p>
+                <h4 class="mb-0"> Mot de passe oublité?</h4>
+                <p class="mb-4">
+                  Indiquez votre email ci-dessous puis validez.<br>
+                  Vous recevrez dans quelques instants, par email,<br>
+                  un lien vous permettant de réinitialiser facilement votre mot de passe
+                </p>
               </div>
               <div class="row justify-content-center">
                 <div class="col-sm-8 col-md">
@@ -21,30 +27,27 @@
                     <div *ngIf="errors" class="div">
                       <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
                         - {{ item.key }}
-                        <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+                        <li *ngFor="let val of item.value"><span class="fa-li"><i
+                          class="fas fa-exclamation-triangle"></i></span>{{val}}
                         </li>
                       </ul>
                     </div>
-                    <div class="form-group"><input class="form-control"
-                                                   type="email" name="email"
-                                                   id="card-email"
-                                                   [(ngModel)]="form.email"
-                                                   required #email="ngModel"
-                                                   [email]="true"/>
-
+                    <div class="form-group">
+                      <input class="form-control" type="email" name="email"
+                             id="card-email" [(ngModel)]="form.email"
+                             required #email="ngModel" [email]="true"/>
                       <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-
-                        <div *ngIf="email.invalid">
-                          Format mail inalid
-                        </div>
                         <div *ngIf="email.errors.required">
-                          Email is required.
+                          Ce champ est obligatoire
+                        </div>
+                        <div *ngIf="email.invalid">
+                          L'e-mail doit être de la forme: e-mail@valide.com
                         </div>
                       </div>
                     </div>
                     <div class="form-group">
                       <button class="btn btn-primary btn-block mt-3" type="submit" name="submit"
-                              [disabled]="requestresetForm.invalid || loading">Send reset link
+                              [disabled]="requestresetForm.invalid || loading">Valider
                         <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
                               aria-hidden="true"></span>
                       </button>

@@ -1,3 +1,16 @@
+<div *ngIf="error" class="div">
+  <ul class="alert alert-danger fa-ul">
+    <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+  </ul>
+</div>
+<div *ngIf="errors" class="div">
+  <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+    - {{ item.key }}
+    <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+    </li>
+  </ul>
+</div>
+
 <div class="card-header">
   <div class="row align-items-center justify-content-between">
 
@@ -6,11 +19,11 @@
         <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Reference</th>
+          <th scope="col">Référence</th>
           <th scope="col">Nom Produit</th>
           <th scope="col">Nom client</th>
-          <th scope="col">Nom telephone</th>
-          <th scope="col">action</th>
+          <th scope="col">Téléphone</th>
+          <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -50,7 +63,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-child-name-update" class="modal-title pull-left">Modifier Marque</h4>
+        <h4 id="dialog-child-name-update" class="modal-title pull-left">Modifier produit</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -99,7 +112,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-child-name-delete" class="modal-title pull-left">Afficher produit</h4>
+        <h4 id="dialog-child-name-delete" class="modal-title pull-left">Supprimer produit</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalDelete()">
           <span aria-hidden="true">&times;</span>
         </button>

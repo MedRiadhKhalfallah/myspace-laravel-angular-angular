@@ -7,16 +7,6 @@ import {TokenService} from "../services/token.service";
 
 const iconUrl = '/assets/lib/leaflet/images/marker-icon.png';
 const shadowUrl = '/assets/lib/leaflet/images/marker-shadow.png';
-const iconDefault = L.icon({
-  iconUrl,
-  shadowUrl,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  tooltipAnchor: [16, -28],
-  shadowSize: [41, 41]
-});
-L.Marker.prototype.options.icon = iconDefault;
 
 @Component({
   selector: 'app-home',
@@ -29,6 +19,7 @@ export class HomeComponent implements OnInit {
   public reference;
   public produit;
   public loading = false;
+  public loadingProduit = false;
   public errors = null;
   public error = null;
   public topSocietes;
@@ -37,6 +28,7 @@ export class HomeComponent implements OnInit {
 
   private map;
   private markers;
+  public markersLegende=[];
 
   constructor(private produitService: ProduitService,
               private societeService: SocieteService,
@@ -72,7 +64,6 @@ export class HomeComponent implements OnInit {
     this.error = null;
     this.errors = null;
     this.societes = data;
-    this.loading = false;
     this.initMap();
   }
 
@@ -96,6 +87,21 @@ export class HomeComponent implements OnInit {
 
     for (const societe of this.societes) {
       if (societe.latitude && societe.longitude) {
+        let iconUrl=societe.type_activite.iconUrl;
+        if(this.markersLegende.find(x => x.map_legende === societe.type_activite.map_legende) == undefined){
+          this.markersLegende.push({iconUrl:iconUrl,map_legende:societe.type_activite.map_legende});
+        }
+        let iconDefault = L.icon({
+          iconUrl,
+          shadowUrl,
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          tooltipAnchor: [16, -28],
+          shadowSize: [41, 41]
+        });
+        L.Marker.prototype.options.icon = iconDefault;
+
         var marker = L.marker([societe.latitude, societe.longitude]).bindPopup(this.popupHtml(societe));
         this.markers.addLayer(marker);
         this.map.addLayer(this.markers);
@@ -103,6 +109,22 @@ export class HomeComponent implements OnInit {
       }
     }
 
+    /*Legend specific*/
+    var legend = new (L.Control.extend({
+      options: { position: 'bottomleft' }
+    }));
+
+    legend.onAdd = function(map) {
+      var div = L.DomUtil.create("div", "legend");
+      div.style.backgroundColor = "rgba(0,0,0,0.1)";
+      div.style.padding = "10px";
+      div.innerHTML += "<h5>Légende</h5>";
+      this.markersLegende.forEach(markerLegende => {
+        div.innerHTML += '<img src="'+markerLegende.iconUrl+'" style="width: 15px;"> <strong>'+markerLegende.map_legende+'</strong><br>';
+      });
+      return div;
+    }.bind(this);
+    legend.addTo(this.map);
   }
 
   public popupHtml(societe) {
@@ -116,17 +138,17 @@ export class HomeComponent implements OnInit {
     this.error = null;
     this.errors = null;
     this.produit = data;
-    this.loading = false;
+    this.loadingProduit = false;
   }
 
   public handleGetProduitError(error): any {
-    this.loading = false;
+    this.loadingProduit = false;
     this.error = error.error.message;
     this.errors = error.error.errors;
   }
 
   public searchProduit() {
-    this.loading = true;
+    this.loadingProduit = true;
     return this.produitService.getProduitByReference(this.reference).subscribe(
       data => this.handleGetProduitResponse(data),
       error => this.handleGetProduitError(error)

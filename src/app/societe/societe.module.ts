@@ -12,11 +12,13 @@ import {SocieteService} from "./service/societe.service";
 import {AppRoutingModule} from "../app-routing.module";
 import {BrowserModule} from "@angular/platform-browser";
 import { SocieteMapComponent } from './societe-map/societe-map.component';
+import { SocietePayementComponent } from './societe-payement/societe-payement.component';
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 
 
 
 @NgModule({
-  declarations: [SocieteCreateComponent, SocieteIndexComponent, SocieteListComponent, SocieteSearchComponent, SocieteViewComponent, SocieteMapComponent],
+  declarations: [SocieteCreateComponent, SocieteIndexComponent, SocieteListComponent, SocieteSearchComponent, SocieteViewComponent, SocieteMapComponent, SocietePayementComponent],
     imports: [
         CommonModule,
         AppModule,
@@ -24,6 +26,8 @@ import { SocieteMapComponent } from './societe-map/societe-map.component';
         ModalModule,
         AppRoutingModule,
         BrowserModule,
+      BsDatepickerModule.forRoot(),
+
     ],
   providers: [SocieteService]
 })

@@ -106,7 +106,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   public handleSubmitResponse(data): any {
-    this.toastr.success('profile modifié avec succée', 'succe message',
+    this.toastr.success('profile modifié avec succée', 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,
@@ -115,7 +115,7 @@ export class ProfileEditComponent implements OnInit {
     this.loadingUpdate = false;
   }
   public handleSendMailResponse(data): any {
-    this.toastr.success('mail envoie avec succée', 'succe message',
+    this.toastr.success('mail envoie avec succée', 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,
@@ -144,7 +144,7 @@ export class ProfileEditComponent implements OnInit {
 
   public handleSubmitDePasseResponse(data): any {
     this.loadingPassword = false;
-    this.toastr.success('mot de passe modifié avec succée', 'succe message',
+    this.toastr.success('mot de passe modifié avec succée', 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,
@@ -193,7 +193,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   public handleImageProfileResponse(data): any {
-    this.toastr.success('Image modifie avec succée', 'succe message',
+    this.toastr.success('Image modifie avec succée', 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,

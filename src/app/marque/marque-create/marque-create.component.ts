@@ -79,7 +79,7 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
     this.errors = null;
 
     if (this.marque) {
-      this.toastr.success('marque modifié avec succée', 'succe message',
+      this.toastr.success('marque modifié avec succée', 'Opération effectuée avec succès',
         {
           closeButton: true,
           progressBar: true,
@@ -87,7 +87,7 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
         });
       return this.loadDataEdit.emit({});
     } else {
-      this.toastr.success('marque ajouté avec succée', 'succe message',
+      this.toastr.success('marque ajouté avec succée', 'Opération effectuée avec succès',
         {
           closeButton: true,
           progressBar: true,

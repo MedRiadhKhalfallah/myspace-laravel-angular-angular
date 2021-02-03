@@ -23,6 +23,7 @@ import {HistoriqueIndexComponent} from "./historique/historique-index/historique
 import {EtatIndexComponent} from "./etat/etat-index/etat-index.component";
 import {RechercheSocieteComponent} from "./recherche-societe/recherche-societe.component";
 import {SocieteMapComponent} from "./societe/societe-map/societe-map.component";
+import {TypeActiviteIndexComponent} from "./type-activite/type-activite-index/type-activite-index.component";
 
 const routes: Routes = [
   {
@@ -118,6 +119,11 @@ const routes: Routes = [
   {
     path: 'etats',
     component: EtatIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'typeActivites',
+    component: TypeActiviteIndexComponent,
     canActivate: [AfterLoginService]
   }
 

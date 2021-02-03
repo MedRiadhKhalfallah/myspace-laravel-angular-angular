@@ -30,6 +30,7 @@ import {SocieteModule} from './societe/societe.module';
 import {ProduitModule} from './produit/produit.module';
 import {HistoriqueModule} from './historique/historique.module';
 import {EtatModule} from './etat/etat.module';
+import {TypeActiviteModule} from './type-activite/type-activite.module';
 import {NgxPrintModule} from 'ngx-print';
 // RECOMMENDED
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';

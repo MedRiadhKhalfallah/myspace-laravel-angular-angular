@@ -1,19 +1,16 @@
 <app-loading *ngIf="loading"></app-loading>
 <div class="content" *ngIf="!loading">
-  <div class="row">
+  <div class="row" *ngIf="societe.id!=null">
     <div class="col-12">
       <div class="card mb-3 btn-reveal-trigger">
         <div class="card-header position-relative min-vh-25 mb-8">
-          <div class="row" *ngIf="societe.id==null">
-            vous pouvez ajouter une photo pour votre entreprise apres la creation
-          </div>
-          <div class="cover-image" *ngIf="societe.id">
+          <div class="cover-image">
             <div class="bg-holder rounded-soft rounded-bottom-0"
                  style="background-image:url({{societe.image_coverture_path}});"></div>
           </div>
           <div class="avatar avatar-5xl avatar-profile shadow-sm img-thumbnail rounded-circle" *ngIf="societe.id">
-            <div class="h-100 w-100 rounded-circle overflow-hidden position-relative"><img
-              src="{{societe.image_societe_path}}" width="200" alt="" data-dz-thumbnail>
+            <div class="h-100 w-100 rounded-circle overflow-hidden position-relative">
+              <img src="{{societe.image_societe_path}}" width="200" alt="{{societe.nom}}" data-dz-thumbnail>
             </div>
           </div>
         </div>
@@ -37,7 +34,9 @@
           </ul>
           <h5 class="fs-0 mt-5 mb-2">Share with friends</h5>
           <div class="icon-group">
-            <a class="icon-item text-facebook" href="#!"><span class="fab fa-facebook-f"></span></a>
+            <a class="icon-item text-facebook" target="_blank"
+               href="https://www.facebook.com/sharer/sharer.php?u= http://www.maintenancetn.mtsplus.tn/societe/view/{{societe.id}}">
+              <span class="fab fa-facebook-f"></span></a>
           </div>
 
         </div>
@@ -60,7 +59,7 @@
             </div>
             <a href="#view-map">View Map</a>
 
-            <h6 class="mt-4">Telephone</h6>
+            <h6 class="mt-4">Téléphone</h6>
             <div class="mb-1">
               Portable : <a href="tel:{{societe.telephone_mobile}}">{{societe.telephone_mobile}}</a>
             </div>

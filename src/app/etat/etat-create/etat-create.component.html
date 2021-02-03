@@ -19,14 +19,10 @@
           <label for="nom">Nom</label>
           <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom" [(ngModel)]="etat.nom"
                  required minlength="4"
-                 pattern="[a-zA-Z ]*"
                  #nom="ngModel"/>
           <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
-            <li *ngIf="nom.errors.pattern">
-              Prename doit contenire que de carectere alphabitique.
-            </li>
             <li *ngIf="nom.errors.required">
-              Prename is required.
+              Ce champ est obligatoire
             </li>
             <li *ngIf="nom.errors.minlength">
               name must be at least 4 characters long.
@@ -34,13 +30,13 @@
           </ul>
         </div>
         <div class="form-group">
-          <label for="order">order</label>
+          <label for="order">Order</label>
           <input class="form-control" id="order" name="order" type="number" placeholder="Nom" [(ngModel)]="etat.order"
                  required
                  #order="ngModel"/>
           <ul *ngIf="order.invalid && (order.dirty || order.touched)" class="alert alert-danger">
             <li *ngIf="order.errors.required">
-              Prename is required.
+              Ce champ est obligatoire
             </li>
           </ul>
         </div>

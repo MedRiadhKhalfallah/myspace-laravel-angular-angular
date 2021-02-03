@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
 import {SocieteService} from "../service/societe.service";
+import {TypeActiviteService} from "../../type-activite/service/type-activite.service";
 
 export interface SocieteType {
   id: number,
@@ -19,7 +20,11 @@ export interface SocieteType {
   image_coverture_name: string,
   site_web: string,
   site_fb: string,
-  description: string
+  description: string,
+  notre_code_invitation: string,
+  votre_code_invitation: string,
+  reference_societe: string,
+  type_activite_id: string,
 }
 
 @Component({
@@ -38,18 +43,33 @@ export class SocieteCreateComponent implements OnInit {
   public loading = false;
   public loadingUpdate = false;
   public user;
+  public listTypeActivite = [];
 
-  constructor(private societeService: SocieteService, private toastr: ToastrService) {
+  constructor(private societeService: SocieteService,
+              private typeActiviteService: TypeActiviteService,
+              private toastr: ToastrService) {
 
   }
 
   ngOnInit(): void {
     this.loading = true;
+    this.typeActiviteService.getTypeActiviteList().subscribe(
+      data => this.handleGetTypeActiviteResponse(data),
+      error => this.handleGetTypeActiviteError(error)
+    );
     return this.societeService.getCurrentSociete().subscribe(
       data => this.handleGetSocieteResponse(data),
       error => this.handleGetSocieteError(error)
     );
+  }
 
+  public handleGetTypeActiviteResponse(data): any {
+    this.listTypeActivite = data;
+  }
+
+  public handleGetTypeActiviteError(error): any {
+    this.error = error.error.message;
+    this.errors = error.error.errors;
   }
 
   public handleGetSocieteResponse(data): any {
@@ -76,10 +96,28 @@ export class SocieteCreateComponent implements OnInit {
         telephone_fix: number;
         telephone_mobile: number;
         ville: string;
+        notre_code_invitation: string;
+        votre_code_invitation: string;
+        reference_societe: string;
+        type_activite_id: string;
+
       };
+      this.societe.reference_societe = String(Date.now());
+      this.societe.notre_code_invitation = this.generateUniqueString();
 
     }
     this.loading = false;
+  }
+
+  public generateUniqueString() {
+    var ts = String(new Date().getTime()),
+      i = 0,
+      out = '';
+
+    for (i = 0; i < ts.length; i += 2) {
+      out += Number(ts.substr(i, 2)).toString(36);
+    }
+    return out;
   }
 
   public handleGetSocieteError(error): any {
@@ -96,6 +134,8 @@ export class SocieteCreateComponent implements OnInit {
     delete this.societe.image_societe_name;
     delete this.societe.image_societe_path;
     if (this.societe.id) {
+      delete this.societe.notre_code_invitation;
+      delete this.societe.reference_societe;
       return this.societeService.updateSociete(this.societe).subscribe(
         data => this.handleSubmitResponse(data),
         error => this.handleSubmitError(error)
@@ -111,11 +151,11 @@ export class SocieteCreateComponent implements OnInit {
   public handleSubmitResponse(data): any {
     this.error = null;
     this.errors = null;
-    if(data.data){
-      this.societe=data.data;
+    if (data.data) {
+      this.societe = data.data;
       localStorage.setItem('societe', String(true));
     }
-    this.toastr.success(data.message, 'succe message',
+    this.toastr.success(data.message, 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,
@@ -145,7 +185,7 @@ export class SocieteCreateComponent implements OnInit {
   public handleImageSocieteResponse(data): any {
     this.error = null;
     this.errors = null;
-    this.toastr.success('Image modifie avec succée', 'succe message',
+    this.toastr.success('Image modifie avec succée', 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,

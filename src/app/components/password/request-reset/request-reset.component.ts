@@ -33,7 +33,7 @@ export class RequestResetComponent implements OnInit {
 
   handleResponse(data) {
     this.loading = false;
-    this.toastr.success('mail envoié avec succée', 'succe message',
+    this.toastr.success('mail envoié avec succée', 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,

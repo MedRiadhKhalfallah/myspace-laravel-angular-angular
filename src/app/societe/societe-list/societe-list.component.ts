@@ -14,6 +14,7 @@ export class SocieteListComponent implements OnInit {
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
   @ViewChild('childModalView', {static: true}) childModalView: ModalDirective;
   @ViewChild('childModalDelete', {static: true}) childModalDelete: ModalDirective;
+  @ViewChild('childModalPayement', {static: true}) childModalPayement: ModalDirective;
 
   public error;
   public societe;
@@ -34,7 +35,17 @@ export class SocieteListComponent implements OnInit {
 
     }
   }
+  showChildModalPayement(societe): void {
+    if (societe) {
+      this.societe = societe;
+      this.childModalPayement.show();
 
+    }
+  }
+
+  hideChildModalPayement(): void {
+    this.childModalPayement.hide();
+  }
   hideChildModal(): void {
     this.childModal.hide();
   }
@@ -78,6 +89,7 @@ export class SocieteListComponent implements OnInit {
   public handleError(error, id): any {
     this.loading[id] = false;
     this.error = error.error.message;
+    this.error = error.message;
   }
 
   public handleResponse(data, id): any {

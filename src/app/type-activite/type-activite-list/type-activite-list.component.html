@@ -1,0 +1,71 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Map legende</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let typeActivite of typeActiviteList ">
+          <th scope="row">{{typeActivite.id}}</th>
+          <td>{{typeActivite.nom}}</td>
+          <td>{{typeActivite.map_legende}}</td>
+          <td>
+            <button class="btn btn-warning" type="button" (click)="showChildModal(typeActivite)"
+                    style="margin-right: 2px;"><span
+              class='fas fa-edit'></span></button>
+            <button class="btn btn-danger"
+                    (click)="showChildModalDelete(typeActivite)"
+                    [disabled]="loading[typeActivite.id]">
+              <span *ngIf="!loading[typeActivite.id]" class='far fa-trash-alt'></span>
+              <span *ngIf="loading[typeActivite.id]" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Modifier TypeActivite</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-type-activite-create [typeActivite]="typeActivite" (loadDataEdit)="handleResponse(typeActivite.id)"></app-type-activite-create>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalDelete="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name-delete">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-delete" class="modal-title pull-left">Afficher typeActivite</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalDelete()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-delete [id]="typeActiviteId" (request)="deleteTypeActivite($event)"></app-delete>
+      </div>
+    </div>
+  </div>
+</div>
+

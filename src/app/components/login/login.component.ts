@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   public error = null;
   public form = {email: null, password: null};
   hide: boolean = true;
+  loading: boolean = false;
   passwordType = 'password';
 
   constructor(private jarwis: JarwisService,
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading=true;
     return this.jarwis.login(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
@@ -31,18 +33,18 @@ export class LoginComponent implements OnInit {
   }
 
   handleError(error) {
+    this.loading=false;
     this.error = error.error.error;
   }
 
   handleResponse(data) {
-    console.log(data);
-      localStorage.setItem('roles', data.roles);
+    this.loading=false;
+    localStorage.setItem('roles', data.roles);
       localStorage.setItem('user', data.user.original);
       localStorage.setItem('societe', data.societe);
-
     this.token.handle(data.access_token);
     this.auth.changeAuthStatus(true);
-    this.router.navigateByUrl('/profile').then(() => {
+    this.router.navigateByUrl('/').then(() => {
       window.location.reload();
     });
   }

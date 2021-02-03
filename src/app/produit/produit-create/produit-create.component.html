@@ -25,26 +25,20 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="reference">reference</label>
+                    <label for="reference">Référence</label>
                     <input class="form-control" id="reference" name="reference" type="text"
-                           [(ngModel)]="produit.reference"
-                           required minlength="3" maxlength="255"
-                           pattern="[a-zA-Z0-9 ]*" disabled>
+                           [value]="produit.reference" disabled>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="nom">Nom de la produit </label>
+                    <label for="nom">Nom de produit </label>
                     <input class="form-control" id="nom" name="nom" type="text" [(ngModel)]="produit.nom"
                            minlength="3" maxlength="255"
-                           pattern="[a-zA-Z0-9 ]*"
                            #nom="ngModel">
                     <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
-                      <li *ngIf="nom.errors.pattern">
-                        nom doit contenire que de carectere alphabitique et des chiffres.
-                      </li>
                       <li *ngIf="nom.errors.minlength">
                         nom must be at least 3 characters long.
                       </li>
@@ -57,12 +51,18 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="etat">etat</label>
-                    <select  class="form-control" id="etat" name="etat" [(ngModel)]="produit.etat_id">
+                    <label for="etat">Statut *</label>
+                    <select class="form-control" id="etat" name="etat"
+                            [(ngModel)]="produit.etat_id" required #etat_id="ngModel">
                       <option *ngFor="let etat of listEtat" [value]="etat.id">
                         {{etat.nom}}
                       </option>
                     </select>
+                    <ul *ngIf="etat_id.invalid && (etat_id.dirty || etat_id.touched)" class="alert alert-danger">
+                      <li *ngIf="etat_id.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                    </ul>
 
                   </div>
                 </div>
@@ -74,13 +74,9 @@
                     <input class="form-control" id="nom_client" name="nom_client" type="text"
                            [(ngModel)]="produit.nom_client"
                            minlength="3" maxlength="255"
-                           pattern="[a-zA-Z0-9 ]*"
                            #nom_client="ngModel">
                     <ul *ngIf="nom_client.invalid && (nom_client.dirty || nom_client.touched)"
                         class="alert alert-danger">
-                      <li *ngIf="nom_client.errors.pattern">
-                        nom doit contenire que de carectere alphabitique et des chiffres.
-                      </li>
                       <li *ngIf="nom_client.errors.minlength">
                         nom must be at least 3 characters long.
                       </li>
@@ -92,17 +88,17 @@
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <div class="form-group"><label for="telephone">telephone</label>
+                  <div class="form-group"><label for="telephone">Téléphone</label>
                     <input class="form-control" id="telephone" name="telephone" type="text"
                            [(ngModel)]="produit.telephone" #telephone="ngModel" minlength="8"
                            maxlength="8" pattern="[0-9]*">
                     <ul *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)"
                         class="alert alert-danger">
                       <li *ngIf="telephone.errors.pattern">
-                        telephone doit contenire que de carectere alphabitique.
+                        Ce champ doit contenir que des chiffres
                       </li>
                       <li *ngIf="telephone.errors.minlength">
-                        telephone must be at least 8 characters long.
+                        Ce champ doit comporter 8 chiffres
                       </li>
                     </ul>
                   </div>
@@ -110,12 +106,13 @@
               </div>
               <div class="row">
                 <div class="col-lg-6">
-                  <div class="form-group"><label for="email">Email address *</label>
+                  <div class="form-group"><label for="email">Adresse e-mail
+                  </label>
                     <input class="form-control" type="email" name="email" id="email"
                            [(ngModel)]="produit.email" #email="ngModel" [email]="true"/>
                     <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
                       <div *ngIf="email.invalid">
-                        Format mail inalid
+                        L'e-mail doit être de la forme: e-mail@valide.com
                       </div>
                     </div>
                   </div>
@@ -123,7 +120,7 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <div class="form-group"><label for="description_agent">description_agent</label>
+                  <div class="form-group"><label for="description_agent">Commentaire pour les vendeurs</label>
                     <textarea class="form-control" id="description_agent" name="description_agent" cols="30" rows="13"
                               [(ngModel)]="produit.description_agent"></textarea>
                   </div>
@@ -131,7 +128,7 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <div class="form-group"><label for="description_client">description_client</label>
+                  <div class="form-group"><label for="description_client">Message pour les clients</label>
                     <textarea class="form-control" id="description_client" name="description_client" cols="30" rows="13"
                               [(ngModel)]="produit.description_client"></textarea>
                   </div>
@@ -139,7 +136,7 @@
               </div>
               <div class="col-12 d-flex justify-content-end">
                 <button class="btn btn-primary" type="submit" [disabled]="produitUpdateForm.invalid || loading">
-                  Update
+                  Valider
                   <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
                         aria-hidden="true"></span>
                 </button>
@@ -159,7 +156,9 @@
     <table>
       <tr>
         <td width="800px">
-          <img src="{{produitResultat.societe.image_societe_path}}" style="width: 2.5cm;">
+          <img src="{{produitResultat.societe.image_societe_path}}" style="width: 2.5cm;"
+               alt="{{produitResultat.societe.nom}}">
+          <h3>{{produitResultat.societe.nom}}</h3>
         </td>
         <td width="200px">
           <h1>FACTURE</h1>
@@ -167,17 +166,16 @@
         </td>
       </tr>
     </table>
-    <br><br>
+    <br>
     <hr>
     <table>
       <tr>
         <td width="500px">
           <p>
-            <strong>Société</strong><br>
+            <u><h4>Société</h4></u><br>
             <strong>Nom :</strong> {{produitResultat.societe.nom}}<br>
-            <strong>Adresse :</strong>  {{produitResultat.societe.ville}}<br>
-            {{produitResultat.societe.adresse}}<br>
-            {{produitResultat.societe.code_postal}}
+            <strong>Téléphone :</strong>  {{produitResultat.societe.telephone_mobile}}
+            / {{produitResultat.societe.telephone_fix}}<br>
           </p>
         </td>
         <td width="500px">
@@ -191,10 +189,10 @@
         <td width="750px">
         </td>
         <td width="300px">
+          <u><h4>Client</h4></u>
           <p>
-            <strong>Client</strong><br>
             <strong>Nom</strong> : {{produitResultat.nom_client}}<br>
-            <strong>Tél :</strong> {{produitResultat.telephone}}
+            <strong>Téléphone :</strong> {{produitResultat.telephone}}
           </p>
         </td>
       </tr>
@@ -203,53 +201,70 @@
     <hr>
     <table border="1" width="100%">
       <tr>
-        <td width="20%">
-          <strong>Reference produit</strong>
+        <td width="20%" style="background-color: #d7d9f2">
+          <strong>Référence produit</strong>
         </td>
-        <td width="80%">
+        <td width="80%" style="text-align: center;">
           {{produitResultat.reference}}
         </td>
       </tr>
       <tr>
-        <td width="20%">
+        <td width="20%" style="background-color: #d7d9f2">
           <strong>Nom produit</strong>
         </td>
-        <td width="80%">
+        <td width="80%" style="text-align: center;">
           {{produitResultat.nom}}
         </td>
       </tr>
       <tr>
-        <td width="20%">
+        <td width="20%" style="background-color: #d7d9f2">
           <strong>date :</strong>
         </td>
-        <td width="80%">
+        <td width="80%" style="text-align: center;">
           {{produitResultat.created_at}}
         </td>
       </tr>
       <tr>
-        <td width="20%">
+        <td width="20%" style="background-color: #d7d9f2">
           <strong>description :</strong>
         </td>
-        <td width="80%">
+        <td width="80%" style="text-align: center;">
           {{produitResultat.description_client}}
         </td>
       </tr>
     </table>
     <br><br>
     <hr>
+    <table style="width:100%; text-align: center">
+      <tr>
+        <td>
+          {{produitResultat.societe.nom}}<br>
+          {{produitResultat.societe.email}}<br>
+          {{produitResultat.societe.telephone_mobile}} / {{produitResultat.societe.telephone_fix}}<br>
+          {{produitResultat.societe.ville}}, {{produitResultat.societe.adresse}}
+          , {{produitResultat.societe.code_postal}}<br>
+          {{produitResultat.societe.complement_adresse}}<br>
+          {{produitResultat.societe.site_web}}<br>
+          {{produitResultat.societe.site_fb}}<br>
+        </td>
+      </tr>
+    </table>
 
-    <table>
+    <hr>
+    <table id="footer">
       <tr>
         <td width="300px">
         </td>
-        <td style="text-align:center" width="400px">
-          <strong>maintenanceTN.tn</strong>
+        <td width="400px">
+          <u><strong>www.maintenanceTN.tn</strong></u>
         </td>
       </tr>
     </table>
   </div>
+
   <div class="col-auto">
-    <button printSectionId="pageId" [useExistingCss]="true" ngxPrint class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0 float-right" type="button"><span
+    <button printSectionId="pageId" [useExistingCss]="true" ngxPrint
+            class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0 float-right" type="button"><span
       class="fas fa-print mr-1"> </span>Print
     </button>
   </div>

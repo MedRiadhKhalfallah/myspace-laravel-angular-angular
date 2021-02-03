@@ -10,8 +10,8 @@
                  style="background-image:url({{item.image_coverture_path}});"></div>
           </div>
           <div class="avatar avatar-5xl avatar-profile shadow-sm img-thumbnail rounded-circle">
-            <div class="h-100 w-100 rounded-circle overflow-hidden position-relative"><img
-              src="{{item.image_profile_path}}" width="200" alt="" data-dz-thumbnail>
+            <div class="h-100 w-100 rounded-circle overflow-hidden position-relative">
+              <img src="{{item.image_profile_path}}" width="200" alt="{{item.nom}}" data-dz-thumbnail>
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="form-group"><label for="telephone">Télephone</label>
+                <div class="form-group"><label for="telephone">Téléphone</label>
                   <input class="form-control" id="telephone" name="telephone" type="text"
                          [value]="item.telephone" disabled>
                 </div>
@@ -81,7 +81,7 @@
 
             </div>
             <div class="col-12 d-flex justify-content-end">
-              <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loadingUpdate">Update
+              <button class="btn btn-primary" type="submit" [disabled]="profileUpdateForm.invalid || loadingUpdate">Valider
                 <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
                       aria-hidden="true"></span>
               </button>

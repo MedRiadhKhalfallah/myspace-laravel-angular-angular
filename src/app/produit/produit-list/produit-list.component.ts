@@ -19,6 +19,7 @@ export class ProduitListComponent implements OnInit {
   @ViewChild('factureModal', {static: true}) factureModal: ModalDirective;
 
   public error;
+  public errors;
   public produit;
   public loading;
   public produitId = null;

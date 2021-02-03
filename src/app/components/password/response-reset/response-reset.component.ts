@@ -45,7 +45,7 @@ export class ResponseResetComponent implements OnInit {
 
   handleResponse(data) {
     this.loading=false;
-    this.toastr.success('mot de passe modifié avec succée', 'succe message',
+    this.toastr.success('mot de passe modifié avec succée', 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,

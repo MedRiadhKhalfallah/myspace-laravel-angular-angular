@@ -24,7 +24,12 @@ export interface SocieteType {
   image_societe_path: string,
   image_coverture_name: string,
   image_coverture_path: string,
-  image_societe_name: string
+  image_societe_name: string,
+  notre_code_invitation: string,
+  votre_code_invitation: string,
+  reference_societe: string,
+  type_activite_id: string
+
 }
 
 
@@ -119,7 +124,11 @@ export class SocieteMapComponent implements OnInit {
         nom: string;
         image_coverture_name: string;
         image_coverture_path: string;
-        image_societe_name: string
+        image_societe_name: string;
+        notre_code_invitation: string;
+        votre_code_invitation: string;
+        reference_societe: string;
+        type_activite_id: string
 
       };
 
@@ -143,6 +152,9 @@ export class SocieteMapComponent implements OnInit {
     delete this.societe.image_societe_name;
     delete this.societe.image_societe_path;
     if (this.societe.id) {
+      delete this.societe.notre_code_invitation;
+      delete this.societe.reference_societe;
+
       return this.societeService.updateSociete(this.societe).subscribe(
         data => this.handleSubmitResponse(data),
         error => this.handleSubmitError(error)
@@ -161,7 +173,7 @@ export class SocieteMapComponent implements OnInit {
     if(data.data){
       this.societe=data.data;
     }
-    this.toastr.success(data.message, 'succe message',
+    this.toastr.success(data.message, 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,

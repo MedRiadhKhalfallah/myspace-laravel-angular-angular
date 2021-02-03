@@ -24,7 +24,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="reference">reference</label>
+                  <label for="reference">Référence</label>
                   <input class="form-control" id="reference" name="reference" type="text"
                          [value]="produit.reference" disabled>
                 </div>
@@ -33,14 +33,14 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="nom">Nom de la produit </label>
+                  <label for="nom">Nom de produit </label>
                   <input class="form-control" id="nom" name="nom" type="text"
                          [value]="produit.nom" disabled>
                 </div>
               </div>
               <div class="col-lg-6" *ngIf="produit.etat">
                 <div class="form-group">
-                  <label for="etat">etat</label>
+                  <label for="etat">Statut</label>
                   <input class="form-control" id="etat" name="etat" type="text"
                          [value]="produit.etat.nom" disabled>
                 </div>
@@ -56,7 +56,7 @@
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="form-group"><label for="telephone">telephone</label>
+                <div class="form-group"><label for="telephone">Téléphone</label>
                   <input class="form-control" id="telephone" name="telephone" type="text"
                          [value]="produit.telephone" disabled>
                 </div>
@@ -64,7 +64,8 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <div class="form-group"><label for="email">Email address *</label>
+                <div class="form-group"><label for="email">Adresse e-mail
+                  *</label>
                   <input class="form-control" type="email" name="email" id="email"
                          [value]="produit.email" disabled/>
                 </div>
@@ -72,7 +73,7 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <div class="form-group"><label for="description_agent">description_agent</label>
+                <div class="form-group"><label for="description_agent">Commentaire pour les vendeurs</label>
                   <textarea class="form-control" id="description_agent" name="description_agent" cols="30" rows="13"
                             [value]="produit.description_agent" disabled></textarea>
                 </div>
@@ -80,7 +81,7 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <div class="form-group"><label for="description_client">description_client</label>
+                <div class="form-group"><label for="description_client">Message pour les clients</label>
                   <textarea class="form-control" id="description_client" name="description_client" cols="30" rows="13"
                             [value]="produit.description_client" disabled></textarea>
                 </div>

@@ -7,7 +7,7 @@
       <div class="col-12">
         <form #historiqueSearchForm=ngForm (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="nom">Nom utilisateur</label>
+            <label for="nom">Nom d'utilisateur</label>
             <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom" [(ngModel)]="form.user_nom">
           </div>
           <button class="btn btn-warning mb-3 float-right" type="submit" [disabled]="historiqueSearchForm.invalid">Recherche</button>

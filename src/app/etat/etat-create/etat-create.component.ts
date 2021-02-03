@@ -63,7 +63,7 @@ export class EtatCreateComponent implements OnInit {
     this.errors = null;
 
     if (this.etat.id) {
-      this.toastr.success('etat modifié avec succée', 'succe message',
+      this.toastr.success('etat modifié avec succée', 'Opération effectuée avec succès',
         {
           closeButton: true,
           progressBar: true,
@@ -71,7 +71,7 @@ export class EtatCreateComponent implements OnInit {
         });
       return this.loadDataEdit.emit();
     } else {
-      this.toastr.success('etat ajouté avec succée', 'succe message',
+      this.toastr.success('etat ajouté avec succée', 'Opération effectuée avec succès',
         {
           closeButton: true,
           progressBar: true,

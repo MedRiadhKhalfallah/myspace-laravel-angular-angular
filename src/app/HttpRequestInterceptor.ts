@@ -23,7 +23,9 @@ export class HttpRequestInterceptor implements HttpInterceptor {
             localStorage.removeItem('roles');
             localStorage.removeItem('user');
             localStorage.removeItem('profileImg');
-            this.router.navigateByUrl('/', { queryParams: { returnUrl: request.url } });
+            if(this.router.url !== '/login'){
+              this.router.navigateByUrl('/', { queryParams: { returnUrl: request.url } });
+            }
           }
           throw err;
         })

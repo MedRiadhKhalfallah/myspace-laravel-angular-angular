@@ -6,9 +6,9 @@
         <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
-          <th scope="col">nom</th>
-          <th scope="col">email</th>
-          <th scope="col">action</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Email</th>
+          <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +23,9 @@
             <button class="btn btn-warning" type="button" (click)="showChildModal(societe)"
                     style="margin-right: 2px;"><span
               class='fas fa-edit'></span></button>
+            <button class="btn btn-warning" type="button" (click)="showChildModalPayement(societe)"
+                    style="margin-right: 2px;"><span
+              class='fas fa-file-invoice-dollar'></span></button>
             <button class="btn btn-danger"
                     (click)="showChildModalDelete(societe)"
                     [disabled]="loading[societe.societe_id]">
@@ -43,13 +46,30 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-child-name-update" class="modal-title pull-left">Modifier Marque</h4>
+        <h4 id="dialog-child-name-update" class="modal-title pull-left">Modifier société</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <app-societe-create [societe]="societe" (loadDataEdit)="handleResponse({},societe.id)"></app-societe-create>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalPayement="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name-payement">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-payement" class="modal-title pull-left">Payement</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalPayement()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-societe-payement *ngIf="societe" [societe]="societe" (loadDataEdit)="handleResponse({},societe.id)"></app-societe-payement>
       </div>
     </div>
   </div>

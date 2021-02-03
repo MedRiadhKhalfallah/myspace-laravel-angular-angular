@@ -37,7 +37,7 @@ export class ProduitCreateComponent implements OnInit {
   public listEtat;
   public loading = false;
 
-  constructor(private etatService: EtatService,private produitService: ProduitService, private societeService: SocieteService, private toastr: ToastrService) {
+  constructor(private etatService: EtatService, private produitService: ProduitService, private societeService: SocieteService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -87,7 +87,7 @@ export class ProduitCreateComponent implements OnInit {
   public handleSubmitResponse(data): any {
     this.error = null;
     this.errors = null;
-    this.toastr.success(data.message, 'succe message',
+    this.toastr.success(data.message, 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,
@@ -101,7 +101,7 @@ export class ProduitCreateComponent implements OnInit {
   public handleUpdateResponse(data): any {
     this.error = null;
     this.errors = null;
-    this.toastr.success('produit modifie avec succée', 'succe message',
+    this.toastr.success('produit modifie avec succée', 'Opération effectuée avec succès',
       {
         closeButton: true,
         progressBar: true,
@@ -115,6 +115,7 @@ export class ProduitCreateComponent implements OnInit {
     this.societe = data;
     this.loading = false;
   }
+
   public handleGetEtatResponse(data): any {
     this.listEtat = data;
     this.loading = false;
@@ -124,6 +125,7 @@ export class ProduitCreateComponent implements OnInit {
     this.loading = false;
     this.error = error.error.message;
     this.errors = error.error.errors;
+    this.societe = null;
   }
 
 
