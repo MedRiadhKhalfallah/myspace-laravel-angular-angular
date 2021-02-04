@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
   constructor(private jarwis: JarwisService,
               private token: TokenService,
               private router: Router,
-              private auth:AuthService) {
+              private auth: AuthService) {
   }
 
   ngOnInit(): void {
@@ -54,6 +54,8 @@ export class SignupComponent implements OnInit {
   handleResponse(data) {
     localStorage.setItem('roles', data.roles);
     localStorage.setItem('user', data.user);
+    localStorage.setItem('profileImg', data.user.image_profile_path);
+    localStorage.setItem('date_fin_abonnement_societe', data.date_fin_abonnement_societe);
     localStorage.setItem('societe', data.societe);
     this.token.handle(data.access_token);
     this.auth.changeAuthStatus(true);

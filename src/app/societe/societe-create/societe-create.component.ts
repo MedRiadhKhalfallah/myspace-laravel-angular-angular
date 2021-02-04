@@ -153,6 +153,7 @@ export class SocieteCreateComponent implements OnInit {
     this.errors = null;
     if (data.data) {
       this.societe = data.data;
+      localStorage.setItem('date_fin_abonnement_societe', data.data.date_fin_abonnement);
       localStorage.setItem('societe', String(true));
     }
     this.toastr.success(data.message, 'Opération effectuée avec succès',

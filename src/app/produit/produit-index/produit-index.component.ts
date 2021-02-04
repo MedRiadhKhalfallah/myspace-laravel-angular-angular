@@ -23,6 +23,7 @@ export class ProduitIndexComponent implements OnInit {
   public loadingShowMore = false;
   public etat_id;
   public societeStorage;
+  public isCreating = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
   constructor(private produitService: ProduitService,
@@ -33,31 +34,41 @@ export class ProduitIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loading=true;
+    this.loading = true;
     this.societeStorage = localStorage.getItem('societe');
     this.activatedRoute.queryParams.subscribe(params => {
       this.etat_id = params['etat'];
     });
-    if(this.etat_id){
-      this.loadData({'etat_id':this.etat_id});
-    }else{
+    if (this.etat_id) {
+      this.loadData({'etat_id': this.etat_id});
+    } else {
       this.loadData({});
     }
 
   }
+
   public handleGetEtatResponse(data): any {
     this.loading = false;
-
     this.listEtat = data;
   }
+
   public handleGetEtatError(data): any {
   }
 
   showChildModal(): void {
+    if (this.isCreating) {
+      this.isCreating = false;
+      setTimeout(() => {
+        this.isCreating = true;
+      }, 50);
+    }else {
+      this.isCreating=true;
+    }
     this.childModal.show();
   }
 
   hideChildModal(): void {
+    this.isCreating = false;
     this.childModal.hide();
   }
 

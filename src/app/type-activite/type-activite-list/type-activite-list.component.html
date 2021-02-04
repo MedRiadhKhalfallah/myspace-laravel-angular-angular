@@ -12,8 +12,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let typeActivite of typeActiviteList ">
-          <th scope="row">{{typeActivite.id}}</th>
+        <tr *ngFor="let typeActivite of typeActiviteList ; let index = index">
+          <th scope="row">{{index + 1}}</th>
           <td>{{typeActivite.nom}}</td>
           <td>{{typeActivite.map_legende}}</td>
           <td>

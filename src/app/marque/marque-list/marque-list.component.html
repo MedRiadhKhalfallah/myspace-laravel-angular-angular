@@ -12,8 +12,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let marque of marqueList ">
-          <th scope="row">{{marque.marque_id}}</th>
+        <tr *ngFor="let marque of marqueList ; let index = index">
+          <th scope="row">{{index + 1}}</th>
           <td>{{marque.marque_name}}</td>
           <td><img width="60px" height="60px" src="{{marque.image_path}}"
                    alt="{{marque.image_name}}">

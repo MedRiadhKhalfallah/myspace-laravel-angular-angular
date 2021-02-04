@@ -1,0 +1,93 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Référence</th>
+          <th scope="col">Etat</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let reclamation of reclamationList ; let index = index">
+          <th scope="row">{{ index +1}}</th>
+          <td>{{reclamation.reference}}</td>
+          <td>{{reclamation.etat}}</td>
+          <td>
+            <button class="btn btn-info" type="button" (click)="showChildModalView(reclamation)"
+                    style="margin-right: 2px;"><span
+              class='far fa-eye'></span></button>
+
+            <button *ngIf="adminRole" class="btn btn-warning" type="button" (click)="showChildModal(reclamation)"
+                    style="margin-right: 2px;"><span
+              class='fas fa-edit'></span></button>
+            <button class="btn btn-danger"
+                    (click)="showChildModalDelete(reclamation)"
+                    [disabled]="loading[reclamation.id]">
+              <span *ngIf="!loading[reclamation.id]" class='far fa-trash-alt'></span>
+              <span *ngIf="loading[reclamation.id]" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalView="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name-view">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-view" class="modal-title pull-left">Afficher reclamation</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalView()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-reclamation-view [reclamation]="reclamation"></app-reclamation-view>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Modifier Reclamation</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-reclamation-create [reclamation]="reclamation" (loadDataEdit)="handleResponse(reclamation.id)"></app-reclamation-create>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalDelete="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name-delete">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-delete" class="modal-title pull-left">Supprimer reclamation</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalDelete()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-delete [id]="reclamationId" (request)="deleteReclamation($event)"></app-delete>
+      </div>
+    </div>
+  </div>
+</div>
+

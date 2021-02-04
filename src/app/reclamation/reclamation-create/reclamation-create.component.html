@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="error" class="div">
+      <ul class="alert alert-danger fa-ul">
+        <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+      </ul>
+    </div>
+    <div *ngIf="errors" class="div">
+      <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+        - {{ item.key }}
+        <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+        </li>
+      </ul>
+    </div>
+    <div class="form-row">
+
+      <form #reclamationCreateForm=ngForm (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="reference">Reference</label>
+          <input class="form-control" id="reference" name="reference" type="text" placeholder="Nom"
+                 [value]="reclamation.reference" required disabled />
+        </div>
+
+        <div class="form-group">
+          <label for="etat">Etat</label>
+          <select class="form-control"
+                  [(ngModel)]="reclamation.etat" id="etat" name="etat">
+            <option value="en attend">En attend</option>
+            <option value="en traitement">En traitement</option>
+            <option value="terminé">Terminé</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="!reclamation.id">
+          <label for="file">piece joint</label>
+          <input id="file" type="file" (change)="onFileSelect($event)" required>
+        </div>
+        <div class="form-group" *ngIf="reclamation.id">
+          <img src="{{reclamation.image_path}}" alt="">
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="description">Description de la réclamation</label>
+              <textarea class="form-control" id="description" name="description" cols="30" rows="13"
+                        [(ngModel)]="reclamation.description"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-warning mb-3 float-right" type="submit"
+                [disabled]="reclamationCreateForm.invalid || loading">
+          Valider
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

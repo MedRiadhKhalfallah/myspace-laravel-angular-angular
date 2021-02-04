@@ -27,8 +27,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let produit of produitList ">
-          <th scope="row">{{produit.id}}</th>
+        <tr *ngFor="let produit of produitList ; let index = index">
+          <th scope="row">{{index + 1}}</th>
           <td>{{produit.reference}}</td>
           <td>{{produit.nom}}</td>
           <td>{{produit.nom_client}}</td>

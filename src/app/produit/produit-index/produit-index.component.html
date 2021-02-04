@@ -65,7 +65,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-produit-create (loadDataAjout)="loadData($event)"></app-produit-create>
+        <app-produit-create (loadDataAjout)="loadData($event)" *ngIf="isCreating"></app-produit-create>
       </div>
     </div>
   </div>

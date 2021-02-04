@@ -2,23 +2,22 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
-import {EtatService} from "../service/etat.service";
+import {ReclamationService} from "../service/reclamation.service";
 
 @Component({
-  selector: 'app-etat-index',
-  templateUrl: './etat-index.component.html',
-  styleUrls: ['./etat-index.component.css']
+  selector: 'app-reclamation-index',
+  templateUrl: './reclamation-index.component.html',
+  styleUrls: ['./reclamation-index.component.css']
 })
-export class EtatIndexComponent implements OnInit {
+export class ReclamationIndexComponent implements OnInit {
 
-  public etatList = [];
+  public reclamationList = [];
   public error;
   public societeStorage;
   public loading = false;
-  public isCreating = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
-  constructor(private etatService: EtatService,
+  constructor(private reclamationService: ReclamationService,
               private router: Router,
               @Inject(DOCUMENT) private document: Document) {
   }
@@ -29,19 +28,10 @@ export class EtatIndexComponent implements OnInit {
   }
 
   showChildModal(): void {
-    if (this.isCreating) {
-      this.isCreating = false;
-      setTimeout(() => {
-        this.isCreating = true;
-      }, 50);
-    }else {
-      this.isCreating=true;
-    }
     this.childModal.show();
   }
 
   hideChildModal(): void {
-    this.isCreating=false;
     this.childModal.hide();
   }
 
@@ -55,16 +45,17 @@ export class EtatIndexComponent implements OnInit {
 
   public handleResponse(data): any {
     this.loading = false;
-      this.etatList = data;
+    this.reclamationList = data;
   }
 
   public loadData(): any {
     this.hideChildModal();
     this.loading = true;
-    this.etatService.getEtatList().subscribe(
+    this.reclamationService.getReclamationList().subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
+
   }
 
 }

@@ -24,6 +24,7 @@ import {EtatIndexComponent} from "./etat/etat-index/etat-index.component";
 import {RechercheSocieteComponent} from "./recherche-societe/recherche-societe.component";
 import {SocieteMapComponent} from "./societe/societe-map/societe-map.component";
 import {TypeActiviteIndexComponent} from "./type-activite/type-activite-index/type-activite-index.component";
+import {ReclamationIndexComponent} from "./reclamation/reclamation-index/reclamation-index.component";
 
 const routes: Routes = [
   {
@@ -124,6 +125,11 @@ const routes: Routes = [
   {
     path: 'typeActivites',
     component: TypeActiviteIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'reclamations',
+    component: ReclamationIndexComponent,
     canActivate: [AfterLoginService]
   }
 

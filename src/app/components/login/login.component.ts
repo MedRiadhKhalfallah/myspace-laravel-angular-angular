@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading=true;
+    this.loading = true;
     return this.jarwis.login(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
@@ -33,21 +33,26 @@ export class LoginComponent implements OnInit {
   }
 
   handleError(error) {
-    this.loading=false;
+    this.loading = false;
     this.error = error.error.error;
   }
 
   handleResponse(data) {
-    this.loading=false;
+
+    this.loading = false;
     localStorage.setItem('roles', data.roles);
-      localStorage.setItem('user', data.user.original);
-      localStorage.setItem('societe', data.societe);
+    localStorage.setItem('user', data.user.original);
+    localStorage.setItem('date_fin_abonnement_societe', data.date_fin_abonnement_societe);
+    localStorage.setItem('societe', data.societe);
+    localStorage.setItem('profileImg', data.user.original.image_profile_path);
+
     this.token.handle(data.access_token);
     this.auth.changeAuthStatus(true);
     this.router.navigateByUrl('/').then(() => {
       window.location.reload();
     });
   }
+
   hidePassword() {
     this.hide = !this.hide;
     if (this.hide) {

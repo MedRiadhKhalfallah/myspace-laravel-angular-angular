@@ -18,6 +18,9 @@ export class AppComponent implements OnInit, OnChanges {
   public utilisateurRole;
   public adminSocieteRole;
   public societeStorage;
+  public date_fin_abonnement_societe;
+  public resNb;
+  public afficheif=false;
 
   constructor(private auth: AuthService,
               private router: Router,
@@ -26,12 +29,29 @@ export class AppComponent implements OnInit, OnChanges {
     this.adminRole = false;
     this.utilisateurRole = false;
   }
+  dayDiff(d1, d2)
+  {
+    d1 = d1.getTime() / 86400000;
+    d2 = d2.getTime() / 86400000;
+    return new Number(d2 - d1 +1).toFixed(0);
+  }
 
   ngOnInit(): void {
     if (!this.token.loggedIn()) {
       // this.router.navigateByUrl('/');
     } else {
       this.societeStorage = localStorage.getItem('societe');
+
+      this.date_fin_abonnement_societe = localStorage.getItem('date_fin_abonnement_societe');
+      setTimeout(() => {
+        this.afficheif=this.token.loggedIn();
+      }, 2000);
+
+      if (this.date_fin_abonnement_societe){
+        this.date_fin_abonnement_societe = new Date(this.date_fin_abonnement_societe);
+        var today = new Date();
+      this.resNb = this.dayDiff(today,this.date_fin_abonnement_societe);
+      }
       this.rolesString = localStorage.getItem('roles');
       if (this.rolesString) {
         this.roles = this.rolesString.split(",");
@@ -95,6 +115,9 @@ export class AppComponent implements OnInit, OnChanges {
     localStorage.removeItem('roles');
     localStorage.removeItem('user');
     localStorage.removeItem('profileImg');
+    localStorage.removeItem('date_fin_abonnement_societe');
+    localStorage.removeItem('societe');
+    localStorage.removeItem('isNavbarTop');
     this.router.navigateByUrl('/login');
 
   }

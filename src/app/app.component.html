@@ -109,7 +109,12 @@
                 class="far fa-list-alt"></span></span><span class="nav-link-text"> États</span></div>
             </a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" routerLink="reclamations" *ngIf="loggedIn">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-headset"></span></span><span class="nav-link-text"> Créer un ticket</span></div>
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -131,7 +136,6 @@
           <li class="nav-item" *ngIf="!loggedIn">
             <a class="nav-link" routerLink="login">Se connecter</a>
           </li>
-
           <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link pr-0" id="navbarDropdownUser3" href="#"
                                                              role="button" data-toggle="dropdown" aria-haspopup="true"
                                                              aria-expanded="false" *ngIf="loggedIn">
@@ -149,11 +153,41 @@
           </li>
         </ul>
       </nav>
+      <div *ngIf="afficheif">
+        <ul class="alert alert-danger fa-ul" *ngIf="!societeStorage">
+          <li>
+      <span class="fa-li">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>Pour commencer, vous devez créer une société. Pour créer <a routerLink="/societe/create">cliquer ici.</a>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="resNb<10" class="div">
+        <ul *ngIf="resNb<10 && resNb>0" class="alert alert-warning fa-ul">
+          <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>
+            Votre abonnement expirera dans quelques jours.<br>
+            Pour renouveler votre abonnement,
+            vous pouvez <a routerLink="reclamations">créer un ticket</a>
+            ou contacter l'administrateur : <a href="tel:26678826">26 678 826</a>
+          </li>
+        </ul>
+        <ul *ngIf="resNb<=0" class="alert alert-danger fa-ul">
+          <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>
+            Votre abonnement est expiré.<br>
+            Pour renouveler votre abonnement,
+            vous pouvez <a routerLink="reclamations">créer un ticket</a>
+            ou contacter l'administrateur : <a href="tel:26678826">26 678 826</a>
+          </li>
+        </ul>
+      </div>
+
+
       <app-recherche-societe></app-recherche-societe>
       <ng-snotify></ng-snotify>
       <router-outlet></router-outlet>
 
-<br>
+      <br>
       <app-footer></app-footer>
     </div>
   </div>
