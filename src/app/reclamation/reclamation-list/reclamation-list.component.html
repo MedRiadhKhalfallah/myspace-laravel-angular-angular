@@ -1,7 +1,10 @@
 <div class="card-header">
   <div class="row align-items-center justify-content-between">
 
-    <div class="table-responsive">
+    <div *ngIf="reclamationList.length == 0">
+      Aucun article n'a été trouvé pour votre requête
+    </div>
+    <div class="table-responsive" *ngIf="reclamationList.length != 0">
       <table class="table table-hover table-striped">
         <thead class="thead-light">
         <tr>
@@ -40,7 +43,7 @@
 </div>
 
 <div bsModal #childModalView="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name-view">
+     role="dialog" aria-labelledby="dialog-child-name-view" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -58,7 +61,7 @@
 
 
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name">
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -75,7 +78,7 @@
 </div>
 
 <div bsModal #childModalDelete="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name-delete">
+     role="dialog" aria-labelledby="dialog-child-name-delete" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">

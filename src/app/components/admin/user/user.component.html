@@ -53,8 +53,8 @@
       </div>
 </div>
 <div class="input-group" *ngIf="!first">
-  <div class="col-8"></div>
-  <div class="col-2">
+  <div class="col-sm-8"></div>
+  <div class="col-sm-2">
     <select [disabled]="disableShowMore" class="form-control" style="width: 50%; margin-left: 115px;"
             [(ngModel)]="limit">
       <option [ngValue]="10">10</option>
@@ -62,7 +62,7 @@
       <option [ngValue]="50">50</option>
     </select>
   </div>
-  <div class="col-2">
+  <div class="col-sm-2">
     <button class="btn btn-light" (click)="showMore()" [disabled]="loading || disableShowMore">Afficher plus
       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     </button>
@@ -71,7 +71,7 @@
 </div>
 
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name">
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -88,7 +88,7 @@
 </div>
 
 <div bsModal #childModalDelete="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name">
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">

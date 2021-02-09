@@ -42,7 +42,7 @@
 </div>
 
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name-update">
+     role="dialog" aria-labelledby="dialog-child-name-update" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -59,7 +59,7 @@
 </div>
 
 <div bsModal #childModalPayement="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name-payement">
+     role="dialog" aria-labelledby="dialog-child-name-payement" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,7 +76,7 @@
 </div>
 
 <div bsModal #childModalView="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name-view">
+     role="dialog" aria-labelledby="dialog-child-name-view" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -92,7 +92,7 @@
   </div>
 </div>
 <div bsModal #childModalDelete="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name-delete">
+     role="dialog" aria-labelledby="dialog-child-name-delete" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">

@@ -12,48 +12,71 @@
         </li>
       </ul>
     </div>
-    <div class="form-row">
+    <div class="content">
+      <div class="row no-gutters">
+        <div class="col-lg-12 pr-lg-2">
+          <div class="card mb-3">
 
-      <form #reclamationCreateForm=ngForm (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="reference">Reference</label>
-          <input class="form-control" id="reference" name="reference" type="text" placeholder="Nom"
-                 [value]="reclamation.reference" required disabled />
-        </div>
+            <div class="card-body bg-light">
+              <form #reclamationCreateForm=ngForm (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="reference">Reference</label>
+                      <input class="form-control" id="reference" name="reference" type="text" placeholder="Nom"
+                             [value]="reclamation.reference" required disabled/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="etat">Etat</label>
+                      <select class="form-control"
+                              [(ngModel)]="reclamation.etat" id="etat" name="etat">
+                        <option value="en attend">En attend</option>
+                        <option value="en traitement">En traitement</option>
+                        <option value="terminé">Terminé</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group" *ngIf="!reclamation.id">
+                      <label for="file">Piece joint</label>
+                      <input id="file" type="file" (change)="onFileSelect($event)" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group" *ngIf="reclamation.id">
+                      <img src="{{reclamation.image_path}}" alt="">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="description">Description de la réclamation</label>
+                      <textarea class="form-control" id="description" name="description" cols="30" rows="13"
+                                [(ngModel)]="reclamation.description"></textarea>
+                    </div>
+                  </div>
+                </div>
 
-        <div class="form-group">
-          <label for="etat">Etat</label>
-          <select class="form-control"
-                  [(ngModel)]="reclamation.etat" id="etat" name="etat">
-            <option value="en attend">En attend</option>
-            <option value="en traitement">En traitement</option>
-            <option value="terminé">Terminé</option>
-          </select>
-        </div>
-
-        <div class="form-group" *ngIf="!reclamation.id">
-          <label for="file">piece joint</label>
-          <input id="file" type="file" (change)="onFileSelect($event)" required>
-        </div>
-        <div class="form-group" *ngIf="reclamation.id">
-          <img src="{{reclamation.image_path}}" alt="">
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <label for="description">Description de la réclamation</label>
-              <textarea class="form-control" id="description" name="description" cols="30" rows="13"
-                        [(ngModel)]="reclamation.description"></textarea>
+                <button class="btn btn-warning mb-3 float-right" type="submit"
+                        [disabled]="reclamationCreateForm.invalid || loading">
+                  Valider
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+              </form>
             </div>
           </div>
         </div>
-
-        <button class="btn btn-warning mb-3 float-right" type="submit"
-                [disabled]="reclamationCreateForm.invalid || loading">
-          Valider
-          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </button>
-      </form>
+      </div>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {ModalDirective} from "ngx-bootstrap/modal";
+import {ModalDirective, ModalOptions} from "ngx-bootstrap/modal";
 import {Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
 import {ReclamationService} from "../service/reclamation.service";
@@ -15,6 +15,8 @@ export class ReclamationIndexComponent implements OnInit {
   public error;
   public societeStorage;
   public loading = false;
+  public isCreating = false;
+
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
   constructor(private reclamationService: ReclamationService,
@@ -28,10 +30,13 @@ export class ReclamationIndexComponent implements OnInit {
   }
 
   showChildModal(): void {
+    this.isCreating=true;
     this.childModal.show();
   }
 
   hideChildModal(): void {
+    this.isCreating = false;
+
     this.childModal.hide();
   }
 

@@ -56,14 +56,7 @@ export class ProduitIndexComponent implements OnInit {
   }
 
   showChildModal(): void {
-    if (this.isCreating) {
-      this.isCreating = false;
-      setTimeout(() => {
-        this.isCreating = true;
-      }, 50);
-    }else {
       this.isCreating=true;
-    }
     this.childModal.show();
   }
 

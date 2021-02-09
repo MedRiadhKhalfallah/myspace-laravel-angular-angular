@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
 import {SocieteService} from "../service/societe.service";
 import {TypeActiviteService} from "../../type-activite/service/type-activite.service";
+import {GouvernoratService} from "../../services/gouvernorat.service";
+import {DelegationService} from "../../services/delegation.service";
 
 export interface SocieteType {
   id: number,
@@ -10,7 +12,8 @@ export interface SocieteType {
   email: string,
   complement_adresse: string,
   code_postal: number,
-  ville: string,
+  gouvernorat_id: string,
+  delegation_id: string,
   telephone_mobile: number,
   telephone_fix: number,
   numero_tva: string,
@@ -42,20 +45,30 @@ export class SocieteCreateComponent implements OnInit {
   public errors;
   public loading = false;
   public loadingUpdate = false;
+  public first = true;
   public user;
   public listTypeActivite = [];
+  public listGouvernorat = [];
+  public listDelegation = [];
 
   constructor(private societeService: SocieteService,
               private typeActiviteService: TypeActiviteService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private gouvernoratService: GouvernoratService,
+              private delegationService: DelegationService,
+  ) {
 
   }
 
   ngOnInit(): void {
     this.loading = true;
+    this.gouvernoratService.gouvernoratSearchWithCriteria({}).subscribe(
+      data => this.handleGetGouvernoratResponse(data),
+      error => this.handleGetError(error)
+    );
     this.typeActiviteService.getTypeActiviteList().subscribe(
       data => this.handleGetTypeActiviteResponse(data),
-      error => this.handleGetTypeActiviteError(error)
+      error => this.handleGetError(error)
     );
     return this.societeService.getCurrentSociete().subscribe(
       data => this.handleGetSocieteResponse(data),
@@ -63,11 +76,27 @@ export class SocieteCreateComponent implements OnInit {
     );
   }
 
+  public findDelegation(): any {
+    if (!this.first){
+      this.societe.delegation_id=null;
+    }
+    this.first=false;
+    this.delegationService.delegationSearchWithCriteria({'gouvernorat_id':this.societe.gouvernorat_id}).subscribe(
+      data => this.handleGetDelegationResponse(data),
+      error => this.handleGetError(error)
+    );
+  }
   public handleGetTypeActiviteResponse(data): any {
     this.listTypeActivite = data;
   }
+  public handleGetGouvernoratResponse(data): any {
+    this.listGouvernorat = data;
+  }
+  public handleGetDelegationResponse(data): any {
+    this.listDelegation = data;
+  }
 
-  public handleGetTypeActiviteError(error): any {
+  public handleGetError(error): any {
     this.error = error.error.message;
     this.errors = error.error.errors;
   }
@@ -77,6 +106,10 @@ export class SocieteCreateComponent implements OnInit {
     this.errors = null;
     if (data) {
       this.societe = data;
+      if (this.societe.gouvernorat_id){
+        this.findDelegation();
+      }
+
     } else {
       this.societe = new class implements SocieteType {
         adresse: string;
@@ -95,7 +128,8 @@ export class SocieteCreateComponent implements OnInit {
         site_web: string;
         telephone_fix: number;
         telephone_mobile: number;
-        ville: string;
+        gouvernorat_id: string;
+        delegation_id: string;
         notre_code_invitation: string;
         votre_code_invitation: string;
         reference_societe: string;

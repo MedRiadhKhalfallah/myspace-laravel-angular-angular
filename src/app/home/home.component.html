@@ -1,21 +1,62 @@
+<br>
+<owl-carousel-o [options]="customOptions">
+  <ng-template carouselSlide><img src="../../assets/img/illustrations/find_societe.jpg"></ng-template>
+  <ng-template carouselSlide><img src="../../assets/img/illustrations/repaire_phone.jpg"></ng-template>
+  <ng-template carouselSlide><img src="../../assets/img/illustrations/carte-mere.jpg"></ng-template>
+  <ng-template carouselSlide><img src="../../assets/img/illustrations/repaire-phone-2.jpg"></ng-template>
+</owl-carousel-o>
+<br><br><br>
+
+<div class="row no-gutters">
+  <div class="col-lg-12 pr-lg-2 mb-3 mb-lg-0">
+    <div class="card h-100">
+      <div class="card-body p-4 p-sm-5">
+        <div class="text-center">
+          <img class="d-block mx-auto mb-4" src="assets/img/illustrations/Quickly-search.png" alt="recherche" width="100"/>
+          <h5 style="text-align: -webkit-center;
+                font-family: Georgia, serif;
+                letter-spacing: 1px;
+                word-spacing: 0.4px;
+                color: #0B14FF;
+                font-weight: 400;
+                text-decoration: none solid rgb(68, 68, 68);
+                font-style: italic;
+                font-variant: small-caps;
+                text-transform: none;
+          ">RECHERCHEZ-VOUS UNE SOCIÉTÉ DE VENTE OU RÉPARATION ?</h5>
+          <app-recherche-societe></app-recherche-societe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
 <app-statistique-etat *ngIf="loggedIn"></app-statistique-etat>
-  <div class="content">
+<div class="content">
   <div class="row no-gutters">
     <div class="col-lg-8 pr-lg-2">
       <div class="card mb-3">
         <div class="card-header">
-          <h5 class="mb-0">Recherche produit</h5>
+          <h5 class="mb-0">Suivi votre réparation</h5>
         </div>
         <div class="card-body bg-light">
           <form #produitReferenceForm=ngForm (ngSubmit)="searchProduit()">
+            <p>
+              Vérifier l'état de votre réparation avec notre service de Suivi en Temps Réel
+            </p>
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
                   <label for="reference_produit">Référence du produit:</label>
                   <input class="form-control" id="reference_produit" name="reference_produit" type="text"
                          [(ngModel)]="reference" minlength="13" maxlength="13" pattern="[0-9]{13}"
-                         required  #reference_produit="ngModel" placeholder="0000000000000" />
-                  <ul *ngIf="reference_produit.invalid && (reference_produit.dirty || reference_produit.touched)" class="alert alert-danger">
+                         required #reference_produit="ngModel" placeholder="0000000000000"/>
+                  <p style="color: #a5a5a5;
+                             font-size: 10px;">
+                    (*)Ce code est confidentiel, merci de bien le préserver
+                  </p>
+                  <ul *ngIf="reference_produit.invalid && (reference_produit.dirty || reference_produit.touched)"
+                      class="alert alert-danger">
                     <li *ngIf="reference_produit.errors.pattern">
                       Username doit contenire que des chiffres.
                     </li>
@@ -33,13 +74,14 @@
               </div>
             </div>
             <div class="col-12 d-flex justify-content-end">
-              <button class="btn btn-primary" type="submit" [disabled]="produitReferenceForm.invalid || loading">Rechercher
+              <button class="btn btn-primary" type="submit" [disabled]="produitReferenceForm.invalid || loading">
+                Rechercher
                 <span *ngIf="loadingProduit" class="spinner-border spinner-border-sm" role="status"
                       aria-hidden="true"></span>
               </button>
             </div>
           </form>
-<br>
+          <br>
           <div *ngIf="produit">
             <div class="card mb-3">
               <div class="card-header">
@@ -111,14 +153,16 @@
                       <div class="col-5 col-sm-4">
                         <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Tél</p>
                       </div>
-                      <div class="col"><a href="tel:{{produit.societe.telephone_mobile}}">{{produit.societe.telephone_mobile}}</a></div>
+                      <div class="col"><a
+                        href="tel:{{produit.societe.telephone_mobile}}">{{produit.societe.telephone_mobile}}</a></div>
                     </div>
                     <div class="row">
                       <div class="col-5 col-sm-4">
                         <p class="font-weight-semi-bold mb-0" style="white-space: nowrap;">Tél fix</p>
                       </div>
                       <div class="col">
-                        <p class="font-weight-semi-bold mb-0"><a href="tel:{{produit.societe.telephone_fix}}">{{produit.societe.telephone_fix}}</a></p>
+                        <p class="font-weight-semi-bold mb-0"><a
+                          href="tel:{{produit.societe.telephone_fix}}">{{produit.societe.telephone_fix}}</a></p>
                       </div>
                     </div>
                   </div>
@@ -128,8 +172,13 @@
             </div>
 
           </div>
-          <div *ngIf="produit===null">
-            produit n'existe pas
+          <div *ngIf="produit===null" class="div">
+            <ul class="alert alert-danger fa-ul">
+              <li>
+                <span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>
+                Ce produit n'existe pas. Merci de vérifier la référence.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -173,3 +222,78 @@
     </div>
   </div>
 </div>
+<br>
+
+<div class="row no-gutters">
+  <div class="col-lg-12 pr-lg-2 mb-3 mb-lg-0">
+    <div class="card h-100">
+      <div class="card-body p-4 p-sm-5">
+        <div class="text-center"><img class="d-block mx-auto mb-4" src="assets/img/illustrations/rocket.png"
+                                      alt="shield" width="70"/>
+          <h2 class="font-weight-normal text-6 mb-0">Vous êtes un réparateur ?</h2>
+          <h2>
+            Rejoindre Notre Réseau professionnel
+          </h2>
+          <a class="btn btn-primary btn-sm mt-3" routerLink="/signup">
+            <span class="fas fa-chevron-left mr-1" data-fa-transform="shrink-4 down-1"></span>
+            Rejoindre le Réseau!
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<!-- ============================================-->
+<!-- <section> begin ============================-->
+<section class="bg-light text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="fs-2 fs-sm-4 fs-md-5">Voici ce qu'il y a pour vous</h1>
+        <p class="lead">Les choses que vous obtiendrez dans notre site.</p>
+      </div>
+    </div>
+    <div class="row mt-6">
+      <div class="col-lg-4">
+        <div class="card card-span h-100">
+          <div class="card-span-img"><span class="fab fa-sass fs-4 text-info"></span></div>
+          <div class="card-body pt-6 pb-4">
+            <h5 class="mb-2">Bootstrap 4.3.1</h5>
+            <p>Build your webapp with the world's most popular front-end component library along with Falcon's 32 sets
+              of carefully designed elements.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mt-6 mt-lg-0">
+        <div class="card card-span h-100">
+          <div class="card-span-img"><span class="fab fa-node-js fs-5 text-success"></span></div>
+          <div class="card-body pt-6 pb-4">
+            <h5 class="mb-2">SCSS & Javascript files</h5>
+            <p>With your purchased copy of Falcon, you will get all the uncompressed & documented SCSS and Javascript
+              source code files.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mt-6 mt-lg-0">
+        <div class="card card-span h-100">
+          <div class="card-span-img"><span class="fab fa-gulp fs-6 text-danger"></span></div>
+          <div class="card-body pt-6 pb-4">
+            <h5 class="mb-2">Gulp based workflow</h5>
+            <p>All the painful or time-consuming tasks in your development workflow such as compiling the SCSS or
+              transpiring the JS are automated.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end of .container-->
+</section><!-- <section> close ============================-->
+<!-- ============================================-->
+<br>
+<div class="row float-right">
+  <button class="btn btn-warning" (click)="top()">
+    Retour au haut de page <i class="fas fa-arrow-up"></i>
+  </button>
+</div>
+<br>

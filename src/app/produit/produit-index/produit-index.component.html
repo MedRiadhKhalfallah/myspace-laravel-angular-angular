@@ -37,8 +37,8 @@
 <app-produit-list *ngIf="!loading" [produitList]="produitList" (loadDataDelete)="loadData($event)"></app-produit-list>
 <br>
 <div class="input-group" *ngIf="!first">
-  <div class="col-8"></div>
-  <div class="col-2">
+  <div class="col-sm-8"></div>
+  <div class="col-sm-2">
     <select [disabled]="disableShowMore" class="form-control"
             [(ngModel)]="searchobject.limit">
       <option [ngValue]="10">10</option>
@@ -46,7 +46,7 @@
       <option [ngValue]="50">50</option>
     </select>
   </div>
-  <div class="col-2">
+  <div class="col-sm-2">
     <button id="showMore" class="btn btn-warning" (click)="showMore()" [disabled]="loading || disableShowMore">Afficher plus
       <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     </button>
@@ -55,11 +55,11 @@
 </div>
 <br>
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-child-name">
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-child-name" class="modal-title pull-left">Ajouter marque</h4>
+        <h4 id="dialog-child-name" class="modal-title pull-left">Ajouter produit</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
           <span aria-hidden="true">&times;</span>
         </button>

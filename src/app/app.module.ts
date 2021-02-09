@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -33,6 +33,8 @@ import {EtatModule} from './etat/etat.module';
 import {TypeActiviteModule} from './type-activite/type-activite.module';
 import {ReclamationModule} from './reclamation/reclamation.module';
 import {NgxPrintModule} from 'ngx-print';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
 // RECOMMENDED
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserEditComponent } from './components/admin/user/user-edit/user-edit.component';
@@ -46,25 +48,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import {StatistiqueEtatComponent} from "./statistique-etat/statistique-etat.component";
 import { RechercheSocieteComponent } from './recherche-societe/recherche-societe.component';
 
-//sentry
-import * as Sentry from "@sentry/angular";
-import { Integrations } from "@sentry/tracing";
-import {Router} from "@angular/router";
-
-Sentry.init({
-  dsn: "https://bd3faf43707d41a8bb244f9a11c19fd0@o517250.ingest.sentry.io/5624845",
-  integrations: [
-    new Integrations.BrowserTracing({
-      tracingOrigins: ["localhost", "http://www.maintenancetn.mtsplus.tn/"],
-      routingInstrumentation: Sentry.routingInstrumentation,
-    }),
-  ],
-
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
-  tracesSampleRate: 1.0,
-});
-//sentry
 
 @NgModule({
   declarations: [
@@ -101,30 +84,14 @@ Sentry.init({
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     LeafletMarkerClusterModule,
-    NgxPrintModule
+    NgxPrintModule,
+    CarouselModule
   ],
   providers: [JarwisService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
-    {provide: 'SnotifyToastConfig', useValue: ToastDefaults}, BsModalRef,
+    {provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    BsModalRef,
     SnotifyService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
-    //sentry
-    {
-      provide: ErrorHandler,
-      useValue: Sentry.createErrorHandler({
-        showDialog: true,
-      }),
-    },
-    {
-      provide: Sentry.TraceService,
-      deps: [Router],
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => () => {},
-      deps: [Sentry.TraceService],
-      multi: true,
-    },
-    //sentry
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
   ],
   exports: [
     LoadingComponent,

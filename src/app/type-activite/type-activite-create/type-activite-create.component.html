@@ -12,87 +12,99 @@
         </li>
       </ul>
     </div>
-    <div class="form-row">
-      <form #typeActiviteCreateForm=ngForm (ngSubmit)="onSubmit()">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="nom">Nom *</label>
-              <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom"
-                     [(ngModel)]="typeActivite.nom"
-                     required minlength="4"
-                     #nom="ngModel"/>
-              <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
-                <li *ngIf="nom.errors.required">
-                  Ce champ est obligatoire
-                </li>
-                <li *ngIf="nom.errors.minlength">
-                  name must be at least 4 characters long.
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="coleur">coleur *</label>
-              <input class="form-control" id="coleur" name="coleur" type="text" placeholder="coleur"
-                     [(ngModel)]="typeActivite.coleur"
-                     required
-                     #coleur="ngModel"/>
-              <ul *ngIf="coleur.invalid && (coleur.dirty || coleur.touched)" class="alert alert-danger">
-                <li *ngIf="coleur.errors.required">
-                  Ce champ est obligatoire
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="iconUrl">iconUrl *</label>
-              <input class="form-control" id="iconUrl" name="iconUrl" type="text" placeholder="iconUrl"
-                     [(ngModel)]="typeActivite.iconUrl"
-                     required
-                     #iconUrl="ngModel"/>
-              <ul *ngIf="iconUrl.invalid && (iconUrl.dirty || iconUrl.touched)" class="alert alert-danger">
-                <li *ngIf="iconUrl.errors.required">
-                  Ce champ est obligatoire
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="map_legende">map_legende *</label>
-              <input class="form-control" id="map_legende" name="map_legende" type="text" placeholder="map_legende"
-                     [(ngModel)]="typeActivite.map_legende"
-                     required
-                     #map_legende="ngModel"/>
-              <ul *ngIf="map_legende.invalid && (map_legende.dirty || map_legende.touched)" class="alert alert-danger">
-                <li *ngIf="map_legende.errors.required">
-                  Ce champ est obligatoire
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <label for="map_description">map_description</label>
-              <textarea class="form-control" id="map_description" name="map_description" cols="30" rows="13"
-                        [(ngModel)]="typeActivite.map_description"></textarea>
-            </div>
-          </div>
-        </div>
+    <div class="content">
+      <div class="row no-gutters">
+        <div class="col-lg-12 pr-lg-2">
+          <div class="card mb-3">
 
-        <button class="btn btn-warning mb-3 float-right" type="submit"
-                [disabled]="typeActiviteCreateForm.invalid || loading">
-          Enregistrer
-          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </button>
-      </form>
+            <div class="card-body bg-light">
+              <form #typeActiviteCreateForm=ngForm (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="nom">Nom *</label>
+                      <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom"
+                             [(ngModel)]="typeActivite.nom"
+                             required minlength="4"
+                             #nom="ngModel"/>
+                      <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+                        <li *ngIf="nom.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                        <li *ngIf="nom.errors.minlength">
+                          name must be at least 4 characters long.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="coleur">coleur *</label>
+                      <input class="form-control" id="coleur" name="coleur" type="text" placeholder="coleur"
+                             [(ngModel)]="typeActivite.coleur"
+                             required
+                             #coleur="ngModel"/>
+                      <ul *ngIf="coleur.invalid && (coleur.dirty || coleur.touched)" class="alert alert-danger">
+                        <li *ngIf="coleur.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="iconUrl">iconUrl *</label>
+                      <input class="form-control" id="iconUrl" name="iconUrl" type="text" placeholder="iconUrl"
+                             [(ngModel)]="typeActivite.iconUrl"
+                             required
+                             #iconUrl="ngModel"/>
+                      <ul *ngIf="iconUrl.invalid && (iconUrl.dirty || iconUrl.touched)" class="alert alert-danger">
+                        <li *ngIf="iconUrl.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="map_legende">Map legende *</label>
+                      <input class="form-control" id="map_legende" name="map_legende" type="text"
+                             placeholder="map_legende"
+                             [(ngModel)]="typeActivite.map_legende"
+                             required
+                             #map_legende="ngModel"/>
+                      <ul *ngIf="map_legende.invalid && (map_legende.dirty || map_legende.touched)"
+                          class="alert alert-danger">
+                        <li *ngIf="map_legende.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="map_description">Map description</label>
+                      <textarea class="form-control" id="map_description" name="map_description" cols="30" rows="13"
+                                [(ngModel)]="typeActivite.map_description"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-warning mb-3 float-right" type="submit"
+                        [disabled]="typeActiviteCreateForm.invalid || loading">
+                  Enregistrer
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

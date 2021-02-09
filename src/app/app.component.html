@@ -183,9 +183,9 @@
       </div>
 
 
-      <app-recherche-societe></app-recherche-societe>
+      <app-recherche-societe *ngIf="routeHome"></app-recherche-societe>
       <ng-snotify></ng-snotify>
-      <router-outlet></router-outlet>
+      <router-outlet (activate)='onActivate($event)'></router-outlet>
 
       <br>
       <app-footer></app-footer>

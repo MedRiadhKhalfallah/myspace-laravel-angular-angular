@@ -35,7 +35,8 @@
                 <label
                   class="mb-0 overlay-icon d-flex flex-center" for="profile-image"><span
                   class="bg-holder overlay overlay-0"></span><span class="z-index-1 text-white text-center fs--1"><span
-                  class="fas fa-camera"></span><span class="d-block">Changer la photo de profile</span></span></label></div>
+                  class="fas fa-camera"></span><span class="d-block">Changer la photo de profile</span></span></label>
+              </div>
             </div>
           </div>
         </div>
@@ -98,6 +99,33 @@
                   </div>
                 </div>
 
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="gouvernorat">Gouvernorat *</label>
+                    <select class="form-control" id="gouvernorat" name="gouvernorat"
+                            [(ngModel)]="societe.gouvernorat_id" required
+                            (change)='findDelegation()'>
+                      <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
+                        {{gouvernorat.nom}}
+                      </option>
+                    </select>
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="delegation">Delegation *</label>
+                    <select class="form-control" id="delegation" name="delegation" [(ngModel)]="societe.delegation_id"
+                            required>
+                      <option [value]=""></option>
+                      <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
+                        {{delegation.nom}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
               </div>
               <div class="row">
                 <div class="col-lg-6">
@@ -173,25 +201,6 @@
                       </li>
                     </ul>
 
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="ville">Ville *</label>
-                    <input class="form-control" id="ville" name="ville" type="text" [(ngModel)]="societe.ville"
-                           required minlength="3" maxlength="255"
-                           #ville="ngModel">
-                    <ul *ngIf="ville.invalid && (ville.dirty || ville.touched)" class="alert alert-danger">
-                      <li *ngIf="ville.errors.required">
-                        Ce champ est obligatoire
-                      </li>
-                      <li *ngIf="ville.errors.minlength">
-                        nom must be at least 3 characters long.
-                      </li>
-                      <li *ngIf="ville.errors.maxlength">
-                        nom must be at max 4 characters long.
-                      </li>
-                    </ul>
                   </div>
                 </div>
 
@@ -281,7 +290,8 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="votre_code_invitation">Si vous avez un code de parrainage merci de renseigner ici</label>
+                    <label for="votre_code_invitation">Si vous avez un code de parrainage merci de renseigner
+                      ici</label>
                     <input class="form-control" id="votre_code_invitation" name="votre_code_invitation"
                            type="text" [(ngModel)]="societe.votre_code_invitation">
                   </div>
@@ -293,7 +303,9 @@
                    target="_blank">
                   Afficher en tant que visiteur
                 </a>
-                <button class="btn btn-primary" type="submit" [disabled]="societeUpdateForm.invalid || loadingUpdate">
+                <button class="btn btn-primary" type="submit"
+                        [disabled]="societeUpdateForm.invalid || loadingUpdate"
+                        style="margin-left: 10px;">
                   Valider
                   <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
                         aria-hidden="true"></span>

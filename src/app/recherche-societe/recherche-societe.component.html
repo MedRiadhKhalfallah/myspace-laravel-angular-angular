@@ -1,3 +1,21 @@
+<div class="container" style="margin-top: 20px;">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <div class="form-inline search-box">
+        <input class="form-control rounded-pill search-input" type="search"
+               placeholder="Rechercher société..." aria-label="Search"
+               [(ngModel)]="searchObject" (keyup)="search()"/>
+        <span class="position-absolute fas fa-search text-400 search-box-icon"></span>
+      </div>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+
+<!--
 <table style="width:100%; margin-top: 20px;" >
   <tr>
     <td width="30%"></td>
@@ -6,15 +24,17 @@
         <input class="form-control rounded-pill search-input" type="search"
                placeholder="Rechercher société..." aria-label="Search"
                [(ngModel)]="searchObject" (keyup)="search()"/>
-        <span class="position-absolute fas fa-search text-400 search-box-icon"></span></div>
+        <span class="position-absolute fas fa-search text-400 search-box-icon"></span>
+      </div>
     </td>
     <td width="20%"></td>
   </tr>
 </table>
+-->
 <br *ngIf="!loading && listSociete.length!=0">
 <app-loading *ngIf="loading"></app-loading>
 <div class="card" *ngIf="!loading && listSociete.length==0 && searchObject.length > 2">
-  no société
+    Aucun article n'a été trouvé pour votre requête
 </div>
 <div class="card" *ngIf="!loading && listSociete.length!=0">
   <div class="card-header bg-light">

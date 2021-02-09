@@ -9,6 +9,8 @@ import {ProduitService} from "../produit/service/produit.service";
 export class StatistiqueEtatComponent implements OnInit {
   public produisByEtat = [];
   public loading =false;
+  temp = Array;
+  math = Math;
 
   constructor(private produitService: ProduitService) { }
 

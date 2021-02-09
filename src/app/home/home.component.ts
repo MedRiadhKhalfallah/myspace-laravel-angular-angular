@@ -4,6 +4,7 @@ import * as L from 'leaflet';
 import {SocieteService} from "../societe/service/societe.service";
 import {DatePipe} from "@angular/common";
 import {TokenService} from "../services/token.service";
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 const iconUrl = '/assets/lib/leaflet/images/marker-icon.png';
 const shadowUrl = '/assets/lib/leaflet/images/marker-shadow.png';
@@ -16,6 +17,36 @@ const shadowUrl = '/assets/lib/leaflet/images/marker-shadow.png';
 
 })
 export class HomeComponent implements OnInit {
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    navText: [
+      '<i class="fas fa-chevron-circle-left"></i>',
+      '<i class="fas fa-chevron-circle-right"></i>'
+    ],
+    autoplayTimeout:5000,
+    autoplay:true,
+    autoplayHoverPause:true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: true
+  };
   public reference;
   public produit;
   public loading = false;
@@ -86,7 +117,7 @@ export class HomeComponent implements OnInit {
     tiles.addTo(this.map);
 
     for (const societe of this.societes) {
-      if (societe.latitude && societe.longitude) {
+      if (societe.latitude && societe.longitude && societe.type_activite) {
         let iconUrl=societe.type_activite.iconUrl;
         if(this.markersLegende.find(x => x.map_legende === societe.type_activite.map_legende) == undefined){
           this.markersLegende.push({iconUrl:iconUrl,map_legende:societe.type_activite.map_legende});
@@ -153,6 +184,13 @@ export class HomeComponent implements OnInit {
       data => this.handleGetProduitResponse(data),
       error => this.handleGetProduitError(error)
     );
+  }
+  public top() {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
   }
 
 }

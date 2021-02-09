@@ -21,6 +21,7 @@ export class AppComponent implements OnInit, OnChanges {
   public date_fin_abonnement_societe;
   public resNb;
   public afficheif=false;
+  public routeHome=false;
 
   constructor(private auth: AuthService,
               private router: Router,
@@ -123,10 +124,18 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
+
+  }
+
+  onActivate(event){
     if (this.profileImg == null) {
       this.profileImg = localStorage.getItem('profileImg');
     }
 
+    this.routeHome=this.router.url != '/';
+
+    console.log("here");
   }
 
 }

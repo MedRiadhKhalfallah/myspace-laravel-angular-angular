@@ -1,7 +1,7 @@
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/internal/operators';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {AppComponent} from "./app.component";
 import {AuthService} from "./services/auth.service";
