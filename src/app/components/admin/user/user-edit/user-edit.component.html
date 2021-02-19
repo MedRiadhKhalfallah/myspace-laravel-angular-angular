@@ -37,15 +37,13 @@
           <form #profileUpdateForm=ngForm (ngSubmit)="onSubmit()">
             <div class="row">
               <div class="col-lg-6">
-                <div class="form-group"><label for="username">Username</label><input class="form-control"
-                                                                                     id="username" name="username"
-                                                                                     type="text"
-                                                                                     [(ngModel)]="profile.username"
-                                                                                     minlength="4"
-                                                                                     #username="ngModel">
+                <div class="form-group">
+                  <label for="username">Username</label><input class="form-control"
+                     id="username" name="username" type="text" [(ngModel)]="profile.username"
+                     minlength="3" #username="ngModel">
                   <ul *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
                     <li *ngIf="username.errors.minlength">
-                      Username must be at least 4 characters long.
+                      Username doit comporter au moins 3 caractères.
                     </li>
                   </ul>
 
@@ -70,14 +68,14 @@
                 <div class="form-group">
                   <label for="prenom">Prénom</label>
                   <input class="form-control" id="prenom" name="prenom" type="text" [(ngModel)]="profile.prenom"
-                         required minlength="4"
+                         required minlength="3"
                          #prenom="ngModel">
                   <ul *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)" class="alert alert-danger">
                     <li *ngIf="prenom.errors.required">
                       Ce champ est obligatoire
                     </li>
                     <li *ngIf="prenom.errors.minlength">
-                      prenom must be at least 4 characters long.
+                      Prénom doit comporter au moins 3 caractères.
                     </li>
                   </ul>
 
@@ -94,7 +92,7 @@
                       Ce champ est obligatoire
                     </li>
                     <li *ngIf="nom.errors.minlength">
-                      nom must be at least 4 characters long.
+                      Nom doit comporter au moins 4 caractères.
                     </li>
                   </ul>
 
@@ -237,7 +235,7 @@
                     Ce champ est obligatoire
                   </li>
                   <li *ngIf="password.errors.minlength">
-                    Mot de passe must be at least 8 characters long.
+                    Mot de passe doit comporter au moins 8 caractères.
                   </li>
                 </ul>
 
@@ -265,7 +263,7 @@
                     Ce champ est obligatoire
                   </li>
                   <li *ngIf="confirmationpassword.errors.minlength">
-                    Mot de passe must be at least 8 characters long.
+                    Mot de passe doit comporter au moins 8 caractères.
                   </li>
                 </ul>
 

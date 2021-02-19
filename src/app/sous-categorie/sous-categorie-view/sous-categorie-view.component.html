@@ -1,0 +1,27 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tbody>
+        <tr>
+          <th scope="row">Categorie</th>
+          <td><span *ngIf="sousCategorie.category">{{sousCategorie.category.nom}}</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Sous categorie</th>
+          <td>{{sousCategorie.nom}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Ordre</th>
+          <td>{{sousCategorie.order}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Description</th>
+          <td>{{sousCategorie.description}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

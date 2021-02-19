@@ -25,14 +25,14 @@
                       <label for="nom">Nom *</label>
                       <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom"
                              [(ngModel)]="typeActivite.nom"
-                             required minlength="4"
+                             required minlength="3"
                              #nom="ngModel"/>
                       <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
                         <li *ngIf="nom.errors.required">
                           Ce champ est obligatoire
                         </li>
                         <li *ngIf="nom.errors.minlength">
-                          name must be at least 4 characters long.
+                         Nom doit comporter au moins 3 caractères.
                         </li>
                       </ul>
                     </div>

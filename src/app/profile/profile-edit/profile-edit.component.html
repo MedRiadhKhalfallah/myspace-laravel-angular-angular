@@ -46,7 +46,7 @@
                                                                                      #username="ngModel">
                   <ul *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
                     <li *ngIf="username.errors.minlength">
-                      Username must be at least 4 characters long.
+                      Username doit comporter au moins 4 caractères.
                     </li>
                   </ul>
 
@@ -72,7 +72,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="prenom">Prénom</label>
+                  <label for="prenom">Prénom *</label>
                   <input class="form-control" id="prenom" name="prenom" type="text" [(ngModel)]="profile.prenom"
                          required minlength="4"
                          #prenom="ngModel">
@@ -81,7 +81,7 @@
                       Ce champ est obligatoire
                     </li>
                     <li *ngIf="prenom.errors.minlength">
-                      prenom must be at least 4 characters long.
+                      Prénom doit comporter au moins 4 caractères.
                     </li>
                   </ul>
 
@@ -89,7 +89,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="nom">Nom</label>
+                  <label for="nom">Nom *</label>
                   <input class="form-control" id="nom" name="nom" type="text" [(ngModel)]="profile.nom"
                          required minlength="4"
                          #nom="ngModel">
@@ -98,7 +98,7 @@
                       Ce champ est obligatoire
                     </li>
                     <li *ngIf="nom.errors.minlength">
-                      nom must be at least 4 characters long.
+                      Nom doit comporter au moins 4 caractères.
                     </li>
                   </ul>
 
@@ -108,11 +108,18 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="sex">Genre</label>
-                  <select class="form-control" id="sex" name="sex" type="text" [(ngModel)]="profile.sex">
+                  <label for="sex">Genre *</label>
+                  <select class="form-control" id="sex" name="sex" type="text"
+                          [(ngModel)]="profile.sex" required #sex="ngModel">
                     <option value="1">Homme</option>
                     <option value="0">Femme</option>
                   </select>
+                  <ul *ngIf="sex.invalid && (sex.dirty || sex.touched)" class="alert alert-danger">
+                    <li *ngIf="sex.errors.required">
+                      Ce champ est obligatoire
+                    </li>
+                  </ul>
+
                 </div>
               </div>
               <div class="col-lg-6">
@@ -132,13 +139,13 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <div class="form-group"><label for="email">Email</label><input class="form-control" id="email"
-                                                                               name="email" type="text"
-                                                                               [value]="profile.email" disabled>
+                <div class="form-group"><label for="email">Email</label>
+                  <input class="form-control" id="email" name="email" type="text"
+                         [value]="profile.email" disabled>
                 </div>
               </div>
               <div class="col-lg-6">
-                <div class="form-group"><label for="telephone">Télephone</label><input class="form-control"
+                <div class="form-group"><label for="telephone">Télephone *</label><input class="form-control"
                                                                                        id="telephone" name="telephone"
                                                                                        type="text"
                                                                                        [(ngModel)]="profile.telephone"
@@ -243,7 +250,7 @@
                     Ce champ est obligatoire
                   </li>
                   <li *ngIf="oldpassword.errors.minlength">
-                    Mot de passe must be at least 8 characters long.
+                    Mot de passe doit comporter au moins 8 caractères.
                   </li>
                 </ul>
               </div>
@@ -270,7 +277,7 @@
                     Ce champ est obligatoire
                   </li>
                   <li *ngIf="password.errors.minlength">
-                    Mot de passe must be at least 8 characters long.
+                    Mot de passe doit comporter au moins 8 caractères..
                   </li>
                 </ul>
 
@@ -298,7 +305,7 @@
                     Ce champ est obligatoire
                   </li>
                   <li *ngIf="confirmationpassword.errors.minlength">
-                    Mot de passe must be at least 8 characters long.
+                    Mot de passe doit comporter au moins 8 caractères.
                   </li>
                 </ul>
 

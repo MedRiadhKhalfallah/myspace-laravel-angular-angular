@@ -1,0 +1,81 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="col-12">
+  <div *ngIf="error" class="div">
+    <ul class="alert alert-danger fa-ul">
+      <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+    </ul>
+  </div>
+  <div *ngIf="errors" class="div">
+    <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+      - {{ item.key }}
+      <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="!loading" class="content">
+    <div class="row no-gutters">
+      <div class="col-lg-12 pr-lg-2">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">Creation de la société</h5>
+          </div>
+          <div class="card-body bg-light">
+            <form #roueUpdateForm=ngForm (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="gameOverText">game Over Text *</label>
+                    <input class="form-control" id="gameOverText" name="gameOverText" type="text" [(ngModel)]="roue.gameOverText"
+                           required minlength="3" maxlength="255"
+                           #gameOverText="ngModel">
+                    <ul *ngIf="gameOverText.invalid && (gameOverText.dirty || gameOverText.touched)" class="alert alert-danger">
+                      <li *ngIf="gameOverText.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                      <li *ngIf="gameOverText.errors.minlength">
+                        Nom doit comporter au moins 3 caractères.
+                      </li>
+                      <li *ngIf="gameOverText.errors.maxlength">
+                        Nom doit contenir au maximum 255 caractères.
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="etat">Etat *</label>
+                    <select class="form-control" id="etat" name="etat"
+                            [(ngModel)]="roue.etat" required
+                            #etat="ngModel">
+                      <option [value]="true">Active</option>
+                      <option [value]="false">Désactive</option>
+                    </select>
+                    <ul *ngIf="etat.invalid && (etat.dirty || etat.touched)" class="alert alert-danger">
+                      <li *ngIf="etat.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary" type="submit"
+                        [disabled]="roueUpdateForm.invalid || loadingUpdate"
+                        style="margin-left: 10px;">
+                  Valider
+                  <span *ngIf="loadingUpdate" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

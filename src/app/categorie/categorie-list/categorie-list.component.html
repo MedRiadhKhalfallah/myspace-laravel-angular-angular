@@ -1,0 +1,93 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+    <div *ngIf="categorieList.length == 0">
+      Aucun article n'a été trouvé pour votre requête de recherche
+    </div>
+    <div class="table-responsive" *ngIf="categorieList.length != 0">
+      <table class="table table-hover table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Ordre</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let categorie of categorieList ; let index = index">
+          <th scope="row">{{index + 1}}</th>
+          <td>{{categorie.nom}}</td>
+          <td>{{categorie.order}}
+          </td>
+          <td>
+            <button class="btn btn-info" type="button" (click)="showChildModalView(categorie)"
+                    style="margin-right: 2px;"><span
+              class='far fa-eye'></span></button>
+            <button class="btn btn-warning" type="button" (click)="showChildModal(categorie)"
+                    style="margin-right: 2px;"><span
+              class='fas fa-edit'></span></button>
+            <button class="btn btn-danger"
+                    (click)="showChildModalDelete(categorie)"
+                    [disabled]="loading[categorie.category_id]">
+              <span *ngIf="!loading[categorie.category_id]" class='far fa-trash-alt'></span>
+              <span *ngIf="loading[categorie.category_id]" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Modifier Categorie</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-categorie-create [categorie]="categorie" (loadDataEdit)="handleResponse({},categorie.id)"></app-categorie-create>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalView="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-view" class="modal-title pull-left">Afficher categorie</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalView()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-categorie-view [categorie]="categorie"></app-categorie-view>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #childModalDelete="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-delete" class="modal-title pull-left">Afficher categorie</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalDelete()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-delete [id]="categorieId" (request)="deleteCategorie($event)"></app-delete>
+      </div>
+    </div>
+  </div>
+</div>
+

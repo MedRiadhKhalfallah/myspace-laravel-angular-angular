@@ -14,7 +14,7 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
   @Output() loadDataEdit: EventEmitter<any> = new EventEmitter<any>();
 
   public form = {
-    name: null,
+    nom: null,
     selectedFile: null,
     etat: null
   };
@@ -32,7 +32,7 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.marque) {
-      this.form.name = this.marque.marque_name;
+      this.form.nom = this.marque.nom;
     }
   }
 
@@ -51,10 +51,10 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
     } else {
       formData.append('selectedFile', null);
     }
-    formData.append('name', this.form.name);
+    formData.append('nom', this.form.nom);
     formData.append('etat', 'true');
     if (this.marque) {
-      return this.marqueService.updateMarque(this.marque.marque_id, formData).subscribe(
+      return this.marqueService.updateMarque(this.marque.id, formData).subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error)
       );
@@ -73,7 +73,7 @@ export class MarqueCreateComponent implements OnInit, OnChanges {
 
     this.loading = false;
     this.form = {
-      name: null, selectedFile: null, etat: true
+      nom: null, selectedFile: null, etat: true
     };
     this.error = null;
     this.errors = null;

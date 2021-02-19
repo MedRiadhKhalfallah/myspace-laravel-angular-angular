@@ -3,16 +3,80 @@
     <h5 class="mb-0">Recherche société</h5>
   </div>
   <div class="card-body bg-light">
-    <div class="row">
-      <div class="col-12">
         <form #societeSearchForm=ngForm (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="nom">Nom</label>
-            <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom" [(ngModel)]="form.nom">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="reference">Référence</label>
+                <input class="form-control" id="reference" name="reference" type="text" placeholder="Nom" [(ngModel)]="form.reference">
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="nom">Nom</label>
+                <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom" [(ngModel)]="form.nom">
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="type_activite">Secteur d'activité</label>
+                <select class="form-control" id="type_activite" name="type_activite"
+                        [(ngModel)]="form.type_activite_id"
+                        #type_activite="ngModel">
+                  <option *ngFor="let typeActivite of listTypeActivite" [value]="typeActivite.id">
+                    {{typeActivite.nom}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="gouvernorat">Gouvernorat</label>
+                <select class="form-control" id="gouvernorat" name="gouvernorat"
+                        [(ngModel)]="form.gouvernorat_id"
+                        #gouvernorat="ngModel" (change)='findDelegation()'>
+                  <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
+                    {{gouvernorat.nom}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="nom">Delegation</label>
+                <select class="form-control" id="delegation" name="delegation" [(ngModel)]="form.delegation_id"
+                        #delegation="ngModel">
+                  <option [value]=""></option>
+                  <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
+                    {{delegation.nom}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="email">Adresse e-mail</label>
+                <input class="form-control" id="email" name="email" type="text" placeholder="Nom" [(ngModel)]="form.email">
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="telephone_mobile">Téléphone mobile</label>
+                <input class="form-control" id="telephone_mobile" name="telephone_mobile" type="text" placeholder="Nom" [(ngModel)]="form.telephone_mobile">
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="telephone_fix">Téléphone fix</label>
+                <input class="form-control" id="telephone_fix" name="telephone_fix" type="text" placeholder="Nom" [(ngModel)]="form.telephone_fix">
+              </div>
+            </div>
           </div>
           <button class="btn btn-warning mb-3 float-right" type="submit" [disabled]="societeSearchForm.invalid">Recherche</button>
         </form>
-      </div>
-    </div>
   </div>
 </div>

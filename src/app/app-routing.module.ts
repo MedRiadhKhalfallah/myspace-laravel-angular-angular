@@ -25,6 +25,15 @@ import {RechercheSocieteComponent} from "./recherche-societe/recherche-societe.c
 import {SocieteMapComponent} from "./societe/societe-map/societe-map.component";
 import {TypeActiviteIndexComponent} from "./type-activite/type-activite-index/type-activite-index.component";
 import {ReclamationIndexComponent} from "./reclamation/reclamation-index/reclamation-index.component";
+import {SocieteRechercheAvanceComponent} from "./societe/societe-recherche-avance/societe-recherche-avance.component";
+import {TarificationComponent} from "./tarification/tarification/tarification.component";
+import {PaymentComponent} from "./tarification/payment/payment.component";
+import {RoueChanceViewComponent} from "./roue-chance/roue-chance-view/roue-chance-view.component";
+import {NewProduitIndexComponent} from "./new-produit/new-produit-index/new-produit-index.component";
+import {ModeleIndexComponent} from "./modele/modele-index/modele-index.component";
+import {SousCategorieIndexComponent} from "./sous-categorie/sous-categorie-index/sous-categorie-index.component";
+import {CategorieIndexComponent} from "./categorie/categorie-index/categorie-index.component";
+import {NewProduitViewComponent} from "./new-produit/new-produit-view/new-produit-view.component";
 
 const routes: Routes = [
   {
@@ -86,6 +95,10 @@ const routes: Routes = [
     component: SocieteViewComponent,
   },
   {
+    path: 'societe/view/:id/sousCategory/:sousCategoryId',
+    component: SocieteViewComponent,
+  },
+  {
     path: 'societe/create',
     component: SocieteCreateComponent,
     canActivate: [AfterLoginService]
@@ -123,6 +136,26 @@ const routes: Routes = [
     canActivate: [AfterLoginService]
   },
   {
+    path: 'categories',
+    component: CategorieIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'sousCategories',
+    component: SousCategorieIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'modeles',
+    component: ModeleIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'newProduits',
+    component: NewProduitIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
     path: 'typeActivites',
     component: TypeActiviteIndexComponent,
     canActivate: [AfterLoginService]
@@ -131,6 +164,26 @@ const routes: Routes = [
     path: 'reclamations',
     component: ReclamationIndexComponent,
     canActivate: [AfterLoginService]
+  },
+  {
+    path: 'societe-recherche-avance',
+    component: SocieteRechercheAvanceComponent,
+  },
+  {
+    path: 'tarification',
+    component: TarificationComponent,
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent,
+  },
+  {
+    path: 'roue-chance',
+    component: RoueChanceViewComponent,
+  },
+  {
+    path: 'newProduit/view/:id',
+    component: NewProduitViewComponent,
   }
 
 ];

@@ -61,10 +61,10 @@
                       Username doit contenire que des chiffres.
                     </li>
                     <li *ngIf="reference_produit.errors.minlength">
-                      Username must be at least 13 characters long.
+                      Référence doit comporter au moins 13 caractères.
                     </li>
                     <li *ngIf="reference_produit.errors.maxlength">
-                      Username must be at max 13 characters long.
+                      Référence doit contenir au maximum 13 caractères.
                     </li>
                     <li *ngIf="reference_produit.errors.required">
                       Ce champ est obligatoire
@@ -224,7 +224,7 @@
 </div>
 <br>
 
-<div class="row no-gutters">
+<div class="row no-gutters" *ngIf="!loggedIn">
   <div class="col-lg-12 pr-lg-2 mb-3 mb-lg-0">
     <div class="card h-100">
       <div class="card-body p-4 p-sm-5">
@@ -234,7 +234,7 @@
           <h2>
             Rejoindre Notre Réseau professionnel
           </h2>
-          <a class="btn btn-primary btn-sm mt-3" routerLink="/signup">
+          <a routerLink="/signup" class="btn btn-primary btn-sm mt-3" >
             <span class="fas fa-chevron-left mr-1" data-fa-transform="shrink-4 down-1"></span>
             Rejoindre le Réseau!
           </a>

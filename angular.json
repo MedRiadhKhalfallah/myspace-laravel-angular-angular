@@ -60,7 +60,13 @@
               "src/assets/lib/flatpickr/flatpickr.min.js",
               "src/assets/lib/dropzone/dropzone.min.js",
               "src/assets/js/theme.min.js",
-              "src/assets/lib/typed.js/typed.js"
+              "src/assets/lib/typed.js/typed.js",
+              "src/assets/roue/pen/bbc103e987315728a1190a25753c00e1.js",
+              "src/assets/roue/ajax/TweenMax.min.js",
+              "src/assets/roue/ajax/Draggable.min.js",
+              "src/assets/roue/ajax/TextPlugin.min.js",
+              "src/assets/roue/ThrowPropsPluginn.min.js",
+              "src/assets/roue/script.js"
             ]
           },
           "configurations": {

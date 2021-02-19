@@ -41,12 +41,15 @@ export class SignupComponent implements OnInit {
 
   // custom validator to check that two fields match
   mustMatch(data) {
-    if (data === this.form.password) {
+    console.log("1");
+    console.log(this.form.password_confirmation);
+    console.log(this.form.password);
+    if (this.form.password_confirmation === this.form.password) {
       this.isMutch = true;
-      // this.form.password_confirmation.setErrors({'incorrect': false})
+      console.log("2");
     } else {
       this.isMutch = false;
-      // this.form.password_confirmation.setErrors({'incorrect': true})
+      console.log("3");
 
     }
   }

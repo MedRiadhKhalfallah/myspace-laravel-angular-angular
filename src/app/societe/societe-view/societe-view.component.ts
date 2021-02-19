@@ -1,7 +1,9 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 import {SocieteService} from "../service/societe.service";
 import * as L from "leaflet";
+import {NewProduitService} from "../../new-produit/service/new-produit.service";
+
 const iconRetinaUrl = '/assets/lib/leaflet/images/marker-icon-2x.png';
 const iconUrl = '/assets/lib/leaflet/images/marker-icon.png';
 const shadowUrl = '/assets/lib/leaflet/images/marker-shadow.png';
@@ -21,7 +23,7 @@ const iconDefault = L.icon({
   templateUrl: './societe-view.component.html',
   styleUrls: ['./societe-view.component.css']
 })
-export class SocieteViewComponent implements OnInit {
+export class SocieteViewComponent implements OnInit,OnChanges {
 
   @Input() societe;
   public error;
@@ -30,13 +32,27 @@ export class SocieteViewComponent implements OnInit {
   public user;
   private map;
   private markers;
+  private sousCategory_id;
+  private newProduitList = [];
+  private loadingNewProduit = false;
 
-  constructor(private route: ActivatedRoute, private societeService: SocieteService) {
+  constructor(private route: ActivatedRoute,
+              private societeService: SocieteService,
+              private activatedRoute: ActivatedRoute,
+              private newProduitService: NewProduitService,
+              private router: Router,
+  ) {
+    // force route reload whenever params change;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     Window["myComponent"] = this
   }
 
   ngOnInit(): void {
     this.societe = {};
+    this.route.params.subscribe(params => {
+      this.sousCategory_id = params['sousCategoryId'];
+      this.loadnewProduitList({'sousCategory_id': this.sousCategory_id});
+    });
     var societeId = this.route.snapshot.paramMap.get('id');
     if (societeId) {
       this.loading = true;
@@ -53,8 +69,26 @@ export class SocieteViewComponent implements OnInit {
     this.error = null;
     this.errors = null;
     this.societe = data;
+    console.log(!this.sousCategory_id);
+    if (!this.sousCategory_id) {
+      this.newProduitList = this.societe.newProduits;
+    }
+
     this.loading = false;
     this.initMap();
+  }
+
+  public handleGetNewProduitResponse(data): any {
+    this.newProduitList = data;
+    this.loadingNewProduit = false;
+  }
+
+  public loadnewProduitList(data): any {
+    this.loadingNewProduit = true;
+    return this.newProduitService.newProduitSearchWithCriteria(data).subscribe(
+      data => this.handleGetNewProduitResponse(data),
+      error => this.handleGetSocieteError(error)
+    );
   }
 
   public handleGetSocieteError(error): any {
@@ -64,6 +98,7 @@ export class SocieteViewComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("hereeeee");
   }
 
   private initMap(): void {
@@ -78,12 +113,12 @@ export class SocieteViewComponent implements OnInit {
     this.markers = L.markerClusterGroup();
     tiles.addTo(this.map);
 
-      if (this.societe.latitude && this.societe.longitude) {
-        var marker = L.marker([this.societe.latitude, this.societe.longitude]).bindPopup(this.popupHtml(this.societe));
-        this.markers.addLayer(marker);
-        this.map.addLayer(this.markers);
+    if (this.societe.latitude && this.societe.longitude) {
+      var marker = L.marker([this.societe.latitude, this.societe.longitude]).bindPopup(this.popupHtml(this.societe));
+      this.markers.addLayer(marker);
+      this.map.addLayer(this.markers);
 
-      }
+    }
 
 
   }

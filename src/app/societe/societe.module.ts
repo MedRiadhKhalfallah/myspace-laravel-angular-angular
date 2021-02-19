@@ -14,11 +14,12 @@ import {BrowserModule} from "@angular/platform-browser";
 import { SocieteMapComponent } from './societe-map/societe-map.component';
 import { SocietePayementComponent } from './societe-payement/societe-payement.component';
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import { SocieteRechercheAvanceComponent } from './societe-recherche-avance/societe-recherche-avance.component';
 
 
 
 @NgModule({
-  declarations: [SocieteCreateComponent, SocieteIndexComponent, SocieteListComponent, SocieteSearchComponent, SocieteViewComponent, SocieteMapComponent, SocietePayementComponent],
+  declarations: [SocieteCreateComponent, SocieteIndexComponent, SocieteListComponent, SocieteSearchComponent, SocieteViewComponent, SocieteMapComponent, SocietePayementComponent, SocieteRechercheAvanceComponent],
     imports: [
         CommonModule,
         AppModule,

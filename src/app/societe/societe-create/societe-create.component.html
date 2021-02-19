@@ -78,10 +78,10 @@
                         Ce champ est obligatoire
                       </li>
                       <li *ngIf="nom.errors.minlength">
-                        nom must be at least 3 characters long.
+                       Nom doit comporter au moins 3 caractères.
                       </li>
                       <li *ngIf="nom.errors.maxlength">
-                        nom must be at max 255 characters long.
+                        Nom doit contenir au maximum 255 caractères.
                       </li>
                     </ul>
 
@@ -89,13 +89,19 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="etat">Secteur d'activité *</label>
-                    <select class="form-control" id="etat" name="etat" [(ngModel)]="societe.type_activite_id" required>
+                    <label for="type_activite">Secteur d'activité *</label>
+                    <select class="form-control" id="type_activite" name="type_activite"
+                            [(ngModel)]="societe.type_activite_id"
+                            #type_activite="ngModel" required>
                       <option *ngFor="let typeActivite of listTypeActivite" [value]="typeActivite.id">
                         {{typeActivite.nom}}
                       </option>
                     </select>
-
+                    <ul *ngIf="type_activite.invalid && (type_activite.dirty || type_activite.touched)" class="alert alert-danger">
+                      <li *ngIf="type_activite.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                    </ul>
                   </div>
                 </div>
 
@@ -106,24 +112,33 @@
                     <label for="gouvernorat">Gouvernorat *</label>
                     <select class="form-control" id="gouvernorat" name="gouvernorat"
                             [(ngModel)]="societe.gouvernorat_id" required
-                            (change)='findDelegation()'>
+                            #gouvernorat="ngModel" (change)='findDelegation()'>
                       <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
                         {{gouvernorat.nom}}
                       </option>
                     </select>
-
+                    <ul *ngIf="gouvernorat.invalid && (gouvernorat.dirty || gouvernorat.touched)" class="alert alert-danger">
+                      <li *ngIf="gouvernorat.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                    </ul>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="delegation">Delegation *</label>
                     <select class="form-control" id="delegation" name="delegation" [(ngModel)]="societe.delegation_id"
-                            required>
+                            #delegation="ngModel"  required>
                       <option [value]=""></option>
                       <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
                         {{delegation.nom}}
                       </option>
                     </select>
+                    <ul *ngIf="delegation.invalid && (delegation.dirty || delegation.touched)" class="alert alert-danger">
+                      <li *ngIf="delegation.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -136,16 +151,16 @@
                            #adresse="ngModel">
                     <ul *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)" class="alert alert-danger">
                       <li *ngIf="adresse.errors.pattern">
-                        nom doit contenire que de carectere alphabitique et des chiffres.
+                        Adresse doit contenire que de carectere alphabitique et des chiffres.
                       </li>
                       <li *ngIf="adresse.errors.required">
                         Ce champ est obligatoire
                       </li>
                       <li *ngIf="adresse.errors.minlength">
-                        nom must be at least 3 characters long.
+                        Nom doit comporter au moins 3 caractères.
                       </li>
                       <li *ngIf="adresse.errors.maxlength">
-                        nom must be at max 255 characters long.
+                        Adresse doit contenir au maximum 255 caractères.
                       </li>
                     </ul>
 
@@ -157,18 +172,11 @@
                     <input class="form-control" id="complement_adresse" name="complement_adresse" type="text"
                            [(ngModel)]="societe.complement_adresse"
                            placeholder="Appartement, étage, porte, couloir"
-                           minlength="3" maxlength="255"
-                           #complement_adresse="ngModel">
+                           maxlength="255" #complement_adresse="ngModel">
                     <ul *ngIf="complement_adresse.invalid && (complement_adresse.dirty || complement_adresse.touched)"
                         class="alert alert-danger">
-                      <li *ngIf="complement_adresse.errors.pattern">
-                        nom doit contenire que de carectere alphabitique et des chiffres.
-                      </li>
-                      <li *ngIf="complement_adresse.errors.minlength">
-                        nom must be at least 3 characters long.
-                      </li>
                       <li *ngIf="complement_adresse.errors.maxlength">
-                        nom must be at max 255 characters long.
+                        Complément d'adresse doit contenir au maximum 255 caractères.
                       </li>
                     </ul>
 
@@ -188,7 +196,7 @@
                     <ul *ngIf="code_postal.invalid && (code_postal.dirty || code_postal.touched)"
                         class="alert alert-danger">
                       <li *ngIf="code_postal.errors.pattern">
-                        nom doit contenire que des chiffres.
+                        Ce champ doit contenire que des chiffres.
                       </li>
                       <li *ngIf="code_postal.errors.required">
                         Ce champ est obligatoire
@@ -197,7 +205,7 @@
                         Ce champ doit comporter 4 chiffres
                       </li>
                       <li *ngIf="code_postal.errors.maxlength">
-                        nom must be at max 4 characters long.
+                        Code postal doit contenir au maximum 4 caractères.
                       </li>
                     </ul>
 
@@ -234,7 +242,7 @@
                     <ul *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="alert alert-danger">
 
                       <li *ngIf="telephone.errors.pattern">
-                        Téléphone doit contenire que de carectere alphabitique.
+                        Téléphone doit contenire que des chiffres.
                       </li>
                       <li *ngIf="telephone.errors.required">
                         Ce champ est obligatoire
@@ -267,7 +275,14 @@
                 <div class="col-12">
                   <div class="form-group"><label for="site_web">Site web</label>
                     <input class="form-control" id="site_web" name="site_web" type="text"
-                           [(ngModel)]="societe.site_web">
+                           [(ngModel)]="societe.site_web" #site_web="ngModel" maxlength="255">
+                    <ul *ngIf="site_web.invalid && (site_web.dirty || site_web.touched)"
+                        class="alert alert-danger">
+                      <li *ngIf="site_web.errors.maxlength">
+                        Complément d'adresse doit contenir au maximum 255 caractères.
+                      </li>
+                    </ul>
+
                   </div>
                 </div>
               </div>
@@ -275,7 +290,14 @@
                 <div class="col-12">
                   <div class="form-group"><label for="site_fb">Site facebook</label>
                     <input class="form-control" id="site_fb" name="site_fb"
-                           type="text" [(ngModel)]="societe.site_fb">
+                           type="text" [(ngModel)]="societe.site_fb" #site_fb="ngModel" maxlength="255">
+                    <ul *ngIf="site_fb.invalid && (site_fb.dirty || site_fb.touched)"
+                        class="alert alert-danger">
+                      <li *ngIf="site_fb.errors.maxlength">
+                        Complément d'adresse doit contenir au maximum 255 caractères.
+                      </li>
+                    </ul>
+
                   </div>
                 </div>
               </div>

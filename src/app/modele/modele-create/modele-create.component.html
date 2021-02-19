@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="error" class="div">
+      <ul class="alert alert-danger fa-ul">
+        <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+      </ul>
+    </div>
+    <div *ngIf="errors" class="div">
+      <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+        - {{ item.key }}
+        <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="row no-gutters">
+        <div class="col-lg-12 pr-lg-2">
+          <div class="card mb-3">
+
+            <div class="card-body bg-light">
+
+              <form #modeleCreateForm=ngForm (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="marque">Marque *</label>
+                      <select class="form-control" id="marque" name="marque"
+                              [(ngModel)]="modele.marque_id" required
+                              #marque="ngModel">
+                        <option *ngFor="let marque of marqueListe" [value]="marque.id">
+                          {{marque.nom}}
+                        </option>
+                      </select>
+                      <ul *ngIf="marque.invalid && (marque.dirty || marque.touched)" class="alert alert-danger">
+                        <li *ngIf="marque.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="nom">Nom</label>
+                      <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom"
+                             [(ngModel)]="modele.nom"
+                             required minlength="3"
+                             #nom="ngModel"/>
+                      <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+                        <li *ngIf="nom.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                        <li *ngIf="nom.errors.minlength">
+                          Nom doit comporter au moins 3 caractères.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group"><label for="description">Description</label>
+                      <textarea class="form-control" id="description" name="description" cols="30" rows="13"
+                                [(ngModel)]="modele.description"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-warning mb-3 float-right" type="submit"
+                        [disabled]="modeleCreateForm.invalid || loading">
+                  Enregistrer
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

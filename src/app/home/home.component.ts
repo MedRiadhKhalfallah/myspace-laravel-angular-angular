@@ -109,10 +109,13 @@ export class HomeComponent implements OnInit {
       center: [34.566963, 9.847406],
       zoom: 7
     });
+
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
+      minZoom: 7,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
+
     this.markers = L.markerClusterGroup();
     tiles.addTo(this.map);
 

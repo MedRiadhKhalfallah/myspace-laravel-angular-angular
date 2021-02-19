@@ -53,7 +53,7 @@ export class MarqueListComponent implements OnInit {
   showChildModalDelete(marque): void {
     if (marque) {
       this.marque = marque;
-      this.marqueId = marque.marque_id;
+      this.marqueId = marque.id;
       this.childModalDelete.show();
     }
   }

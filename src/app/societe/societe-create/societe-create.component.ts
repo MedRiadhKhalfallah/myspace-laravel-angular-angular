@@ -55,7 +55,7 @@ export class SocieteCreateComponent implements OnInit {
               private typeActiviteService: TypeActiviteService,
               private toastr: ToastrService,
               private gouvernoratService: GouvernoratService,
-              private delegationService: DelegationService,
+              private delegationService: DelegationService
   ) {
 
   }

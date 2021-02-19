@@ -47,6 +47,13 @@ import {LeafletMarkerClusterModule} from "@asymmetrik/ngx-leaflet-markercluster"
 import { FooterComponent } from './components/footer/footer.component';
 import {StatistiqueEtatComponent} from "./statistique-etat/statistique-etat.component";
 import { RechercheSocieteComponent } from './recherche-societe/recherche-societe.component';
+import { TarificationComponent } from './tarification/tarification/tarification.component';
+import { PaymentComponent } from './tarification/payment/payment.component';
+import { RoueChanceModule } from './roue-chance/roue-chance.module';
+import { NewProduitModule } from './new-produit/new-produit.module';
+import { CategorieModule } from './categorie/categorie.module';
+import { SousCategorieModule } from './sous-categorie/sous-categorie.module';
+import { ModeleModule } from './modele/modele.module';
 
 
 @NgModule({
@@ -69,7 +76,9 @@ import { RechercheSocieteComponent } from './recherche-societe/recherche-societe
     MapComponent,
     FooterComponent,
     StatistiqueEtatComponent,
-    RechercheSocieteComponent
+    RechercheSocieteComponent,
+    TarificationComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

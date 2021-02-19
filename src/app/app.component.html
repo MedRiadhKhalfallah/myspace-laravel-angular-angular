@@ -115,6 +115,42 @@
                 class="fas fa-headset"></span></span><span class="nav-link-text"> Créer un ticket</span></div>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="tarification" *ngIf="loggedIn">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-file-invoice-dollar"></span></span><span class="nav-link-text">Tarification</span></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="roue-chance" *ngIf="loggedIn">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-chart-pie"></span></span><span class="nav-link-text">Roue de la chance</span></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="categories" *ngIf="loggedIn">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-folder-open"></span></span><span class="nav-link-text">Categories</span></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="sousCategories" *ngIf="loggedIn">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-grip-horizontal"></span></span><span class="nav-link-text">Sous categorie</span></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="modeles" *ngIf="loggedIn">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fab fa-modx"></span></span><span class="nav-link-text">Modeles</span></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="newProduits" *ngIf="loggedIn">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fab fa-product-hunt"></span></span><span class="nav-link-text">Nouveau produit</span></div>
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -188,7 +224,7 @@
       <router-outlet (activate)='onActivate($event)'></router-outlet>
 
       <br>
-      <app-footer></app-footer>
+      <app-footer *ngIf="roueChanceHome"></app-footer>
     </div>
   </div>
 </main><!-- ===============================================-->

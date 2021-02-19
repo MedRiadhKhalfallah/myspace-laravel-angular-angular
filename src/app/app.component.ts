@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, OnChanges {
   public resNb;
   public afficheif=false;
   public routeHome=false;
+  public roueChanceHome=false;
 
   constructor(private auth: AuthService,
               private router: Router,
@@ -133,9 +134,20 @@ export class AppComponent implements OnInit, OnChanges {
       this.profileImg = localStorage.getItem('profileImg');
     }
 
-    this.routeHome=this.router.url != '/';
+    if(this.router.url == '/roue-chance'){
+      this.roueChanceHome=false;
+    }else {
+      this.roueChanceHome=true;
+    }
 
-    console.log("here");
+
+    if(this.router.url == '/' ||
+      this.router.url == '/societe-recherche-avance' ||
+      this.router.url == '/roue-chance'){
+      this.routeHome=false;
+    }else {
+      this.routeHome=true;
+    }
   }
 
 }

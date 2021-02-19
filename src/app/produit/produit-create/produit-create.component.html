@@ -37,10 +37,10 @@
                            #nom="ngModel">
                     <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
                       <li *ngIf="nom.errors.minlength">
-                        nom must be at least 3 characters long.
+                       Nom doit comporter au moins 3 caractères.
                       </li>
                       <li *ngIf="nom.errors.maxlength">
-                        nom must be at max 255 characters long.
+                        Nom doit contenir au maximum 255 caractères.
                       </li>
                     </ul>
 
@@ -75,10 +75,10 @@
                     <ul *ngIf="nom_client.invalid && (nom_client.dirty || nom_client.touched)"
                         class="alert alert-danger">
                       <li *ngIf="nom_client.errors.minlength">
-                        nom must be at least 3 characters long.
+                        Nom doit comporter au moins 3 caractères.
                       </li>
                       <li *ngIf="nom_client.errors.maxlength">
-                        nom must be at max 255 characters long.
+                        Nom doit contenir au maximum 255 caractères.
                       </li>
                     </ul>
 
