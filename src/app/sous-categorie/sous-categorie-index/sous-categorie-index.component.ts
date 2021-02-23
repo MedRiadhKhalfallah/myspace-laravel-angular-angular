@@ -17,6 +17,7 @@ export class SousCategorieIndexComponent implements OnInit {
   public disableShowMore = false;
   public loading = false;
   public loadingShowMore = false;
+  public showCreate = false;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
   constructor(private sousCategorieService: SousCategorieService,
@@ -28,10 +29,12 @@ export class SousCategorieIndexComponent implements OnInit {
   }
 
   showChildModal(): void {
+    this.showCreate=true;
     this.childModal.show();
   }
 
   hideChildModal(): void {
+    this.showCreate=false;
     this.childModal.hide();
   }
 

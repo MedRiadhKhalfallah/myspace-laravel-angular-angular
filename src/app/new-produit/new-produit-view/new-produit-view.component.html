@@ -1,5 +1,6 @@
-<button (click)="backClicked()">back to precedent</button>
-<div class="card mb-3">
+<button (click)="backClicked()" class="btn btn-warning" style="margin: 10px">Page précédente</button>
+<app-loading *ngIf="loading"></app-loading>
+<div class="card mb-3" *ngIf="!loading">
   <div class="card-body">
     <div class="row">
       <div class="col-lg-6 mb-4 mb-lg-0">
@@ -7,10 +8,39 @@
       </div>
       <div class="col-lg-6">
         <h5>{{newProduit.titre}}</h5>
+        <p class="fs--1">Référence : {{newProduit.reference}}</p>
         <p class="fs--1">{{newProduit.description}}</p>
-        <h4 class="d-flex align-items-center">
+        <div
+          *ngIf="newProduit.paiement_facilite_3_mois || newProduit.paiement_facilite_6_mois || newProduit.paiement_facilite_12_mois">
+          <strong>Paiement par facilité</strong>
+          <table class="table table-hover" style="width: 50%">
+            <tbody>
+            <tr *ngIf="newProduit.paiement_facilite_3_mois">
+              <td>3 mois</td>
+              <td>{{newProduit.paiement_facilite_3_mois}} TD</td>
+            </tr>
+            <tr *ngIf="newProduit.paiement_facilite_6_mois">
+              <td>6 mois</td>
+              <td>{{newProduit.paiement_facilite_6_mois}} TD</td>
+            </tr>
+            <tr *ngIf="newProduit.paiement_facilite_12_mois">
+              <td>12 mois</td>
+              <td>{{newProduit.paiement_facilite_12_mois}} TD</td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <h4 class="d-flex align-items-center" *ngIf="newProduit.prix_sold">
+          <span class="text-warning mr-2">{{newProduit.prix_sold}} DT</span>
+          <span class="mr-1 fs--1 text-500"><del class="mr-1">{{newProduit.prix}} DT</del></span>
+        </h4>
+        <h4 class="d-flex align-items-center" *ngIf="!newProduit.prix_sold">
           <span class="text-warning mr-2">{{newProduit.prix}} DT</span>
         </h4>
+        <p class="fs--1" *ngIf="newProduit.quantite>0">Stock: <strong class="text-success">Disponible</strong></p>
+        <p class="fs--1" *ngIf="newProduit.quantite<=0">Stock: <strong class="text-danger">En rupture de stock</strong>
+        </p>
       </div>
     </div>
   </div>

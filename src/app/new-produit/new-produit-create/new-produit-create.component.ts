@@ -12,7 +12,16 @@ export interface NewProduitType {
   seuil_min: string,
   prix: string,
   modele_id: string,
-  sous_category_id: string
+  sous_category_id: string,
+  reference: string,
+  paiement_facilite_3_mois: string,
+  paiement_facilite_6_mois: string,
+  paiement_facilite_12_mois: string,
+  prix_achat: string,
+  prix_sold: string,
+  url_externe: string,
+  etat_produit: string,
+  etat: number
 }
 
 @Component({
@@ -33,6 +42,9 @@ export class NewProduitCreateComponent implements OnInit {
   public loadingSousCategorie = false;
   public sousCategorieListe = [];
   public selectedFile: File = null;
+  Nouveau = 'Nouveau';
+  Utilise = 'Utilisé';
+  Reconditionne = 'Reconditionné';
 
   constructor(private newProduitService: NewProduitService,
               private modeleService: ModeleService,
@@ -43,13 +55,22 @@ export class NewProduitCreateComponent implements OnInit {
   ngOnInit(): void {
     this.newProduit = new class implements NewProduitType {
       description: string;
+      etat: number;
+      etat_produit: string;
       id: string;
       modele_id: string;
+      paiement_facilite_12_mois: string;
+      paiement_facilite_3_mois: string;
+      paiement_facilite_6_mois: string;
       prix: string;
+      prix_achat: string;
+      prix_sold: string;
       quantite: string;
+      reference: string;
       seuil_min: string;
       sous_category_id: string;
       titre: string;
+      url_externe: string;
     };
     this.loadingModele = true;
     this.loadingSousCategorie = true;
@@ -82,13 +103,37 @@ export class NewProduitCreateComponent implements OnInit {
     } else {
       formData.append('selectedFile', null);
     }
-    formData.append('description', this.newProduit.description);
+    if (this.newProduit.description) {
+      formData.append('description', this.newProduit.description);
+    }
     formData.append('modele_id', this.newProduit.modele_id);
     formData.append('prix', this.newProduit.prix);
     formData.append('quantite', this.newProduit.quantite);
     formData.append('seuil_min', this.newProduit.seuil_min);
     formData.append('sous_category_id', this.newProduit.sous_category_id);
     formData.append('titre', this.newProduit.titre);
+    if (this.newProduit.paiement_facilite_3_mois) {
+      formData.append('paiement_facilite_3_mois', this.newProduit.paiement_facilite_3_mois);
+    }
+    if (this.newProduit.paiement_facilite_6_mois) {
+      formData.append('paiement_facilite_6_mois', this.newProduit.paiement_facilite_6_mois);
+    }
+    if (this.newProduit.paiement_facilite_12_mois) {
+      formData.append('paiement_facilite_12_mois', this.newProduit.paiement_facilite_12_mois);
+    }
+
+    formData.append('reference', this.newProduit.reference);
+    formData.append('prix_achat', this.newProduit.prix_achat);
+    if (this.newProduit.prix_sold) {
+      formData.append('prix_sold', this.newProduit.prix_sold);
+    }
+    if (this.newProduit.url_externe) {
+      formData.append('url_externe', this.newProduit.url_externe);
+    }
+    if (this.newProduit.etat_produit) {
+      formData.append('etat_produit', this.newProduit.etat_produit);
+    }
+    formData.append('etat', '1');
 
     if (this.newProduit.id) {
       return this.newProduitService.updateNewProduit(this.newProduit.id, formData).subscribe(

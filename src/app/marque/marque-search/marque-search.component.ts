@@ -24,6 +24,8 @@ export class MarqueSearchComponent implements OnInit {
   }
 
   public onSubmit(): any {
+    this.form.limit=10;
+    this.form.offset=0;
     return this.searchMarque.emit(this.form);
   }
 

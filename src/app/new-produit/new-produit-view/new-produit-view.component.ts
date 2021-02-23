@@ -12,9 +12,9 @@ import {NewProduitService} from "../service/new-produit.service";
 export class NewProduitViewComponent implements OnInit {
 
   @Input() newProduit;
-  private loading = false;
-  private error;
-  private errors;
+  loading = false;
+  error;
+  errors;
 
   constructor(private _location: Location,
               private route: ActivatedRoute,

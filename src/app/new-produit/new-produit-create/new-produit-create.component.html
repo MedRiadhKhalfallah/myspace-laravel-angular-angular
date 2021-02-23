@@ -58,9 +58,9 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-6">
                     <div class="form-group">
-                      <label for="titre">Titre</label>
+                      <label for="titre">Titre *</label>
                       <input class="form-control" id="titre" name="titre" type="text" placeholder="Titre"
                              [(ngModel)]="newProduit.titre"
                              required minlength="3"
@@ -75,16 +75,13 @@
                       </ul>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-6">
                     <div class="form-group">
-                      <label for="quantite">Quantité</label>
-                      <input class="form-control" id="quantite" name="quantite" type="number" placeholder="Titre"
-                             [(ngModel)]="newProduit.quantite"
-                             required #quantite="ngModel"/>
-                      <ul *ngIf="quantite.invalid && (quantite.dirty || quantite.touched)" class="alert alert-danger">
-                        <li *ngIf="quantite.errors.required">
+                      <label for="reference">Référence *</label>
+                      <input class="form-control" id="reference" name="reference" type="text" placeholder="Référence"
+                             [(ngModel)]="newProduit.reference" required #reference="ngModel"/>
+                      <ul *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
+                        <li *ngIf="reference.errors.required">
                           Ce champ est obligatoire
                         </li>
                       </ul>
@@ -92,13 +89,11 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-4">
                     <div class="form-group">
                       <label for="prix">Prix *</label>
                       <input class="form-control" id="prix" name="prix" type="number" placeholder="Titre"
-                             [(ngModel)]="newProduit.prix"
-                             required
-                             #prix="ngModel"/>
+                             [(ngModel)]="newProduit.prix" required #prix="ngModel"/>
                       <ul *ngIf="prix.invalid && (prix.dirty || prix.touched)" class="alert alert-danger">
                         <li *ngIf="prix.errors.required">
                           Ce champ est obligatoire
@@ -106,21 +101,98 @@
                       </ul>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-4">
                     <div class="form-group">
-                      <label for="seuil_min">Seuil minimum alert *</label>
+                      <label for="prix_achat">Prix d'achat *</label>
+                      <input class="form-control" id="prix_achat" name="prix_achat" type="number" placeholder="Prix d'achat"
+                             [(ngModel)]="newProduit.prix_achat" required #prix_achat="ngModel"/>
+                      <ul *ngIf="prix_achat.invalid && (prix_achat.dirty || prix_achat.touched)" class="alert alert-danger">
+                        <li *ngIf="prix_achat.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="prix_solde">Prix soldé</label>
+                      <input class="form-control" id="prix_solde" name="prix_solde" type="number" placeholder="Prix soldé"
+                             [(ngModel)]="newProduit.prix_sold"/>
+                    </div>
+                  </div>
+                </div>
+                <strong>Paiement par facilité</strong>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="paiement_facilite_3_mois">3 mois</label>
+                      <input class="form-control" id="paiement_facilite_3_mois" name="paiement_facilite_3_mois" type="number"
+                             [(ngModel)]="newProduit.paiement_facilite_3_mois"/>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="paiement_facilite_6_mois">6 mois</label>
+                      <input class="form-control" id="paiement_facilite_6_mois" name="paiement_facilite_6_mois" type="number"
+                             [(ngModel)]="newProduit.paiement_facilite_6_mois"/>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="paiement_facilite_12_mois">12 mois</label>
+                      <input class="form-control" id="paiement_facilite_12_mois" name="paiement_facilite_12_mois" type="number"
+                             [(ngModel)]="newProduit.paiement_facilite_12_mois"/>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="quantite">Quantité *</label>
+                      <input class="form-control" id="quantite" name="quantite" type="number" placeholder="Titre"
+                             [(ngModel)]="newProduit.quantite" required #quantite="ngModel"/>
+                      <ul *ngIf="quantite.invalid && (quantite.dirty || quantite.touched)" class="alert alert-danger">
+                        <li *ngIf="quantite.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="seuil_min">Niveau de stock bas *</label>
                       <input class="form-control" id="seuil_min" name="seuil_min" type="number" placeholder="Titre"
-                             [(ngModel)]="newProduit.seuil_min"
-                             required
-                             #seuil_min="ngModel"/>
+                             [(ngModel)]="newProduit.seuil_min" required #seuil_min="ngModel"/>
                       <ul *ngIf="seuil_min.invalid && (seuil_min.dirty || seuil_min.touched)"
                           class="alert alert-danger">
                         <li *ngIf="seuil_min.errors.required">
                           Ce champ est obligatoire
                         </li>
                       </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="url_externe">Url externe</label>
+                      <input class="form-control" id="url_externe" name="url_externe" type="text" placeholder="Url externe"
+                             [(ngModel)]="newProduit.url_externe"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="url_externe">État produit *</label>
+                      <select class="form-control" [(ngModel)]="newProduit.etat_produit"
+                              name="etat_produit" required>
+                        <option [ngValue]="Nouveau">Nouveau</option>
+                        <option [ngValue]="Utilise">Utilisé</option>
+                        <option [ngValue]="Reconditionne">Reconditionné</option>
+                      </select>
                     </div>
                   </div>
                 </div>

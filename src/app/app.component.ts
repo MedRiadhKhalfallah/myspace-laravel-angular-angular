@@ -134,7 +134,7 @@ export class AppComponent implements OnInit, OnChanges {
       this.profileImg = localStorage.getItem('profileImg');
     }
 
-    if(this.router.url == '/roue-chance'){
+    if(this.router.url.includes('/roue-chance/')){
       this.roueChanceHome=false;
     }else {
       this.roueChanceHome=true;
@@ -143,7 +143,7 @@ export class AppComponent implements OnInit, OnChanges {
 
     if(this.router.url == '/' ||
       this.router.url == '/societe-recherche-avance' ||
-      this.router.url == '/roue-chance'){
+      this.router.url.includes('/roue-chance/')){
       this.routeHome=false;
     }else {
       this.routeHome=true;

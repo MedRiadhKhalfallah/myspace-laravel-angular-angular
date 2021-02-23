@@ -39,11 +39,8 @@ export class SocieteViewComponent implements OnInit,OnChanges {
   constructor(private route: ActivatedRoute,
               private societeService: SocieteService,
               private activatedRoute: ActivatedRoute,
-              private newProduitService: NewProduitService,
-              private router: Router,
+              private newProduitService: NewProduitService
   ) {
-    // force route reload whenever params change;
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     Window["myComponent"] = this
   }
 

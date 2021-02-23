@@ -34,6 +34,8 @@ import {ModeleIndexComponent} from "./modele/modele-index/modele-index.component
 import {SousCategorieIndexComponent} from "./sous-categorie/sous-categorie-index/sous-categorie-index.component";
 import {CategorieIndexComponent} from "./categorie/categorie-index/categorie-index.component";
 import {NewProduitViewComponent} from "./new-produit/new-produit-view/new-produit-view.component";
+import {RoueChanceCreateComponent} from "./roue-chance/roue-chance-create/roue-chance-create.component";
+import {RoueChanceElementIndexComponent} from "./roue-chance/roue-chance-element-index/roue-chance-element-index.component";
 
 const routes: Routes = [
   {
@@ -91,11 +93,11 @@ const routes: Routes = [
     canActivate: [AfterLoginService]
   },
   {
-    path: 'societe/view/:id',
+    path: 'societe/view/:id/sousCategory/:sousCategoryId',
     component: SocieteViewComponent,
   },
   {
-    path: 'societe/view/:id/sousCategory/:sousCategoryId',
+    path: 'societe/view/:id',
     component: SocieteViewComponent,
   },
   {
@@ -178,8 +180,16 @@ const routes: Routes = [
     component: PaymentComponent,
   },
   {
-    path: 'roue-chance',
+    path: 'roue-chance/:id',
     component: RoueChanceViewComponent,
+  },
+  {
+    path: 'create-roue-chance',
+    component: RoueChanceCreateComponent,
+  },
+  {
+    path: 'elements-roue-chance',
+    component: RoueChanceElementIndexComponent,
   },
   {
     path: 'newProduit/view/:id',

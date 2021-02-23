@@ -25,6 +25,8 @@ export class SousCategorieSearchComponent implements OnInit {
   }
 
   public onSubmit(): any {
+    this.form.limit=10;
+    this.form.offset=0;
     return this.searchSousCategorie.emit(this.form);
   }
 

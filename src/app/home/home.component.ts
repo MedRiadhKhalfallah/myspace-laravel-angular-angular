@@ -137,8 +137,9 @@ export class HomeComponent implements OnInit {
         L.Marker.prototype.options.icon = iconDefault;
 
         var marker = L.marker([societe.latitude, societe.longitude]).bindPopup(this.popupHtml(societe));
-        this.markers.addLayer(marker);
-        this.map.addLayer(this.markers);
+        // this.markers.addLayer(marker);
+        // this.map.addLayer(this.markers);
+        this.map.addLayer(marker);
 
       }
     }

@@ -16,9 +16,9 @@
     class="fas fa-plus-circle"></span></button>
 </div>
 <br>
-<app-loading *ngIf="loading"></app-loading>
+<app-categorie-list *ngIf="!loading || !first" [categorieList]="categorieList" (loadDataDelete)="loadData($event)"></app-categorie-list>
 <br>
-<app-categorie-list *ngIf="!loading" [categorieList]="categorieList" (loadDataDelete)="loadData($event)"></app-categorie-list>
+<app-loading *ngIf="loading"></app-loading>
 <br>
 <div class="input-group" *ngIf="!first">
   <div class="col-sm-8"></div>
@@ -48,7 +48,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-categorie-create (loadDataAjout)="loadData($event)"></app-categorie-create>
+        <app-categorie-create (loadDataAjout)="loadData($event)" *ngIf="showCreate"></app-categorie-create>
       </div>
     </div>
   </div>

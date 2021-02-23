@@ -65,7 +65,6 @@ export class HistoriqueIndexComponent implements OnInit {
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
-
   }
 
 }

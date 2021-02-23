@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
 import {EtatService} from "../service/etat.service";
-import {ProduitType} from "../../produit/produit-create/produit-create.component";
 export interface EtatType {
   id: number,
   nom: string,

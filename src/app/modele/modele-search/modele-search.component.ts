@@ -26,6 +26,8 @@ export class ModeleSearchComponent implements OnInit {
   }
 
   public onSubmit(): any {
+    this.form.limit=10;
+    this.form.offset=0;
     return this.searchModele.emit(this.form);
   }
 
