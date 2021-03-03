@@ -54,6 +54,7 @@ import { NewProduitModule } from './new-produit/new-produit.module';
 import { CategorieModule } from './categorie/categorie.module';
 import { SousCategorieModule } from './sous-categorie/sous-categorie.module';
 import { ModeleModule } from './modele/modele.module';
+import { RoueClientModule } from './roue-client/roue-client.module';
 
 
 @NgModule({

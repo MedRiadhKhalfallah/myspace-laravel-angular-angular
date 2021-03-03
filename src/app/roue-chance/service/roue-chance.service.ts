@@ -55,5 +55,17 @@ export class RoueChanceService {
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
     return this.http.post(this.baseUrl + '/roueSearch', searchobject, {headers});
   }
+  public VerificationClient(data): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.post(this.baseUrl + '/clients', data, {headers});
+  }
+  public startGame(data): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.post(this.baseUrl + '/verification-client', data, {headers});
+  }
 
 }

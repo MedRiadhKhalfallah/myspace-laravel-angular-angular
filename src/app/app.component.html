@@ -69,9 +69,6 @@
                 <a class="nav-link" routerLink="users-roles" *ngIf="adminRole">Users Roles</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" routerLink="marques" *ngIf="adminRole">Marques</a>
-              </li>
-              <li class="nav-item active">
                 <a class="nav-link" routerLink="societes" *ngIf="adminRole">Societes</a>
               </li>
               <li class="nav-item active">
@@ -135,32 +132,50 @@
               <li class="nav-item active">
                 <a class="nav-link" routerLink="/elements-roue-chance" *ngIf="loggedIn">Roue elements</a>
               </li>
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/roue-chance-participant" *ngIf="loggedIn">liste des participants</a>
+              </li>
             </ul>
           </li>
-
-          <li class="nav-item">
-            <a class="nav-link" routerLink="categories" *ngIf="loggedIn">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                class="fas fa-folder-open"></span></span><span class="nav-link-text">Categories</span></div>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="sousCategories" *ngIf="loggedIn">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                class="fas fa-grip-horizontal"></span></span><span class="nav-link-text">Sous categorie</span></div>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="modeles" *ngIf="loggedIn">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                class="fab fa-modx"></span></span><span class="nav-link-text">Modeles</span></div>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="newProduits" *ngIf="loggedIn">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
-                class="fab fa-product-hunt"></span></span><span class="nav-link-text">Nouveau produit</span></div>
-            </a>
+          <li class="nav-item" *ngIf="loggedIn">
+            <a class="nav-link dropdown-indicator" href="#boutique"
+               data-toggle="collapse" role="button"
+               aria-expanded="true" aria-controls="boutique">
+            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+              class="fas fa-store"></span></span><span class="nav-link-text">Ma boutique</span></div>
+          </a>
+            <ul class="nav collapse show" id="boutique" data-parent="#navbarVerticalCollapse" *ngIf="loggedIn">
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/categories" *ngIf="loggedIn">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                    class="fas fa-folder-open"></span></span><span class="nav-link-text">Categories</span></div>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/sousCategories" *ngIf="loggedIn">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                    class="fas fa-grip-horizontal"></span></span><span class="nav-link-text">Sous categorie</span></div>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/modeles" *ngIf="loggedIn">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                    class="fab fa-modx"></span></span><span class="nav-link-text">Modeles</span></div>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/marques" *ngIf="loggedIn">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                    class="fas fa-gopuram"></span></span><span class="nav-link-text">Marques</span></div>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/newProduits" *ngIf="loggedIn">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                    class="fab fa-product-hunt"></span></span><span class="nav-link-text">Nouveau produit</span></div>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

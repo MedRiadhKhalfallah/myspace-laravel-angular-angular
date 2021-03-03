@@ -1,9 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TypeActiviteService} from "../../type-activite/service/type-activite.service";
 import {ToastrService} from "ngx-toastr";
-import {GouvernoratService} from "../../services/gouvernorat.service";
-import {DelegationService} from "../../services/delegation.service";
 import {RoueChanceService} from "../service/roue-chance.service";
+import {environment} from "../../../environments/environment";
 export interface RoueType {
   id: number,
   gameOverText: string,
@@ -26,6 +24,7 @@ export class RoueChanceCreateComponent implements OnInit {
   public errors;
   public loading = false;
   public loadingUpdate = false;
+  public url;
 
   constructor(private roueService: RoueChanceService,
               private toastr: ToastrService
@@ -46,6 +45,7 @@ export class RoueChanceCreateComponent implements OnInit {
     this.errors = null;
     if (data) {
       this.roue = data;
+      this.url=environment.frontUrl+"/login-roue-chance/"+this.roue.id
     } else {
       this.roue = new class implements RoueType {
         date_fin_abonnement: string;

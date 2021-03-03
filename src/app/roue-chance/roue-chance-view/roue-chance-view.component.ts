@@ -1,4 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {RoueChanceService} from "../service/roue-chance.service";
 
 @Component({
   selector: 'app-roue-chance-view',
@@ -7,43 +9,55 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 })
 export class RoueChanceViewComponent implements OnInit {
 
-  constructor(private elementRef:ElementRef) { }
+  play = true;
+  num_tel;
+  roue_id;
+  client;
+  loading;
+  error;
+  errors;
 
-  ngOnInit(): void {
+  constructor(private elementRef: ElementRef,
+              private activatedRoute: ActivatedRoute,
+              private roueChanceService: RoueChanceService
+  ) {
   }
 
-  ngAfterViewInit() {
-/*
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "/assets/roue/script.js";
-    this.elementRef.nativeElement.appendChild(s);
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.num_tel = params['num_tel'];
+    });
+    this.activatedRoute.params.subscribe(params => {
+      this.roue_id = params['id'];
+    });
 
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "/assets/roue/ThrowPropsPluginn.min.js";
-    this.elementRef.nativeElement.appendChild(s);
+    this.loading = true;
+    var data = {"roue_id": this.roue_id, "num_tel": this.num_tel};
+    return this.roueChanceService.startGame(data).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error)
+    );
 
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "/assets/roue/ajax/TextPlugin.min.js";
-    this.elementRef.nativeElement.appendChild(s);
+  }
 
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "/assets/roue/ajax/Draggable.min.js";
-    this.elementRef.nativeElement.appendChild(s);
+  public handleResponse(data): any {
+    this.client = data.data;
+    if (this.client.value1 || this.client.value2) {
+      this.play = false;
+    } else {
+      this.play = true;
+    }
+    this.loading = false;
+  }
 
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "/assets/roue/ajax/TweenMax.min.js";
-    this.elementRef.nativeElement.appendChild(s);
+  public handleError(error): any {
+    this.loading = false;
+    console.log(error);
+    this.error = error.error;
+  }
 
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "/assets/roue/pen/bbc103e987315728a1190a25753c00e1.js";
-    this.elementRef.nativeElement.appendChild(s);
-*/
+  starRoue() {
+
   }
 
 }

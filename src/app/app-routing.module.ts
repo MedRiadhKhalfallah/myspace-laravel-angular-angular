@@ -36,6 +36,8 @@ import {CategorieIndexComponent} from "./categorie/categorie-index/categorie-ind
 import {NewProduitViewComponent} from "./new-produit/new-produit-view/new-produit-view.component";
 import {RoueChanceCreateComponent} from "./roue-chance/roue-chance-create/roue-chance-create.component";
 import {RoueChanceElementIndexComponent} from "./roue-chance/roue-chance-element-index/roue-chance-element-index.component";
+import {LoginRoueChanceComponent} from "./roue-chance/login-roue-chance/login-roue-chance.component";
+import {RoueClientIndexComponent} from "./roue-client/roue-client-index/roue-client-index.component";
 
 const routes: Routes = [
   {
@@ -184,12 +186,23 @@ const routes: Routes = [
     component: RoueChanceViewComponent,
   },
   {
+    path: 'login-roue-chance/:id',
+    component: LoginRoueChanceComponent,
+  },
+  {
     path: 'create-roue-chance',
     component: RoueChanceCreateComponent,
+    canActivate: [AfterLoginService]
   },
   {
     path: 'elements-roue-chance',
     component: RoueChanceElementIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'roue-chance-participant',
+    component: RoueClientIndexComponent,
+    canActivate: [AfterLoginService]
   },
   {
     path: 'newProduit/view/:id',

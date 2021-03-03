@@ -1,0 +1,74 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+
+    <div *ngIf="roueClientList.length == 0">
+      Aucun article n'a été trouvé pour votre requête
+    </div>
+    <div class="table-responsive" *ngIf="roueClientList.length != 0">
+      <table class="table table-hover table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Prénom</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let roueClient of roueClientList ; let index = index">
+          <th scope="row">{{ index +1}}</th>
+          <td>{{roueClient.nom}}</td>
+          <td>{{roueClient.prenom}}</td>
+          <td>
+            <button class="btn btn-info" type="button" (click)="showChildModalView(roueClient)"
+                    style="margin-right: 2px;"><span
+              class='far fa-eye'></span></button>
+            <button class="btn btn-danger"
+                    (click)="showChildModalDelete(roueClient)"
+                    [disabled]="loading[roueClient.id]">
+              <span *ngIf="!loading[roueClient.id]" class='far fa-trash-alt'></span>
+              <span *ngIf="loading[roueClient.id]" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalView="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name-view" [config]="{ backdrop: 'static' }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-view" class="modal-title pull-left">Afficher roueClient</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalView()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-roue-client-view [roueClient]="roueClient"></app-roue-client-view>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalDelete="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name-delete" [config]="{ backdrop: 'static' }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-delete" class="modal-title pull-left">Supprimer roueClient</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalDelete()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-delete [id]="roueClientId" (request)="deleteRoueClient($event)"></app-delete>
+      </div>
+    </div>
+  </div>
+</div>
+

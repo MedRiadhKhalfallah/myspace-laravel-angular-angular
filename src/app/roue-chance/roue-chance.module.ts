@@ -9,11 +9,12 @@ import {AppModule} from "../app.module";
 import {FormsModule} from "@angular/forms";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {RouterModule} from "@angular/router";
+import { LoginRoueChanceComponent } from './login-roue-chance/login-roue-chance.component';
 
 
 
 @NgModule({
-  declarations: [RoueChanceViewComponent, RoueChanceCreateComponent, RoueChanceElementCreateComponent, RoueChanceElementIndexComponent, RoueChanceElementListComponent],
+  declarations: [RoueChanceViewComponent, RoueChanceCreateComponent, RoueChanceElementCreateComponent, RoueChanceElementIndexComponent, RoueChanceElementListComponent, LoginRoueChanceComponent],
     imports: [
       CommonModule,
       AppModule,
