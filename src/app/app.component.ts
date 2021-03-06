@@ -143,7 +143,9 @@ export class AppComponent implements OnInit, OnChanges {
 
     if(this.router.url == '/' ||
       this.router.url == '/societe-recherche-avance' ||
-      this.router.url.includes('/roue-chance/')){
+      this.router.url.includes('/roue-chance/') ||
+      this.router.url.includes('/societe/view/')
+    ){
       this.routeHome=false;
     }else {
       this.routeHome=true;

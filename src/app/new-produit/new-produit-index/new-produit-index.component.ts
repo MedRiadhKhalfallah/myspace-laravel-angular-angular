@@ -75,7 +75,7 @@ export class NewProduitIndexComponent implements OnInit {
     if (Object.keys(searchobject).length != 0) {
       this.searchobject = searchobject;
     }
-    this.newProduitService.newProduitSearchWithCriteria(this.searchobject).subscribe(
+    this.newProduitService.newProduitSocieteSearchWithCriteria(this.searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );

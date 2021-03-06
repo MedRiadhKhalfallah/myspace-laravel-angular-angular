@@ -16,6 +16,7 @@
     class="fas fa-plus-circle"></span></button>
 </div>
 <br>
+<br>
 <app-sous-categorie-list *ngIf="!loading || !first" [sousCategorieList]="sousCategorieList" (loadDataDelete)="loadData($event)"></app-sous-categorie-list>
 <br>
 <app-loading *ngIf="loading"></app-loading>

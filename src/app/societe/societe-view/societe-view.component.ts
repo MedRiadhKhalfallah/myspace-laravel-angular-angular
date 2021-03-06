@@ -33,6 +33,7 @@ export class SocieteViewComponent implements OnInit,OnChanges {
   private map;
   private markers;
   private sousCategory_id;
+  private societeId;
   private newProduitList = [];
   private loadingNewProduit = false;
 
@@ -46,14 +47,14 @@ export class SocieteViewComponent implements OnInit,OnChanges {
 
   ngOnInit(): void {
     this.societe = {};
+    this.societeId = this.route.snapshot.paramMap.get('id');
     this.route.params.subscribe(params => {
       this.sousCategory_id = params['sousCategoryId'];
       this.loadnewProduitList({'sousCategory_id': this.sousCategory_id});
     });
-    var societeId = this.route.snapshot.paramMap.get('id');
-    if (societeId) {
+    if (this.societeId) {
       this.loading = true;
-      return this.societeService.getSocieteById(societeId).subscribe(
+      return this.societeService.getSocieteById(this.societeId).subscribe(
         data => this.handleGetSocieteResponse(data),
         error => this.handleGetSocieteError(error)
       );
@@ -82,6 +83,7 @@ export class SocieteViewComponent implements OnInit,OnChanges {
 
   public loadnewProduitList(data): any {
     this.loadingNewProduit = true;
+    data.societe_id=this.societeId;
     return this.newProduitService.newProduitSearchWithCriteria(data).subscribe(
       data => this.handleGetNewProduitResponse(data),
       error => this.handleGetSocieteError(error)

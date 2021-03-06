@@ -86,6 +86,7 @@ export class RoueChanceCreateComponent implements OnInit {
     this.errors = null;
     if (data.data) {
       this.roue = data.data;
+      this.url=environment.frontUrl+"/login-roue-chance/"+this.roue.id;
       localStorage.setItem('date_fin_abonnement_roue', data.data.date_fin_abonnement);
       localStorage.setItem('roue', String(true));
     }

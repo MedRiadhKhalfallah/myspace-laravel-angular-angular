@@ -1,0 +1,54 @@
+<div class="container" style="margin-top: 20px;">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <div class="form-inline search-box">
+        <input class="form-control rounded-pill search-input" type="search"
+               placeholder="Rechercher produit..." aria-label="Search"
+               [(ngModel)]="searchObject" (keyup)="search()"/>
+        <span class="position-absolute fas fa-search text-400 search-box-icon"></span>
+      </div>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+
+<br *ngIf="!loading && listNewProduit.length!=0">
+<app-loading *ngIf="loading"></app-loading>
+<div class="card" *ngIf="!loading && listNewProduit.length==0 && searchObject.length > 2">
+  Aucun produit n'a été trouvé pour votre requête de recherche.
+</div>
+<div class="card" *ngIf="!loading && listNewProduit.length!=0">
+  <div class="card-header bg-light">
+    <div class="row align-items-center">
+      <div class="col">
+        <h5 class="mb-0" id="followers">Produits <span class="d-none d-sm-inline-block">({{listNewProduit.length}})</span>
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="card-body bg-light p-0">
+    <div class="row no-gutters text-center fs--1">
+      <div class="col-6 col-md-4 col-lg-3 col-xxl-2 mb-1" *ngFor="let newProduit of listNewProduit">
+        <div class="bg-white p-3 h-100">
+          <a routerLink="/newProduit/view/{{newProduit.id}}">
+            <img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
+                 src="{{newProduit.image_path}}" alt="{{newProduit.titre}}" width="100"/>
+          </a>
+          <h6 class="mb-1"><a routerLink="/newProduit/view/{{newProduit.id}}">{{newProduit.titre}}</a></h6>
+          <p class="fs--2 mb-1 text-700" *ngIf="newProduit.prix_sold">
+            <span class="text-warning mr-2">{{newProduit.prix_sold}} DT</span>
+            <span class="mr-1 fs--1 text-500"><del class="mr-1">{{newProduit.prix}} DT</del></span>
+          </p>
+          <p class="fs--2 mb-1 text-700" *ngIf="!newProduit.prix_sold">
+            <span class="text-warning mr-2">{{newProduit.prix}} DT</span>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>

@@ -57,4 +57,10 @@ export class NewProduitService {
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
     return this.http.post(this.baseUrl + '/newProduitSearch', searchobject, {headers});
   }
+  public newProduitSocieteSearchWithCriteria(searchobject): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.post(this.baseUrl + '/newProduitSocieteSearch', searchobject, {headers});
+  }
 }

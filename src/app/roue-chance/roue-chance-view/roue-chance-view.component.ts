@@ -12,7 +12,11 @@ export class RoueChanceViewComponent implements OnInit {
   play = true;
   num_tel;
   roue_id;
-  client;
+  client={
+    value1:null,
+    value2:null,
+    societeImg:null,
+  };
   loading;
   error;
   errors;

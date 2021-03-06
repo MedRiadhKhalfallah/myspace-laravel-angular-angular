@@ -45,6 +45,7 @@
   </nav>
 
   <br>
+  <app-recherche-produit></app-recherche-produit>
   <div class="row no-gutters">
     <div class="col-lg-12">
       <div class="card mb-3">
@@ -130,7 +131,7 @@
               {{societe.code_postal}}<br/>
               {{societe.ville}}
             </div>
-            <a href="#view-map">View Map</a>
+            <a href="https://www.google.fr/maps/dir/{{societe.latitude}},{{societe.longitude}}/@{{societe.latitude}},{{societe.longitude}},18z" target="_blank">View Map</a>
 
             <h6 class="mt-4">Téléphone</h6>
             <div class="mb-1">

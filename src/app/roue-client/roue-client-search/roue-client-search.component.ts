@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {RoueChanceElementService} from "../../roue-chance/service/roue-chance-element.service";
 
 @Component({
   selector: 'app-roue-client-search',
@@ -11,22 +12,36 @@ export class RoueClientSearchComponent implements OnInit {
 
   public form = {
     'nom': null,
-    'limit': 10,
-    'offset': 0
+    'value': null
   };
-
-  constructor() {
+  loading;
+  elementRoueListe;
+  constructor(private roueChanceElementService: RoueChanceElementService,) {
   }
 
   ngOnInit(): void {
+    this.loadData({});
+  }
+  public handleResponse(data): any {
+    this.loading = false;
+    this.elementRoueListe = data;
+  }
+  public handleError(data): any {
+    this.loading = false;
+  }
+
+  public loadData(data): any {
+    this.loading = true;
+    this.roueChanceElementService.roueSearchWithCriteria(data).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error)
+    );
   }
 
   public pickDate(date: any): void {
   }
 
   public onSubmit(): any {
-    this.form.limit=10;
-    this.form.offset=0;
     return this.searchRoueClient.emit(this.form);
   }
 

@@ -16,6 +16,7 @@
     class="fas fa-plus-circle"></span></button>
 </div>
 <br>
+<br>
 <app-marque-list *ngIf="!loading || !first" [marqueList]="marqueList" (loadDataDelete)="loadData($event)"></app-marque-list>
 <br>
 <app-loading *ngIf="loading"></app-loading>

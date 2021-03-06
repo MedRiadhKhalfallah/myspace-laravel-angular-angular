@@ -49,11 +49,10 @@ export class RoueClientIndexComponent implements OnInit {
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
-
   }
 
   public videCadeaux(): any {
-    var r = confirm("Press a button!");
+    var r = confirm("Voulez-vous vider les cadeaux!");
     if (r == true) {
       this.loading = true;
       this.roueClientService.videCadeaux({}).subscribe(

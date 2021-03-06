@@ -10,6 +10,15 @@
             <label for="nom">Nom</label>
             <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom" [(ngModel)]="form.nom">
           </div>
+          <div class="form-group">
+            <label for="nom">Cadeau</label>
+            <select class="form-control" id="value" name="value"
+                    [(ngModel)]="form.value">
+              <option *ngFor="let elementRoue of elementRoueListe" [value]="elementRoue.value">
+                {{elementRoue.resultText}}
+              </option>
+            </select>
+          </div>
           <button class="btn btn-warning mb-3 float-right" type="submit" [disabled]="roueClientSearchForm.invalid">Recherche</button>
         </form>
       </div>

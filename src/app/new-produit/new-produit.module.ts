@@ -12,13 +12,13 @@ import {ModalModule} from "ngx-bootstrap/modal";
 
 
 @NgModule({
-  declarations: [NewProduitViewComponent, NewProduitSearchComponent, NewProduitListComponent, NewProduitIndexComponent, NewProduitCreateComponent],
-  imports: [
-    CommonModule,
-    AppModule,
-    FormsModule,
-    ModalModule,
+    declarations: [NewProduitViewComponent, NewProduitSearchComponent, NewProduitListComponent, NewProduitIndexComponent, NewProduitCreateComponent],
+    imports: [
+        CommonModule,
+        AppModule,
+        FormsModule,
+        ModalModule,
 
-  ]
+    ]
 })
 export class NewProduitModule { }
