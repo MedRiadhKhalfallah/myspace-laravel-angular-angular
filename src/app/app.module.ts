@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -34,8 +34,6 @@ import {TypeActiviteModule} from './type-activite/type-activite.module';
 import {ReclamationModule} from './reclamation/reclamation.module';
 import {NgxPrintModule} from 'ngx-print';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-
-// RECOMMENDED
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserEditComponent } from './components/admin/user/user-edit/user-edit.component';
 import { VerificationMailComponent } from './verification/verification-mail/verification-mail.component';
@@ -55,6 +53,25 @@ import { CategorieModule } from './categorie/categorie.module';
 import { SousCategorieModule } from './sous-categorie/sous-categorie.module';
 import { ModeleModule } from './modele/modele.module';
 import { RoueClientModule } from './roue-client/roue-client.module';
+import { enableProdMode } from "@angular/core";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import * as Sentry from "@sentry/angular";
+import { Integrations } from "@sentry/tracing";
+import {Router} from "@angular/router";
+
+Sentry.init({
+  dsn: "https://3f420d2efbf54340867b84407039ad5f@o517250.ingest.sentry.io/5668649",
+  integrations: [
+    new Integrations.BrowserTracing({
+      tracingOrigins: ["localhost", "https://yourserver.io/api"],
+      routingInstrumentation: Sentry.routingInstrumentation,
+    }),
+  ],
+
+  // We recommend adjusting this value in production, or using tracesSampler
+  // for finer control
+  tracesSampleRate: 1.0,
+});
 
 
 @NgModule({
@@ -97,7 +114,24 @@ import { RoueClientModule } from './roue-client/roue-client.module';
     NgxPrintModule,
     CarouselModule
   ],
-  providers: [JarwisService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
+  providers: [
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: true,
+      }),
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
+    JarwisService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
     {provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     BsModalRef,
     SnotifyService,

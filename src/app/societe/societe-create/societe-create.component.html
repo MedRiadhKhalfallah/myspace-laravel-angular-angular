@@ -51,18 +51,25 @@
           <div class="card-body bg-light">
             <form #societeUpdateForm=ngForm (ngSubmit)="onSubmit()">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                   <div class="form-group">
                     <label for="reference_societe">Référence de la societe</label>
                     <input class="form-control" id="reference_societe" name="reference_societe" type="text"
                            [value]="societe.reference_societe" disabled>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                   <div class="form-group">
                     <label for="notre_code_invitation">Code de parrainage</label>
                     <input class="form-control" id="notre_code_invitation" name="notre_code_invitation" type="text"
                            [value]="societe.notre_code_invitation" disabled>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label for="notre_code_invitation">Slug</label>
+                    <input class="form-control" id="slug" name="slug" type="text"
+                           [value]="societe.slug" disabled>
                   </div>
                 </div>
               </div>
@@ -72,7 +79,7 @@
                     <label for="nom">Nom de la societe *</label>
                     <input class="form-control" id="nom" name="nom" type="text" [(ngModel)]="societe.nom"
                            required minlength="3" maxlength="255"
-                           #nom="ngModel">
+                           #nom="ngModel" (change)="checkSlug()">
                     <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
                       <li *ngIf="nom.errors.required">
                         Ce champ est obligatoire

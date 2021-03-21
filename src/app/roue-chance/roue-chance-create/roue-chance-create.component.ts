@@ -25,6 +25,7 @@ export class RoueChanceCreateComponent implements OnInit {
   public loading = false;
   public loadingUpdate = false;
   public url;
+  public societeStorage;
 
   constructor(private roueService: RoueChanceService,
               private toastr: ToastrService
@@ -33,6 +34,7 @@ export class RoueChanceCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.societeStorage = localStorage.getItem('societe');
     this.loading = true;
     return this.roueService.getCurrentRoue().subscribe(
       data => this.handleGetRoueResponse(data),

@@ -90,6 +90,12 @@ export class SocieteService {
     headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
     return this.http.post(this.baseUrl + '/societeMapSearch', searchobject, {headers});
   }
+  public checkSlug(searchobject): any {
+    let headers: HttpHeaders = new HttpHeaders();
+    const token = localStorage.getItem('token');
+    headers = headers.append('Authorization', 'Bearer ' + token); // Not added yet as this is the reason for the question
+    return this.http.post(this.baseUrlSociete + '/check_slug', searchobject, {headers});
+  }
 
 
 }

@@ -28,6 +28,7 @@ export interface SocieteType {
   votre_code_invitation: string,
   reference_societe: string,
   type_activite_id: string,
+  slug: string,
 }
 
 @Component({
@@ -74,6 +75,17 @@ export class SocieteCreateComponent implements OnInit {
       data => this.handleGetSocieteResponse(data),
       error => this.handleGetSocieteError(error)
     );
+  }
+
+  public checkSlug(): any {
+    this.societeService.checkSlug({'nom':this.societe.nom}).subscribe(
+      data => this.handlecheckSlugResponse(data),
+      error => this.handleGetError(error)
+    );
+  }
+  public handlecheckSlugResponse(data): any {
+    this.societe.slug = data.slug;
+    console.log(data);
   }
 
   public findDelegation(): any {
@@ -134,6 +146,7 @@ export class SocieteCreateComponent implements OnInit {
         votre_code_invitation: string;
         reference_societe: string;
         type_activite_id: string;
+        slug: string;
 
       };
       this.societe.reference_societe = String(Date.now());

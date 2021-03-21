@@ -12,13 +12,22 @@
       </li>
     </ul>
   </div>
+  <div *ngIf="!societeStorage">
+    <ul class="alert alert-danger fa-ul">
+      <li>
+      <span class="fa-li">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>Pour commencer, vous devez créer une société. pour créer <a routerLink="/societe/create">cliquer ici</a>
+      </li>
+    </ul>
+  </div>
 
-  <div *ngIf="!loading" class="content">
+  <div *ngIf="!loading && societeStorage" class="content">
     <div class="row no-gutters">
       <div class="col-lg-12 pr-lg-2">
         <div class="card mb-3">
           <div class="card-header">
-            <h5 class="mb-0">Creation de la société</h5>
+            <h5 class="mb-0">Creation de la roue</h5>
           </div>
           <div class="card-body bg-light">
             <form #roueUpdateForm=ngForm (ngSubmit)="onSubmit()">

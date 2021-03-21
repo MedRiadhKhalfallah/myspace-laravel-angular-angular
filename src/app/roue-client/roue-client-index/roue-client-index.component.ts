@@ -14,7 +14,6 @@ export class RoueClientIndexComponent implements OnInit {
   public error;
   public societeStorage;
   public loading = false;
-  public isCreating = false;
 
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
@@ -29,7 +28,8 @@ export class RoueClientIndexComponent implements OnInit {
 
   public handleError(error): any {
     this.loading = false;
-    // this.error = error.error.message;
+    this.error = error.error.message;
+    this.error = error.error.error;
     if (this.error === 'User does not have the right roles.') {
       this.router.navigateByUrl('/');
     }

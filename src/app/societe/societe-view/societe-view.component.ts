@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SocieteService} from "../service/societe.service";
 import * as L from "leaflet";
 import {NewProduitService} from "../../new-produit/service/new-produit.service";
+import {ProduitService} from "../../produit/service/produit.service";
 
 const iconRetinaUrl = '/assets/lib/leaflet/images/marker-icon-2x.png';
 const iconUrl = '/assets/lib/leaflet/images/marker-icon.png';
@@ -36,11 +37,19 @@ export class SocieteViewComponent implements OnInit,OnChanges {
   private societeId;
   private newProduitList = [];
   private loadingNewProduit = false;
+  public loadingProduit = false;
+  public produit;
+  public reference;
+  public first = true;
+  public loadingShowMore = false;
+  public searchobject = {'limit': 10, 'offset': 0,'sousCategory_id':''};
+  public disableShowMore = false;
 
   constructor(private route: ActivatedRoute,
               private societeService: SocieteService,
               private activatedRoute: ActivatedRoute,
-              private newProduitService: NewProduitService
+              private newProduitService: NewProduitService,
+              private produitService: ProduitService,
   ) {
     Window["myComponent"] = this
   }
@@ -50,7 +59,8 @@ export class SocieteViewComponent implements OnInit,OnChanges {
     this.societeId = this.route.snapshot.paramMap.get('id');
     this.route.params.subscribe(params => {
       this.sousCategory_id = params['sousCategoryId'];
-      this.loadnewProduitList({'sousCategory_id': this.sousCategory_id});
+      this.searchobject.sousCategory_id=this.sousCategory_id;
+      this.loadnewProduitList(this.searchobject);
     });
     if (this.societeId) {
       this.loading = true;
@@ -77,8 +87,26 @@ export class SocieteViewComponent implements OnInit,OnChanges {
   }
 
   public handleGetNewProduitResponse(data): any {
-    this.newProduitList = data;
+    this.first = false;
+    if (this.loadingShowMore) {
+      this.newProduitList = this.newProduitList.concat(data);
+    } else {
+      this.newProduitList = data;
+    }
+    if (data.length < this.searchobject.limit) {
+      this.disableShowMore = true;
+    } else {
+      this.disableShowMore = false;
+    }
+    this.loadingShowMore = false;
+
     this.loadingNewProduit = false;
+  }
+
+  public showMore(): any {
+    this.loadingShowMore = true;
+    this.searchobject.offset = this.newProduitList.length;
+    this.loadnewProduitList(this.searchobject);
   }
 
   public loadnewProduitList(data): any {
@@ -92,6 +120,7 @@ export class SocieteViewComponent implements OnInit,OnChanges {
 
   public handleGetSocieteError(error): any {
     this.loading = false;
+    this.loadingShowMore = false;
     this.error = error.error.message;
     this.errors = error.error.errors;
   }
@@ -127,6 +156,26 @@ export class SocieteViewComponent implements OnInit,OnChanges {
       '<div class="media-body ml-2"><h6 class="mb-0"><a href="/societe/view/' + societe.id + '">' + societe.nom + '</a></h6><a href="/societe/view/' + societe.id + '" class="btn btn-light btn-sm py-0 mt-1 border"><span class="far fa-eye" data-fa-transform="shrink-5 left-2"></span><span class="fs--1">Afficher</span></a><hr class="border-bottom-0 border-dashed" />' +
       '<a href="https://www.google.fr/maps/dir/' + societe.latitude + ',' + societe.longitude + '/@' + societe.latitude + ',' + societe.longitude + ',18z" class="btn btn-light btn-sm py-0 mt-1 border" target="_blank" style="display: flex;"><span class="fas fa-map-marked-alt" data-fa-transform="shrink-5 left-2"></span><span class="fs--1">Itinéraires</span></a></div>'
       + '</div></div>'
+  }
+
+  public searchProduit() {
+    this.loadingProduit = true;
+    return this.produitService.getProduitByReference(this.reference).subscribe(
+      data => this.handleGetProduitResponse(data),
+      error => this.handleGetProduitError(error)
+    );
+  }
+  public handleGetProduitResponse(data): any {
+    this.error = null;
+    this.errors = null;
+    this.produit = data;
+    this.loadingProduit = false;
+  }
+
+  public handleGetProduitError(error): any {
+    this.loadingProduit = false;
+    this.error = error.error.message;
+    this.errors = error.error.errors;
   }
 
 }

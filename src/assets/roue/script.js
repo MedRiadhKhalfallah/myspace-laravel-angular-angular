@@ -12,8 +12,8 @@ console.log(idRoue);
       xobj.overrideMimeType("application/json");
       // xobj.open('GET', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/demo_wheel_data.json', true);
       // xobj.open('GET', 'https://api.mocki.io/v1/a75215ec', true);
-      xobj.open('GET', 'http://localhost:8000/api/roues/'+idRoue, true);
-      // xobj.open('GET', 'http://www.maintenance.mtsplus.tn/api/roues/'+idRoue, true);
+      // xobj.open('GET', 'http://localhost:8000/api/roues/'+idRoue, true);
+      xobj.open('GET', 'http://www.maintenance.mtsplus.tn/api/roues/'+idRoue, true);
       xobj.onreadystatechange = function() {
         if (xobj.readyState == 4 && xobj.status == "200") {
           //Call the anonymous function (callback) passing in the response
@@ -66,7 +66,9 @@ function myGameEnd(e) {
   data.append('num_tel', num_tel);
 
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'http://localhost:8000/api/end-game', false);
+  // xhr.open('POST', 'http://localhost:8000/api/end-game', false);
+  xhr.open('POST', 'http://www.maintenance.mtsplus.tn/api/end-game', false);
+
   xhr.send(data);
 
   console.log(e);

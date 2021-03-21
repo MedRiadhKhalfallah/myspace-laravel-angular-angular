@@ -1,6 +1,6 @@
 <div *ngIf="error" class="div">
-  <ul class="alert alert-danger fa-ul">
-    <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+  <ul class="alert alert-danger fa-ul" *ngIf="error=='Les participents doivent appartient a une roue, Pour créer'">
+    <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span >{{error}} <a routerLink="/create-roue-chance">cliquer ici.</a></li>
   </ul>
 </div>
 

@@ -1,7 +1,6 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {Router} from "@angular/router";
-import {DOCUMENT} from "@angular/common";
 import {RoueChanceElementService} from "../service/roue-chance-element.service";
 
 @Component({
@@ -19,8 +18,7 @@ export class RoueChanceElementIndexComponent implements OnInit {
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
   constructor(private elementService: RoueChanceElementService,
-              private router: Router,
-              @Inject(DOCUMENT) private document: Document) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -40,10 +38,7 @@ export class RoueChanceElementIndexComponent implements OnInit {
 
   public handleError(error): any {
     this.loading = false;
-    // this.error = error.error.message;
-    if (this.error === 'User does not have the right roles.') {
-      this.router.navigateByUrl('/');
-    }
+    this.error = error.error.error;
   }
 
   public handleResponse(data): any {
