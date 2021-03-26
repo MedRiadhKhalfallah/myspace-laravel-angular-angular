@@ -67,13 +67,12 @@ export class ProfileEditComponent implements OnInit {
     this.loading = false;
     this.error = error.error.message;
     if (this.error === 'User does not have the right roles.') {
-      this.router.navigateByUrl('/');
+      // this.router.navigateByUrl('/');
     }
   }
 
   public handleResponse(data): any {
     this.loading = false;
-    console.log(data);
     this.profile = data;
     localStorage.setItem('profileImg', this.profile.image_profile_path);
 

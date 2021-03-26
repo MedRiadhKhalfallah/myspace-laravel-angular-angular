@@ -55,9 +55,9 @@
       </div>
       <div class="collapse navbar-collapse navbar-glass perfect-scrollbar scrollbar" id="navbarVerticalCollapse">
         <ul class="navbar-nav flex-column">
-          <li class="nav-item" *ngIf="adminRole"><a class="nav-link dropdown-indicator" href="#administration"
-                                                    data-toggle="collapse" role="button"
-                                                    aria-expanded="true" aria-controls="administration">
+          <li class="nav-item" *ngIf="adminRole">
+            <a class="nav-link dropdown-indicator" href="#administration"data-toggle="collapse" role="button"
+              aria-expanded="true" aria-controls="administration">
             <div class="d-flex align-items-center"><span class="nav-link-icon"><span
               class="fas fa-chart-pie"></span></span><span class="nav-link-text">Administration</span></div>
           </a>
@@ -76,7 +76,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item" *ngIf="loggedIn">
+          <li class="nav-item" *ngIf="loggedIn && (adminSocieteRole || adminRole)">
             <a class="nav-link dropdown-indicator" href="#societe"
                data-toggle="collapse" role="button"
                aria-expanded="true" aria-controls="societe">
@@ -98,7 +98,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item" *ngIf="loggedIn">
+          <li class="nav-item" *ngIf="loggedIn && (adminSocieteRole || adminRole)">
             <a class="nav-link dropdown-indicator" href="#boutique"
                data-toggle="collapse" role="button"
                aria-expanded="true" aria-controls="boutique">
@@ -138,7 +138,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item" *ngIf="loggedIn">
+          <li class="nav-item" *ngIf="loggedIn && (adminSocieteRole || adminRole)">
             <a class="nav-link dropdown-indicator" href="#reparation"
                data-toggle="collapse" role="button"
                aria-expanded="true" aria-controls="reparation">
@@ -147,7 +147,7 @@
             </a>
             <ul class="nav collapse show" id="reparation" data-parent="#navbarVerticalCollapse" *ngIf="loggedIn">
               <li class="nav-item">
-                <a class="nav-link" routerLink="produits" *ngIf="adminSocieteRole || adminRole">
+                <a class="nav-link" routerLink="/repaire-produits" *ngIf="adminSocieteRole || adminRole">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                     class="fas fa-wrench"></span></span><span class="nav-link-text"> Produits</span></div>
                 </a>
@@ -160,7 +160,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item" *ngIf="loggedIn">
+          <li class="nav-item" *ngIf="loggedIn && (adminSocieteRole || adminRole)">
             <a class="nav-link dropdown-indicator" href="#rouechance"
                data-toggle="collapse" role="button"
                aria-expanded="true" aria-controls="rouechance">
@@ -180,7 +180,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="historiques" *ngIf="adminSocieteRole || adminRole">
+            <a class="nav-link" routerLink="historiques" *ngIf="loggedIn && (adminSocieteRole || adminRole)">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                 class="fas fa-history"></span></span><span class="nav-link-text"> Historiques</span></div>
             </a>
@@ -195,6 +195,12 @@
             <a class="nav-link" routerLink="tarification" *ngIf="loggedIn">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                 class="fas fa-file-invoice-dollar"></span></span><span class="nav-link-text">Tarification</span></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="produit-utilisateur" *ngIf="loggedIn && utilisateurRole">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-file-invoice-dollar"></span></span><span class="nav-link-text">Produit utilisateur</span></div>
             </a>
           </li>
         </ul>
@@ -235,7 +241,7 @@
           </li>
         </ul>
       </nav>
-      <div *ngIf="afficheif">
+      <div *ngIf="afficheif && adminSocieteRole">
         <ul class="alert alert-danger fa-ul" *ngIf="!societeStorage">
           <li>
       <span class="fa-li">

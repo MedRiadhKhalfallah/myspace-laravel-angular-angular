@@ -1,17 +1,16 @@
-import {Component, OnInit, ViewChild, TemplateRef, Inject} from '@angular/core';
-import {MarqueService} from '../service/marque.service';
-import {ModalDirective, BsModalRef} from 'ngx-bootstrap/modal';
-import {Router} from '@angular/router';
-import {DOCUMENT} from '@angular/common';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ModalDirective} from "ngx-bootstrap/modal";
+import {Router} from "@angular/router";
+import {ProduitUtilisateurService} from "../service/produit-utilisateur.service";
 
 @Component({
-  selector: 'app-marque-index',
-  templateUrl: './marque-index.component.html',
-  styleUrls: ['./marque-index.component.css']
+  selector: 'app-produit-utilisateur-index',
+  templateUrl: './produit-utilisateur-index.component.html',
+  styleUrls: ['./produit-utilisateur-index.component.css']
 })
-export class MarqueIndexComponent implements OnInit {
+export class ProduitUtilisateurIndexComponent implements OnInit {
 
-  public marqueList = [];
+  public produitUtilisateurList = [];
   public error;
   public searchobject = {'limit': 10, 'offset': 0};
   public first = true;
@@ -19,26 +18,13 @@ export class MarqueIndexComponent implements OnInit {
   public loading = false;
   public loadingShowMore = false;
   public showCreate = false;
-
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
-  constructor(private marqueService: MarqueService,
-              private router: Router,
-              @Inject(DOCUMENT) private document: Document) {
+  constructor(private produitUtilisateurService: ProduitUtilisateurService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    /*
-        window.addEventListener('scroll', function (e) {
-          var a = this.document.documentElement.scrollTop;
-          var b = this.document.documentElement.scrollHeight - this.document.documentElement.clientHeight;
-          var c = a / b;
-          if (c > 0.8) {
-            console.log('click');
-            this.document.getElementById('showMore').click();
-          }
-        });
-    */
     this.loadData({});
   }
 
@@ -65,9 +51,9 @@ export class MarqueIndexComponent implements OnInit {
     this.loading = false;
     this.first = false;
     if (this.loadingShowMore) {
-      this.marqueList = this.marqueList.concat(data);
+      this.produitUtilisateurList = this.produitUtilisateurList.concat(data);
     } else {
-      this.marqueList = data;
+      this.produitUtilisateurList = data;
     }
     if (data.length < this.searchobject.limit) {
       this.disableShowMore = true;
@@ -79,7 +65,7 @@ export class MarqueIndexComponent implements OnInit {
 
   public showMore(): any {
     this.loadingShowMore = true;
-    this.searchobject.offset = this.marqueList.length;
+    this.searchobject.offset = this.produitUtilisateurList.length;
     this.loadData(this.searchobject);
   }
 
@@ -89,7 +75,7 @@ export class MarqueIndexComponent implements OnInit {
     if (Object.keys(searchobject).length != 0) {
       this.searchobject = searchobject;
     }
-    this.marqueService.marqueSearchWithCriteria(this.searchobject).subscribe(
+    this.produitUtilisateurService.produitUtilisateurSearchWithCriteria(this.searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );

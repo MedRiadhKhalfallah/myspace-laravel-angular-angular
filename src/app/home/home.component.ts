@@ -4,7 +4,7 @@ import * as L from 'leaflet';
 import {SocieteService} from "../societe/service/societe.service";
 import {DatePipe} from "@angular/common";
 import {TokenService} from "../services/token.service";
-import { OwlOptions } from 'ngx-owl-carousel-o';
+import {OwlOptions} from 'ngx-owl-carousel-o';
 
 const iconUrl = '/assets/lib/leaflet/images/marker-icon.png';
 const shadowUrl = '/assets/lib/leaflet/images/marker-shadow.png';
@@ -28,9 +28,9 @@ export class HomeComponent implements OnInit {
       '<i class="fas fa-chevron-circle-left"></i>',
       '<i class="fas fa-chevron-circle-right"></i>'
     ],
-    autoplayTimeout:5000,
-    autoplay:true,
-    autoplayHoverPause:true,
+    autoplayTimeout: 5000,
+    autoplay: true,
+    autoplayHoverPause: true,
     responsive: {
       0: {
         items: 1
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
 
   private map;
   private markers;
-  public markersLegende=[];
+  public markersLegende = [];
 
   constructor(private produitService: ProduitService,
               private societeService: SocieteService,
@@ -121,9 +121,9 @@ export class HomeComponent implements OnInit {
 
     for (const societe of this.societes) {
       if (societe.latitude && societe.longitude && societe.type_activite) {
-        let iconUrl=societe.type_activite.iconUrl;
-        if(this.markersLegende.find(x => x.map_legende === societe.type_activite.map_legende) == undefined){
-          this.markersLegende.push({iconUrl:iconUrl,map_legende:societe.type_activite.map_legende});
+        let iconUrl = societe.type_activite.iconUrl;
+        if (this.markersLegende.find(x => x.map_legende === societe.type_activite.map_legende) == undefined) {
+          this.markersLegende.push({iconUrl: iconUrl, map_legende: societe.type_activite.map_legende});
         }
         let iconDefault = L.icon({
           iconUrl,
@@ -146,16 +146,16 @@ export class HomeComponent implements OnInit {
 
     /*Legend specific*/
     var legend = new (L.Control.extend({
-      options: { position: 'bottomleft' }
+      options: {position: 'bottomleft'}
     }));
 
-    legend.onAdd = function(map) {
+    legend.onAdd = function (map) {
       var div = L.DomUtil.create("div", "legend");
       div.style.backgroundColor = "rgba(0,0,0,0.1)";
       div.style.padding = "10px";
       div.innerHTML += "<h5>Légende</h5>";
       this.markersLegende.forEach(markerLegende => {
-        div.innerHTML += '<img src="'+markerLegende.iconUrl+'" style="width: 15px;"> <strong>'+markerLegende.map_legende+'</strong><br>';
+        div.innerHTML += '<img src="' + markerLegende.iconUrl + '" style="width: 15px;"> <strong>' + markerLegende.map_legende + '</strong><br>';
       });
       return div;
     }.bind(this);
@@ -189,6 +189,7 @@ export class HomeComponent implements OnInit {
       error => this.handleGetProduitError(error)
     );
   }
+
   public top() {
     window.scrollTo({
       top: 0,

@@ -1,0 +1,261 @@
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="error" class="div">
+      <ul class="alert alert-danger fa-ul">
+        <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+      </ul>
+    </div>
+    <div *ngIf="errors" class="div">
+      <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+        - {{ item.key }}
+        <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="row no-gutters">
+        <div class="col-lg-12 pr-lg-2">
+          <div class="card mb-3">
+
+            <div class="card-body bg-light">
+
+              <form #produitUtilisateurCreateForm=ngForm (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="sousCategorie">Categorie *</label>
+                      <select class="form-control" id="categorie" name="categorie"
+                              [(ngModel)]="categoryId" required
+                              #categorie="ngModel" (change)='findSousCategorie()'>
+                        <option *ngFor="let categorie of categorieListe" [value]="categorie.id">
+                          {{categorie.nom}}
+                        </option>
+                      </select>
+                      <ul *ngIf="categorie.invalid && (categorie.dirty || categorie.touched)"
+                          class="alert alert-danger">
+                        <li *ngIf="categorie.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="sousCategorie">Sous categorie *</label>
+                      <select class="form-control" id="sousCategorie" name="sousCategorie"
+                              [(ngModel)]="produitUtilisateur.sous_category_id" required
+                              #sousCategorie="ngModel" [disabled]="!categoryId">
+                        <option *ngFor="let sousCategorie of sousCategorieListe" [value]="sousCategorie.id">
+                          {{sousCategorie.nom}}
+                        </option>
+                      </select>
+                      <ul *ngIf="sousCategorie.invalid && (sousCategorie.dirty || sousCategorie.touched)"
+                          class="alert alert-danger">
+                        <li *ngIf="sousCategorie.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="modele">Marque *</label>
+                      <select class="form-control" id="marque" name="marque"
+                              [(ngModel)]="marqueId" required
+                              #marque="ngModel" (change)="findModele()">
+                        <option *ngFor="let marque of marqueListe" [value]="marque.id">
+                          {{marque.nom}}
+                        </option>
+                      </select>
+                      <ul *ngIf="marque.invalid && (marque.dirty || marque.touched)" class="alert alert-danger">
+                        <li *ngIf="marque.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="modele">Modele *</label>
+                      <select class="form-control" id="modele" name="modele"
+                              [(ngModel)]="produitUtilisateur.modele_id" required
+                              #modele="ngModel" [disabled]="!marqueId">
+                        <option *ngFor="let modele of modeleListe" [value]="modele.id">
+                          {{modele.nom}}
+                        </option>
+                      </select>
+                      <ul *ngIf="modele.invalid && (modele.dirty || modele.touched)" class="alert alert-danger">
+                        <li *ngIf="modele.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="gouvernorat">Gouvernorat *</label>
+                  <select class="form-control" id="gouvernorat" name="gouvernorat"
+                          [(ngModel)]="produitUtilisateur.gouvernorat_id" required
+                          #gouvernorat="ngModel" (change)='findDelegation()'>
+                    <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
+                      {{gouvernorat.nom}}
+                    </option>
+                  </select>
+                  <ul *ngIf="gouvernorat.invalid && (gouvernorat.dirty || gouvernorat.touched)" class="alert alert-danger">
+                    <li *ngIf="gouvernorat.errors.required">
+                      Ce champ est obligatoire
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="delegation">Delegation *</label>
+                  <select class="form-control" id="delegation" name="delegation" [(ngModel)]="produitUtilisateur.delegation_id"
+                          #delegation="ngModel"  required>
+                    <option [value]=""></option>
+                    <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
+                      {{delegation.nom}}
+                    </option>
+                  </select>
+                  <ul *ngIf="delegation.invalid && (delegation.dirty || delegation.touched)" class="alert alert-danger">
+                    <li *ngIf="delegation.errors.required">
+                      Ce champ est obligatoire
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="adresse">Adresse *</label>
+                  <input class="form-control" id="adresse" name="adresse" type="text" [(ngModel)]="produitUtilisateur.adresse"
+                         required minlength="3" maxlength="255"
+                         #adresse="ngModel">
+                  <ul *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)" class="alert alert-danger">
+                    <li *ngIf="adresse.errors.pattern">
+                      Adresse doit contenire que de carectere alphabitique et des chiffres.
+                    </li>
+                    <li *ngIf="adresse.errors.required">
+                      Ce champ est obligatoire
+                    </li>
+                    <li *ngIf="adresse.errors.minlength">
+                      Nom doit comporter au moins 3 caractères.
+                    </li>
+                    <li *ngIf="adresse.errors.maxlength">
+                      Adresse doit contenir au maximum 255 caractères.
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="complement_adresse">Complément d'adresse</label>
+                  <input class="form-control" id="complement_adresse" name="complement_adresse" type="text"
+                         [(ngModel)]="produitUtilisateur.complement_adresse"
+                         placeholder="Appartement, étage, porte, couloir"
+                         maxlength="255" #complement_adresse="ngModel">
+                  <ul *ngIf="complement_adresse.invalid && (complement_adresse.dirty || complement_adresse.touched)"
+                      class="alert alert-danger">
+                    <li *ngIf="complement_adresse.errors.maxlength">
+                      Complément d'adresse doit contenir au maximum 255 caractères.
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+              <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="titre">Titre *</label>
+                      <input class="form-control" id="titre" name="titre" type="text" placeholder="Titre"
+                             [(ngModel)]="produitUtilisateur.titre"
+                             required minlength="3"
+                             #titre="ngModel"/>
+                      <ul *ngIf="titre.invalid && (titre.dirty || titre.touched)" class="alert alert-danger">
+                        <li *ngIf="titre.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                        <li *ngIf="titre.errors.minlength">
+                          Nom doit comporter au moins 3 caractères.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="reference">Référence *</label>
+                      <input class="form-control" id="reference" name="reference" type="text" placeholder="Référence"
+                             [(ngModel)]="produitUtilisateur.reference" required #reference="ngModel"/>
+                      <ul *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
+                        <li *ngIf="reference.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="prix">Prix *</label>
+                      <input class="form-control" id="prix" name="prix" type="number" placeholder="Titre"
+                             [(ngModel)]="produitUtilisateur.prix" required #prix="ngModel"/>
+                      <ul *ngIf="prix.invalid && (prix.dirty || prix.touched)" class="alert alert-danger">
+                        <li *ngIf="prix.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="etat_produit">État produit *</label>
+                      <select class="form-control" [(ngModel)]="produitUtilisateur.etat_produit"
+                              name="etat_produit" id="etat_produit" required>
+                        <option [ngValue]="Nouveau">Nouveau</option>
+                        <option [ngValue]="Utilise">Utilisé</option>
+                        <option [ngValue]="Reconditionne">Reconditionné</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="selectedFile">Image</label>
+                      <input id="selectedFile" name="selectedFile" type="file" multiple (change)="onFileSelect($event)">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group"><label for="description">Description</label>
+                      <textarea class="form-control" id="description" name="description" cols="30" rows="13"
+                                [(ngModel)]="produitUtilisateur.description"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-warning mb-3 float-right" type="submit"
+                        [disabled]="produitUtilisateurCreateForm.invalid || loading">
+                  Enregistrer
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

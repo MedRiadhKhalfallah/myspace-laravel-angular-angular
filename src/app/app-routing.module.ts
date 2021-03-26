@@ -38,6 +38,8 @@ import {RoueChanceCreateComponent} from "./roue-chance/roue-chance-create/roue-c
 import {RoueChanceElementIndexComponent} from "./roue-chance/roue-chance-element-index/roue-chance-element-index.component";
 import {LoginRoueChanceComponent} from "./roue-chance/login-roue-chance/login-roue-chance.component";
 import {RoueClientIndexComponent} from "./roue-client/roue-client-index/roue-client-index.component";
+import {ProduitUtilisateurIndexComponent} from "./produit-utilisateur/produit-utilisateur-index/produit-utilisateur-index.component";
+import {ProduitsIndexComponent} from "./produits/produits-index/produits-index.component";
 
 const routes: Routes = [
   {
@@ -117,7 +119,7 @@ const routes: Routes = [
     component: RechercheSocieteComponent
   },
   {
-    path: 'produits',
+    path: 'repaire-produits',
     component: ProduitIndexComponent,
     canActivate: [AfterLoginService]
   },
@@ -207,8 +209,16 @@ const routes: Routes = [
   {
     path: 'newProduit/view/:id',
     component: NewProduitViewComponent,
-  }
-
+  },
+  {
+    path: 'produit-utilisateur',
+    component: ProduitUtilisateurIndexComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'produits',
+    component: ProduitsIndexComponent,
+  },
 ];
 
 @NgModule({

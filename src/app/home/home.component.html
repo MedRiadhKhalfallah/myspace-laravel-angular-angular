@@ -7,6 +7,11 @@
 </owl-carousel-o>
 <br><br><br>
 
+<app-list-produit [searchObject]="{'limit': 6, 'offset': 0}"
+                  [titre]="'Tous les produits'"
+                  [url]="'/produits'"
+></app-list-produit>
+
 <div class="row no-gutters">
   <div class="col-lg-12 pr-lg-2 mb-3 mb-lg-0">
     <div class="card h-100">
@@ -35,153 +40,6 @@
 <div class="content">
   <div class="row no-gutters">
     <div class="col-lg-8 pr-lg-2">
-      <div class="card mb-3">
-        <div class="card-header">
-          <h5 class="mb-0">Suivi votre réparation</h5>
-        </div>
-        <div class="card-body bg-light">
-          <form #produitReferenceForm=ngForm (ngSubmit)="searchProduit()">
-            <p>
-              Vérifier l'état de votre réparation avec notre service de Suivi en Temps Réel
-            </p>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="reference_produit">Référence du produit:</label>
-                  <input class="form-control" id="reference_produit" name="reference_produit" type="text"
-                         [(ngModel)]="reference" minlength="13" maxlength="13" pattern="[0-9]{13}"
-                         required #reference_produit="ngModel" placeholder="0000000000000"/>
-                  <p style="color: #a5a5a5;
-                             font-size: 10px;">
-                    (*)Ce code est confidentiel, merci de bien le préserver
-                  </p>
-                  <ul *ngIf="reference_produit.invalid && (reference_produit.dirty || reference_produit.touched)"
-                      class="alert alert-danger">
-                    <li *ngIf="reference_produit.errors.pattern">
-                      Username doit contenire que des chiffres.
-                    </li>
-                    <li *ngIf="reference_produit.errors.minlength">
-                      Référence doit comporter au moins 13 caractères.
-                    </li>
-                    <li *ngIf="reference_produit.errors.maxlength">
-                      Référence doit contenir au maximum 13 caractères.
-                    </li>
-                    <li *ngIf="reference_produit.errors.required">
-                      Ce champ est obligatoire
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 d-flex justify-content-end">
-              <button class="btn btn-primary" type="submit" [disabled]="produitReferenceForm.invalid || loading">
-                Rechercher
-                <span *ngIf="loadingProduit" class="spinner-border spinner-border-sm" role="status"
-                      aria-hidden="true"></span>
-              </button>
-            </div>
-          </form>
-          <br>
-          <div *ngIf="produit">
-            <div class="card mb-3">
-              <div class="card-header">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <h5 class="mb-0">Information produit</h5>
-                  </div>
-                  <div class="col-auto"></div>
-                </div>
-              </div>
-              <div class="card-body bg-light border-top">
-                <div class="row">
-                  <div class="col-lg col-xxl-5">
-                    <h6 class="font-weight-semi-bold ls mb-3 text-uppercase">Produit</h6>
-                    <div class="row">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Référence</p>
-                      </div>
-                      <div class="col">{{produit.reference}}</div>
-                    </div>
-                    <div class="row" *ngIf="produit.etat">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Etat</p>
-                      </div>
-                      <div class="col">{{produit.etat.nom}}</div>
-                    </div>
-                    <div class="row">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Produit</p>
-                      </div>
-                      <div class="col">{{produit.nom}}</div>
-                    </div>
-                    <div class="row">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Created</p>
-                      </div>
-                      <div class="col">{{produit.created_at}}</div>
-                    </div>
-                    <div class="row">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Description</p>
-                      </div>
-                      <div class="col">{{produit.description_client}}</div>
-                    </div>
-                    <div class="row">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-0" style="white-space: nowrap;">Client</p>
-                      </div>
-                      <div class="col">{{produit.nom_client}}</div>
-                    </div>
-                  </div>
-                  <div class="col-lg col-xxl-5 mt-4 mt-lg-0 offset-xxl-1">
-                    <h6 class="font-weight-semi-bold ls mb-3 text-uppercase" style="white-space: nowrap;">Société</h6>
-                    <div class="row">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Nom</p>
-                      </div>
-                      <div class="col">{{produit.societe.nom}}</div>
-                    </div>
-                    <div class="row">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Addresse</p>
-                      </div>
-                      <div class="col">
-                        <p class="mb-1">{{produit.societe.adresse}}<br>{{produit.societe.ville}}</p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-1" style="white-space: nowrap;">Tél</p>
-                      </div>
-                      <div class="col"><a
-                        href="tel:{{produit.societe.telephone_mobile}}">{{produit.societe.telephone_mobile}}</a></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-5 col-sm-4">
-                        <p class="font-weight-semi-bold mb-0" style="white-space: nowrap;">Tél fix</p>
-                      </div>
-                      <div class="col">
-                        <p class="font-weight-semi-bold mb-0"><a
-                          href="tel:{{produit.societe.telephone_fix}}">{{produit.societe.telephone_fix}}</a></p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer border-top text-right"></div>
-            </div>
-
-          </div>
-          <div *ngIf="produit===null" class="div">
-            <ul class="alert alert-danger fa-ul">
-              <li>
-                <span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>
-                Ce produit n'existe pas. Merci de vérifier la référence.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
       <!--      https://www.youtube.com/watch?v=dQFLwEJgMEI&list=PLDmvslp_VR0yrKVkeDmfl8KUvxrevbUey-->
       <div class="row no-gutters">
         <div class="col-lg-12 pl-lg-2">

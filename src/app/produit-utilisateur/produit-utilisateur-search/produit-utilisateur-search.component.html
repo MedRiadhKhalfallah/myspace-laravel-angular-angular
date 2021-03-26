@@ -1,0 +1,144 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h5 class="mb-0">Recherche produit</h5>
+  </div>
+  <div class="card-body bg-light">
+    <div class="row">
+      <div class="col-12">
+        <form #produitUtilisateurSearchForm=ngForm (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="titre">Titre</label>
+                <input class="form-control" id="titre" name="titre" type="text" placeholder="Titre"
+                       [(ngModel)]="form.titre">
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="titre">Prix min</label>
+                <input class="form-control" id="prix_min" name="prix_min" type="number" placeholder="prix min"
+                       [(ngModel)]="form.prix_min">
+              </div>
+
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="titre">Prix max</label>
+                <input class="form-control" id="prix_max" name="prix_max" type="number" placeholder="prix_max"
+                       [(ngModel)]="form.prix_max">
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <div class="form-group">
+                <label for="titre">facilite</label>
+                <select class="form-control" [(ngModel)]="form.facilite"
+                        name="facilite" id="facilite">
+                  <option [ngValue]="'oui'">Oui</option>
+                  <option [ngValue]="'non'">Non</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="modele">Marque</label>
+                <select class="form-control" id="marque" name="marque"
+                        [(ngModel)]="marqueId" (change)="findModele()">
+                  <option *ngFor="let marque of marqueListe" [value]="marque.id">
+                    {{marque.nom}}
+                  </option>
+                </select>
+              </div>
+
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="modele">Modele</label>
+                <select class="form-control" id="modele" name="modele"
+                        [(ngModel)]="form.modele_id" [disabled]="!marqueId">
+                  <option *ngFor="let modele of modeleListe" [value]="modele.id">
+                    {{modele.nom}}
+                  </option>
+                </select>
+              </div>
+
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="etat_produit">État produit</label>
+                <select class="form-control" [(ngModel)]="form.etat_produit"
+                        name="etat_produit" id="etat_produit">
+                  <option [ngValue]="Nouveau">Nouveau</option>
+                  <option [ngValue]="Utilise">Utilisé</option>
+                  <option [ngValue]="Reconditionne">Reconditionné</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="sousCategorie">Categorie</label>
+                <select class="form-control" id="categorie" name="categorie"
+                        [(ngModel)]="categoryId" (change)='findSousCategorie()'>
+                  <option *ngFor="let categorie of categorieListe" [value]="categorie.id">
+                    {{categorie.nom}}
+                  </option>
+                </select>
+              </div>
+
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="sousCategorie">Sous categorie</label>
+                <select class="form-control" id="sousCategorie" name="sousCategorie"
+                        [(ngModel)]="form.sous_category_id" [disabled]="!categoryId">
+                  <option *ngFor="let sousCategorie of sousCategorieListe" [value]="sousCategorie.id">
+                    {{sousCategorie.nom}}
+                  </option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="gouvernorat">Gouvernorat</label>
+                <select class="form-control" id="gouvernorat" name="gouvernorat"
+                        [(ngModel)]="form.gouvernorat_id" (change)='findDelegation()'>
+                  <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
+                    {{gouvernorat.nom}}
+                  </option>
+                </select>
+              </div>
+
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="delegation">Delegation</label>
+                <select class="form-control" id="delegation" name="delegation" [(ngModel)]="form.delegation_id"
+                        >
+                  <option [value]=""></option>
+                  <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
+                    {{delegation.nom}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-warning mb-3 float-right" type="submit"
+                  [disabled]="produitUtilisateurSearchForm.invalid">Recherche
+          </button>
+
+          <a class="btn btn-danger mb-3 float-right" (click)="resetForm()"
+             style="margin-right: 5px; color: white;"> réinitialiser
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

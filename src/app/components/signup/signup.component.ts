@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
   };
   public errors = null;
   public isMutch = false;
+  loading: boolean = false;
 
   constructor(private jarwis: JarwisService,
               private token: TokenService,
@@ -32,6 +33,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading=true;
     return this.jarwis.signup(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
@@ -41,33 +43,27 @@ export class SignupComponent implements OnInit {
 
   // custom validator to check that two fields match
   mustMatch(data) {
-    console.log("1");
-    console.log(this.form.password_confirmation);
-    console.log(this.form.password);
     if (this.form.password_confirmation === this.form.password) {
       this.isMutch = true;
-      console.log("2");
     } else {
       this.isMutch = false;
-      console.log("3");
-
     }
   }
 
   handleResponse(data) {
+    this.auth.changeAuthStatus(true);
     localStorage.setItem('roles', data.roles);
     localStorage.setItem('user', data.user);
     localStorage.setItem('profileImg', data.user.image_profile_path);
     localStorage.setItem('date_fin_abonnement_societe', data.date_fin_abonnement_societe);
     localStorage.setItem('societe', data.societe);
     this.token.handle(data.access_token);
-    this.auth.changeAuthStatus(true);
+    this.loading=false;
     this.router.navigateByUrl('/profile');
-    window.location.reload();
   }
 
   handleError(error) {
-    console.log(error);
+    this.loading=false;
     this.errors = error.error.errors
   }
 

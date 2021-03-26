@@ -52,12 +52,15 @@ import { NewProduitModule } from './new-produit/new-produit.module';
 import { CategorieModule } from './categorie/categorie.module';
 import { SousCategorieModule } from './sous-categorie/sous-categorie.module';
 import { ModeleModule } from './modele/modele.module';
+import { ProduitsModule } from './produits/produits.module';
 import { RoueClientModule } from './roue-client/roue-client.module';
+import { ProduitUtilisateurModule } from './produit-utilisateur/produit-utilisateur.module';
 import { enableProdMode } from "@angular/core";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import * as Sentry from "@sentry/angular";
 import { Integrations } from "@sentry/tracing";
 import {Router} from "@angular/router";
+import { ListProduitComponent } from './list-produit/list-produit.component';
 
 Sentry.init({
   dsn: "https://3f420d2efbf54340867b84407039ad5f@o517250.ingest.sentry.io/5668649",
@@ -96,7 +99,8 @@ Sentry.init({
     StatistiqueEtatComponent,
     RechercheSocieteComponent,
     TarificationComponent,
-    PaymentComponent
+    PaymentComponent,
+    ListProduitComponent
   ],
   imports: [
     BrowserModule,

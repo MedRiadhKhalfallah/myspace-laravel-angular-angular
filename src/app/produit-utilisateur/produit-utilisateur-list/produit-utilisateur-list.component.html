@@ -1,0 +1,94 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+    <div *ngIf="produitUtilisateurList.length == 0">
+      Aucun article n'a été trouvé pour votre requête de recherche
+    </div>
+    <div class="table-responsive" *ngIf="produitUtilisateurList.length != 0">
+      <table class="table table-hover table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Titre</th>
+          <th scope="col">Modele</th>
+          <th scope="col">Quantité</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let produitUtilisateur of produitUtilisateurList ; let index = index">
+          <th scope="row">{{index + 1}}</th>
+          <td>{{produitUtilisateur.titre}}</td>
+          <td>{{produitUtilisateur.modele.nom}}</td>
+          <td>{{produitUtilisateur.quantite}}</td>
+          <td>
+            <button class="btn btn-info" type="button" (click)="showChildModalView(produitUtilisateur)"
+                    style="margin-right: 2px;"><span
+              class='far fa-eye'></span></button>
+            <button class="btn btn-warning" type="button" (click)="showChildModal(produitUtilisateur)"
+                    style="margin-right: 2px;"><span
+              class='fas fa-edit'></span></button>
+            <button class="btn btn-danger"
+                    (click)="showChildModalDelete(produitUtilisateur)"
+                    [disabled]="loading[produitUtilisateur.id]">
+              <span *ngIf="!loading[produitUtilisateur.id]" class='far fa-trash-alt'></span>
+              <span *ngIf="loading[produitUtilisateur.id]" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Modifier produit</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-produit-utilisateur-create [produitUtilisateur]="produitUtilisateur" (loadDataEdit)="handleResponse({},produitUtilisateur.id)" *ngIf="showCreate"></app-produit-utilisateur-create>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModalView="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-view" class="modal-title pull-left">Afficher produit</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalView()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-produit-utilisateur-view [produitUtilisateur]="produitUtilisateur"></app-produit-utilisateur-view>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #childModalDelete="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: 'static' }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name-delete" class="modal-title pull-left">Supprimer produit</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModalDelete()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-delete [id]="produitUtilisateurId" (request)="deleteProduitUtilisateur($event)"></app-delete>
+      </div>
+    </div>
+  </div>
+</div>
+

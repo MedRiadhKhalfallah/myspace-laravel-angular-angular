@@ -129,6 +129,8 @@
                 <div class="form-group">
                   <button class="btn btn-primary btn-block mt-3" type="submit" name="submit"
                           [disabled]="signupForm.invalid">Créer votre compte
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                          aria-hidden="true"></span>
                   </button>
                 </div>
               </form>
