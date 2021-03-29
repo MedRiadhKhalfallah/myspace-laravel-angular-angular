@@ -63,16 +63,16 @@
           </a>
             <ul class="nav collapse show" id="administration" data-parent="#navbarVerticalCollapse" *ngIf="adminRole">
               <li class="nav-item active">
-                <a class="nav-link" routerLink="users" *ngIf="adminRole">Users</a>
+                <a class="nav-link" routerLink="/admin/users" *ngIf="adminRole">Users</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" routerLink="users-roles" *ngIf="adminRole">Users Roles</a>
+                <a class="nav-link" routerLink="/admin/users-roles" *ngIf="adminRole">Users Roles</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" routerLink="societes" *ngIf="adminRole">Societes</a>
+                <a class="nav-link" routerLink="societe" *ngIf="adminRole">Societes</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" routerLink="typeActivites" *ngIf="adminRole">Type d'activité</a>
+                <a class="nav-link" routerLink="typeActivite" *ngIf="adminRole">Type d'activité</a>
               </li>
             </ul>
           </li>
@@ -107,31 +107,31 @@
           </a>
             <ul class="nav collapse show" id="boutique" data-parent="#navbarVerticalCollapse" *ngIf="loggedIn">
               <li class="nav-item active">
-                <a class="nav-link" routerLink="/categories" *ngIf="loggedIn">
+                <a class="nav-link" routerLink="/categorie" *ngIf="loggedIn">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                     class="fas fa-folder-open"></span></span><span class="nav-link-text">Categories</span></div>
                 </a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" routerLink="/sousCategories" *ngIf="loggedIn">
+                <a class="nav-link" routerLink="/sousCategorie" *ngIf="loggedIn">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                     class="fas fa-grip-horizontal"></span></span><span class="nav-link-text">Sous categorie</span></div>
                 </a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" routerLink="/modeles" *ngIf="loggedIn">
+                <a class="nav-link" routerLink="/modele" *ngIf="loggedIn">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                     class="fab fa-modx"></span></span><span class="nav-link-text">Modeles</span></div>
                 </a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" routerLink="/marques" *ngIf="loggedIn">
+                <a class="nav-link" routerLink="/marque" *ngIf="loggedIn">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                     class="fas fa-gopuram"></span></span><span class="nav-link-text">Marques</span></div>
                 </a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" routerLink="/newProduits" *ngIf="loggedIn">
+                <a class="nav-link" routerLink="/newProduit" *ngIf="loggedIn">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                     class="fab fa-product-hunt"></span></span><span class="nav-link-text">Nouveau produit</span></div>
                 </a>
@@ -153,7 +153,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="etats" *ngIf="adminSocieteRole || adminRole">
+                <a class="nav-link" routerLink="etat" *ngIf="adminSocieteRole || adminRole">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                     class="far fa-list-alt"></span></span><span class="nav-link-text"> États</span></div>
                 </a>
@@ -169,10 +169,10 @@
             </a>
             <ul class="nav collapse show" id="rouechance" data-parent="#navbarVerticalCollapse" *ngIf="loggedIn">
               <li class="nav-item active">
-                <a class="nav-link" routerLink="/create-roue-chance" *ngIf="loggedIn">Roue</a>
+                <a class="nav-link" routerLink="/roue-chance/create" *ngIf="loggedIn">Roue</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" routerLink="/elements-roue-chance" *ngIf="loggedIn">Roue elements</a>
+                <a class="nav-link" routerLink="/roue-chance/elements" *ngIf="loggedIn">Roue elements</a>
               </li>
               <li class="nav-item active">
                 <a class="nav-link" routerLink="/roue-chance-participant" *ngIf="loggedIn">liste des participants</a>
@@ -180,13 +180,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="historiques" *ngIf="loggedIn && (adminSocieteRole || adminRole)">
+            <a class="nav-link" routerLink="historique" *ngIf="loggedIn && (adminSocieteRole || adminRole)">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                 class="fas fa-history"></span></span><span class="nav-link-text"> Historiques</span></div>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="reclamations" *ngIf="loggedIn">
+            <a class="nav-link" routerLink="reclamation" *ngIf="loggedIn">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                 class="fas fa-headset"></span></span><span class="nav-link-text"> Créer un ticket</span></div>
             </a>
@@ -220,9 +220,22 @@
                  alt="Maintenance TN" width="150"/>
           </div>
         </a>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown dropdown-on-hover" *ngFor="let categorie of categories">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownHome" href="test" role="button" data-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false">{{categorie.nom}}</a>
+              <div class="dropdown-menu dropdown-menu-card" aria-labelledby="navbarDropdownHome">
+                <div class="bg-white rounded-soft py-2">
+                  <a class="dropdown-item" href="/produit?sousCategory={{sousCategorie.id}}"
+                     *ngFor="let sousCategorie of categorie.sousCategories">{{sousCategorie.nom}}</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+
         <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
           <li class="nav-item" *ngIf="!loggedIn">
-            <a class="nav-link" routerLink="login">Se connecter</a>
+            <a class="nav-link" routerLink="/authentification/login">Se connecter</a>
           </li>
           <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link pr-0" id="navbarDropdownUser3" href="#"
                                                              role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -271,7 +284,7 @@
       </div>
 
 
-      <app-recherche-societe *ngIf="routeHome"></app-recherche-societe>
+<!--      <app-recherche-societe *ngIf="routeHome"></app-recherche-societe>-->
       <ng-snotify></ng-snotify>
       <router-outlet (activate)='onActivate($event)'></router-outlet>
 

@@ -2,6 +2,8 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AuthService} from './services/auth.service';
 import {Router} from '@angular/router';
 import {TokenService} from './services/token.service';
+import {SocieteService} from "./societe/service/societe.service";
+import {CategorieService} from "./categorie/service/categorie.service";
 
 @Component({
   selector: 'app-root',
@@ -24,9 +26,15 @@ export class AppComponent implements OnInit, OnChanges {
   public routeHome=false;
   public roueChanceHome=false;
 
+  public error;
+  public errors;
+  public categories=[];
+  public loading = false;
+
   constructor(private auth: AuthService,
               private router: Router,
-              private token: TokenService
+              private token: TokenService,
+              private categorieService: CategorieService
   ) {
     this.adminRole = false;
     this.utilisateurRole = false;
@@ -39,7 +47,9 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.loadCategories();
     if (!this.token.loggedIn()) {
+
       // this.router.navigateByUrl('/');
     } else {
       this.societeStorage = localStorage.getItem('societe');
@@ -104,7 +114,6 @@ export class AppComponent implements OnInit, OnChanges {
       this.profileImg = localStorage.getItem('profileImg');
     } else {
       setTimeout(() => {
-        console.log('hide');
         this.profileImg = localStorage.getItem('profileImg');
       }, 1000);
     }
@@ -120,13 +129,31 @@ export class AppComponent implements OnInit, OnChanges {
     localStorage.removeItem('date_fin_abonnement_societe');
     localStorage.removeItem('societe');
     localStorage.removeItem('isNavbarTop');
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/authentification/login');
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+  }
 
+  loadCategories(){
+    this.categorieService.categorieSearchWithCriteria({'societe_id':1}).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error)
+    );
 
+  }
+  public handleResponse(data): any {
+    this.error = null;
+    this.errors = null;
+    this.categories = data;
+    this.loading = false;
+  }
+
+  public handleError(error): any {
+    this.loading = false;
+    this.error = error.error.message;
+    this.errors = error.error.errors;
   }
 
   onActivate(event){

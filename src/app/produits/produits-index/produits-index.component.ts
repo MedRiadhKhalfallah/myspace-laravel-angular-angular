@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ngx-bootstrap/modal";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {DOCUMENT} from "@angular/common";
 import {NewProduitService} from "../../new-produit/service/new-produit.service";
 
@@ -18,11 +18,13 @@ export class ProduitsIndexComponent implements OnInit {
   public disableShowMore = false;
   public loading = false;
   public loadingShowMore = false;
+  public sousCategorie_id;
 
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
   constructor(private produitService: NewProduitService,
               private router: Router,
+              private activatedRoute: ActivatedRoute,
               @Inject(DOCUMENT) private document: Document) {
   }
 
@@ -38,7 +40,14 @@ export class ProduitsIndexComponent implements OnInit {
           }
         });
     */
-    this.loadData({});
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.sousCategorie_id = params['sousCategory'];
+    });
+    if (this.sousCategorie_id) {
+      this.loadData({'sous_category_id': this.sousCategorie_id});
+    } else {
+      this.loadData({});
+    }
   }
 
   public handleError(error): any {

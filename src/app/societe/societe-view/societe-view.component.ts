@@ -126,7 +126,6 @@ export class SocieteViewComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("hereeeee");
   }
 
   private initMap(): void {

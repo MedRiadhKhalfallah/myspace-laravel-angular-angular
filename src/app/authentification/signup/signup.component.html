@@ -1,0 +1,161 @@
+<!-- ===============================================-->
+<!--    Main Content-->
+<!-- ===============================================-->
+<div class="row min-vh-100 flex-center no-gutters" style="margin-top: -5%;">
+  <div class="col-lg-8 col-xxl-8 py-3">
+    <img class="bg-auth-circle-shape" src="/assets/img/illustrations/bg-shape.png"
+        alt="image de back creation compte" width="250">
+    <img class="bg-auth-circle-shape-2"
+        src="../../assets/img/illustrations/shape-1.png"
+        alt="image de back creation compte" width="150">
+    <div class="card overflow-hidden z-index-1">
+      <div class="card-body p-0">
+        <div class="row no-gutters h-100">
+          <div class="col-md-12 d-flex flex-center">
+            <div class="p-4 p-md-5 flex-grow-1">
+              <h3>Créer votre compte</h3>
+              <form #signupForm=ngForm (ngSubmit)="onSubmit()">
+                <div *ngIf="errors" class="div">
+                  <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger">
+                    {{ item.key }}
+                    <li *ngFor="let val of item.value">{{val}}</li>
+                    </ul>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-6"><label for="prenom">Prenom *</label>
+                    <input class="form-control" type="text" name="prenom" id="prenom"
+                       [(ngModel)]="form.prenom" required minlength="4" #prenom="ngModel"/>
+                    <ul *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)" class="alert alert-danger">
+                      <li *ngIf="prenom.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                      <li *ngIf="prenom.errors.minlength">
+                       Prénom doit comporter au moins 4 caractères.
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="form-group col-6"><label for="nom">Nom *</label><input
+                    class="form-control" type="text" id="nom"
+                    name="nom"
+                    [(ngModel)]="form.nom"
+                    required minlength="4"
+                    #nom="ngModel"/>
+                    <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+                      <li *ngIf="nom.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                      <li *ngIf="nom.errors.minlength">
+                        Nom doit comporter au moins 4 caractères.
+                      </li>
+                    </ul>
+
+                  </div>
+
+                </div>
+
+
+                <div class="form-group"><label for="card-email">Adresse e-mail *
+                </label>
+                  <input class="form-control" type="email" name="email" id="card-email"
+                    [(ngModel)]="form.email" required #email="ngModel" [email]="true"/>
+                  <ul *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                    <li *ngIf="email.errors.required">
+                      Ce champ est obligatoire
+                    </li>
+                    <li *ngIf="email.invalid">
+                      L'e-mail doit être de la forme: e-mail@valide.com
+                    </li>
+                  </ul>
+                </div>
+                <div class="form-group"><label for="telephone">Telephone *</label>
+                  <input class="form-control" type="text" name="telephone" id="telephone"
+                          [(ngModel)]="form.telephone" required #telephone="ngModel"
+                          minlength="8" maxlength="8" pattern="[0-9]*"/>
+                  <ul *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="alert alert-danger">
+
+                    <li *ngIf="telephone.errors.pattern">
+                      Ce champ doit contenir que des chiffres
+                    </li>
+                    <li *ngIf="telephone.errors.required">
+                      Ce champ est obligatoire
+                    </li>
+                    <li *ngIf="telephone.errors.minlength">
+                      Téléphone doit comporter au moins 8 chiffre.
+                    </li>
+                  </ul>
+                </div>
+
+
+
+
+                <div class="form-row">
+                  <div class="form-group col-6">
+                    <label for="card-password">Password *</label>
+                    <input class="form-control" type="password" name="password" id="card-password"
+                      [(ngModel)]="form.password" required minlength="8" #password="ngModel"/>
+                    <ul *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                      <li *ngIf="password.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                      <li *ngIf="password.errors.minlength">
+                        Utilisez au moins huit caractères avec des lettres, des chiffres et des symboles
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="password_confirmation">Confirm Password *</label>
+                    <input class="form-control" type="password" id="password_confirmation"
+                      name="password_confirmation" [(ngModel)]="form.password_confirmation" (keyup)="mustMatch($event)"
+                      #password_confirmation="ngModel" required/>
+                    <ul *ngIf="password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched)" class="alert alert-danger">
+                      <li *ngIf="password_confirmation.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                    </ul>
+                    <ul *ngIf="!isMutch && (password_confirmation.dirty || password_confirmation.touched)" class="alert alert-danger">
+                      <li *ngIf="!isMutch">
+                        les mots de passes doivent être identiques
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+<!--
+                <div class="custom-control custom-checkbox"><input class="custom-control-input" type="checkbox"
+                                                                   id="card-register-checkbox"/><label
+                  class="custom-control-label" for="card-register-checkbox">I accept the <a href="#!">terms </a>and <a
+                  href="#!">privacy policy</a></label></div>
+-->
+
+                <div class="form-group">
+                  <button class="btn btn-primary btn-block mt-3" type="submit" name="submit"
+                          [disabled]="signupForm.invalid">Créer votre compte
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                          aria-hidden="true"></span>
+                  </button>
+                </div>
+              </form>
+              <div class="w-100 position-relative mt-4">
+                <hr class="text-300"/>
+                <div
+                  class="position-absolute absolute-centered t-0 px-3 bg-white text-sans-serif fs--1 text-500 text-nowrap">
+                  Vous avez déjà un compte
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <div class="form-group">
+                  <a routerLink="/authentification/login" class="btn btn-info btn-block mt-3">Se connecter</a>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===============================================-->
+<!--    End of Main Content-->
+<!-- ===============================================-->

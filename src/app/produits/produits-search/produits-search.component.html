@@ -109,7 +109,8 @@
               <div class="form-group">
                 <label for="gouvernorat">Gouvernorat</label>
                 <select class="form-control" id="gouvernorat" name="gouvernorat"
-                        [(ngModel)]="form.gouvernorat_id" (change)='findDelegation()'>
+                        [(ngModel)]="form.gouvernorat_id" (change)='findDelegation()'
+                        >
                   <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
                     {{gouvernorat.nom}}
                   </option>
@@ -120,8 +121,8 @@
             <div class="col-lg-4">
               <div class="form-group">
                 <label for="delegation">Delegation</label>
-                <select class="form-control" id="delegation" name="delegation" [(ngModel)]="form.delegation_id"
-                >
+                <select class="form-control" id="delegation" name="delegation"
+                        [(ngModel)]="form.delegation_id" [disabled]="!form.gouvernorat_id">
                   <option [value]=""></option>
                   <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
                     {{delegation.nom}}

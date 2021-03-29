@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
-import {SocieteService} from "../../societe/service/societe.service";
 import {NewProduitService} from "../service/new-produit.service";
 
 @Component({
