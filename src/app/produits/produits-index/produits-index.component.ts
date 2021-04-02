@@ -19,6 +19,11 @@ export class ProduitsIndexComponent implements OnInit {
   public loading = false;
   public loadingShowMore = false;
   public sousCategorie_id;
+  public categorie_id;
+  public marque_id;
+  public modele_id;
+  public delegation_id;
+  public gouvernorat_id;
 
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
@@ -42,9 +47,22 @@ export class ProduitsIndexComponent implements OnInit {
     */
     this.activatedRoute.queryParams.subscribe(params => {
       this.sousCategorie_id = params['sousCategory'];
+      this.categorie_id = params['category'];
+      this.marque_id = params['marque'];
+      this.modele_id = params['modele'];
+      this.delegation_id = params['delegation'];
+      this.gouvernorat_id = params['gouvernorat'];
+
     });
     if (this.sousCategorie_id) {
-      this.loadData({'sous_category_id': this.sousCategorie_id});
+      this.loadData({'sous_category_id': this.sousCategorie_id,'limit': 10,
+        'offset': 0});
+    } else if (this.modele_id) {
+      this.loadData({'modele_id': this.modele_id,'limit': 10,
+        'offset': 0});
+    } else if (this.delegation_id) {
+      this.loadData({'delegation_id': this.delegation_id,'limit': 10,
+        'offset': 0});
     } else {
       this.loadData({});
     }

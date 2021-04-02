@@ -1,4 +1,16 @@
-<button (click)="backClicked()" class="btn btn-warning" style="margin: 10px">Page précédente</button>
+<nav aria-label="breadcrumb" *ngIf="!loading">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/produit">Produits</a></li>
+    <li class="breadcrumb-item" aria-current="page">
+      <a href="/produit?category={{newProduit.sous_category.category.id}}">
+        {{newProduit.sous_category.category.nom}}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <a href="/produit?category={{newProduit.sous_category.category.id}}&sousCategory={{newProduit.sous_category.id}}">
+        {{newProduit.sous_category.nom}}</a></li>
+  </ol>
+</nav>
+
 <app-loading *ngIf="loading"></app-loading>
 <div class="card mb-3" *ngIf="!loading">
   <div class="card-body">
@@ -8,9 +20,8 @@
       </div>
       <div class="col-lg-6">
         <h5>{{newProduit.titre}}</h5>
-        <p class="fs--1">Référence : {{newProduit.reference}}</p>
-        <p class="fs--1">{{newProduit.description}}</p>
-        <p class="fs--1">Numéro de téléphone: {{newProduit.user.telephone}}</p>
+        <p class="fs--1"><strong>Référence :</strong> {{newProduit.reference}}</p>
+        <p class="fs--1"><strong>Description:</strong> {{newProduit.description}}</p>
         <div
           *ngIf="newProduit.paiement_facilite_3_mois || newProduit.paiement_facilite_6_mois || newProduit.paiement_facilite_12_mois">
           <strong>Paiement par facilité</strong>
@@ -42,9 +53,53 @@
         <p class="fs--1" *ngIf="newProduit.quantite>0">Stock: <strong class="text-success">Disponible</strong></p>
         <p class="fs--1" *ngIf="newProduit.quantite<=0">Stock: <strong class="text-danger">En rupture de stock</strong>
         </p>
+        <hr>
+        <div class="row">
+          <div class="col-lg-2" *ngIf="newProduit.modele.marque.id!=0">
+            <img class="rounded-circle" style="width: 70px; height: 70px" src="{{newProduit.modele.marque.image_path}}"
+                 alt="{{newProduit.modele.marque.nom}}"/>
+          </div>
+          <div class="col-lg-6" style="margin-top: 10px;">
+            <strong>Marque :</strong>
+            <a href="/produit?marque={{newProduit.modele.marque.id}}">
+              {{newProduit.modele.marque.nom}}</a>
+            <span *ngIf="newProduit.modele.marque.id==0"> : {{newProduit.autre_marque}}</span><br>
+            <strong>Modele :</strong>
+            <a href="/produit?marque={{newProduit.modele.marque.id}}&modele={{newProduit.modele.id}}">
+              {{newProduit.modele.nom}}</a>
+            <span *ngIf="newProduit.modele.id==0"> : {{newProduit.autre_modele}}</span>
+          </div>
+        </div>
+        <hr>
+        <div>
+          <strong>Adresse :</strong> {{newProduit.adresse}} <br>
+          <strong>Complement adresse:</strong> {{newProduit.complement_adresse}}
+          <br>
+          <strong>Gouvernorat :</strong>
+          <a href="/produit?gouvernorat={{newProduit.gouvernorat_id}}">
+
+            {{newProduit.gouvernorat.nom}}</a> <span *ngIf="newProduit.gouvernorat_id==0"> : {{newProduit.autre_gouvernorat}}</span><br>
+          <strong>Delegation :</strong>
+          <a href="/produit?gouvernorat={{newProduit.gouvernorat_id}}&delegation={{newProduit.delegation_id}}">
+            {{newProduit.delegation.nom}}</a> <span *ngIf="newProduit.delegation_id==0"> : {{newProduit.autre_delegation}}</span><br>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-lg-2">
+            <img class="rounded-circle" style="width: 70px; height: 70px" src="{{newProduit.user.image_profile_path}}"
+                 alt="Profile Image"/>
+          </div>
+          <div class="col-lg-6" style="margin-top: 10px;">
+            <strong>Vendeur:</strong> {{newProduit.user.nom}} {{newProduit.user.prenom}}<br>
+            <strong>Numéro de téléphone:</strong> {{newProduit.user.telephone}}
+
+          </div>
+        </div>
+
       </div>
     </div>
     <br>
+    <hr>
     <div class="row">
       <div class="col-lg-12"
            *ngFor="let slide of newProduit.new_produit_images">

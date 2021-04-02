@@ -22,23 +22,37 @@ export class ReclamationListComponent implements OnInit {
   public rolesString = null;
   public roles = [];
   public adminRole = false;
+  public utilisateurRole = false;
+  public adminSocieteRole = false;
 
   constructor(private reclamationService: ReclamationService) {
   }
 
   ngOnInit(): void {
-      this.rolesString = localStorage.getItem('roles');
-      if (this.rolesString) {
-        this.roles = this.rolesString.split(",");
-      }
+    this.rolesString = localStorage.getItem('roles');
+    if (this.rolesString) {
+      this.roles = this.rolesString.split(",");
+    }
+
     if (Array.isArray(this.roles)) {
       if (this.roles.indexOf('admin') !== -1) {
-        this.adminRole = true ;
+        this.adminRole = true;
+      }
+      if (this.roles.indexOf('utilisateur') !== -1) {
+        this.utilisateurRole = true;
+      }
+      if (this.roles.indexOf('admin_societe') !== -1) {
+        this.adminSocieteRole = true;
       }
     } else {
       if (this.roles === 'admin') {
-        this.adminRole = true ;
+        this.adminRole = true;
+      } else if (this.roles === 'utilisateur') {
+        this.utilisateurRole = true;
+      } else if (this.roles === 'admin_societe') {
+        this.adminSocieteRole = true;
       }
+
     }
 
     // utiliser pour la supprision loading

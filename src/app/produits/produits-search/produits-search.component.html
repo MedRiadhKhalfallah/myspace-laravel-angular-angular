@@ -49,6 +49,7 @@
                   <option *ngFor="let marque of marqueListe" [value]="marque.id">
                     {{marque.nom}}
                   </option>
+                  <option [value]="'0'">Autre</option>
                 </select>
               </div>
 
@@ -61,6 +62,7 @@
                   <option *ngFor="let modele of modeleListe" [value]="modele.id">
                     {{modele.nom}}
                   </option>
+                  <option [value]="'0'">Autre</option>
                 </select>
               </div>
 
@@ -114,6 +116,7 @@
                   <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
                     {{gouvernorat.nom}}
                   </option>
+                  <option [value]="'0'">Autre</option>
                 </select>
               </div>
 
@@ -127,6 +130,7 @@
                   <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
                     {{delegation.nom}}
                   </option>
+                  <option [value]="'0'">Autre</option>
                 </select>
               </div>
             </div>

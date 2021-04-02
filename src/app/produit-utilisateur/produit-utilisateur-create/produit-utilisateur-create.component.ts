@@ -5,6 +5,7 @@ import {CategorieService} from "../../categorie/service/categorie.service";
 import {MarqueService} from "../../marque/service/marque.service";
 import {GouvernoratService} from "../../services/gouvernorat.service";
 import {DelegationService} from "../../services/delegation.service";
+
 export interface ProduitUtilisateurType {
   id: string,
   titre: string,
@@ -20,7 +21,11 @@ export interface ProduitUtilisateurType {
   etat_produit: string,
   etat: number,
   sous_category,
-  modele
+  modele,
+  autre_marque,
+  autre_modele,
+  autre_gouvernorat,
+  autre_delegation
 }
 
 @Component({
@@ -62,11 +67,11 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.produitUtilisateur){
+    if (this.produitUtilisateur) {
       console.log(this.produitUtilisateur);
-    this.categoryId=this.produitUtilisateur.sous_category.category.id;
-    this.marqueId=this.produitUtilisateur.modele.marque.id;
-    }else {
+      this.categoryId = this.produitUtilisateur.sous_category.category.id;
+      this.marqueId = this.produitUtilisateur.modele.marque.id;
+    } else {
       this.produitUtilisateur = new class implements ProduitUtilisateurType {
         description: string;
         etat: number;
@@ -83,6 +88,10 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
         complement_adresse: string;
         sous_category;
         modele;
+        autre_marque;
+        autre_modele;
+        autre_gouvernorat;
+        autre_delegation;
       };
     }
     this.loadingModele = true;
@@ -103,18 +112,20 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
 
   public findSousCategorie(): any {
     this.categorieListe.forEach(categorie => {
-      if(this.categoryId == categorie.id){
-        this.sousCategorieListe=categorie.sousCategories
+      if (this.categoryId == categorie.id) {
+        this.sousCategorieListe = categorie.sousCategories
       }
     });
   }
+
   public findModele(): any {
     this.marqueListe.forEach(marque => {
-      if(this.marqueId == marque.id){
-        this.modeleListe=marque.modeles
+      if (this.marqueId == marque.id) {
+        this.modeleListe = marque.modeles
       }
     });
   }
+
   public handleMarqueSearchResponse(data): any {
     this.loadingModele = false;
     this.marqueListe = data;
@@ -129,50 +140,89 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
 
 
   public onSubmit(): any {
+    var autoriseAcion = false;
     this.loading = true;
     const formData: FormData = new FormData();
 
-    const filesLength = this.selectedFile.length;
-
+    var filesLength = 0;
+    if (this.selectedFile) {
+      filesLength = this.selectedFile.length
+    }
     if (filesLength != 0) {
-      for (let i = 0; i < filesLength; i++) {
-        formData.append('selectedFile[]', this.selectedFile[i], this.selectedFile[i].name);
+      if (filesLength > 5) {
+        alert("Vous pouvez ajouter au maximum 5 images");
+        autoriseAcion = false;
+        this.loading = false;
+      } else {
+        autoriseAcion = true;
+        for (let i = 0; i < filesLength; i++) {
+          formData.append('selectedFile[]', this.selectedFile[i], this.selectedFile[i].name);
+        }
       }
     } else {
-      formData.append('selectedFile', null);
+      if (this.produitUtilisateur.id) {
+        autoriseAcion = true;
+        formData.append('selectedFile', null);
+      } else {
+        autoriseAcion = false;
+        this.loading = false;
+        alert("image est un champ obligatoire");
+      }
     }
     if (this.produitUtilisateur.description) {
       formData.append('description', this.produitUtilisateur.description);
     }
-    formData.append('modele_id', this.produitUtilisateur.modele_id);
     formData.append('prix', this.produitUtilisateur.prix);
     formData.append('sous_category_id', this.produitUtilisateur.sous_category_id);
     formData.append('titre', this.produitUtilisateur.titre);
-    formData.append('gouvernorat_id', this.produitUtilisateur.gouvernorat_id);
-    formData.append('delegation_id', this.produitUtilisateur.delegation_id);
     formData.append('adresse', this.produitUtilisateur.adresse);
     formData.append('quantite', "1");
     formData.append('prix_achat', "0");
-    if (this.produitUtilisateur.complement_adresse){
+    if (this.produitUtilisateur.complement_adresse) {
       formData.append('complement_adresse', this.produitUtilisateur.complement_adresse);
     }
-    formData.append('complement_adresse', this.produitUtilisateur.complement_adresse);
     formData.append('reference', this.produitUtilisateur.reference);
     if (this.produitUtilisateur.etat_produit) {
       formData.append('etat_produit', this.produitUtilisateur.etat_produit);
     }
-    formData.append('etat', '1');
-
-    if (this.produitUtilisateur.id) {
-      return this.produitUtilisateurService.updateProduitUtilisateur(this.produitUtilisateur.id, formData).subscribe(
-        data => this.handleUpdateResponse(data),
-        error => this.handleError(error)
-      );
+    if (this.produitUtilisateur.gouvernorat_id != '0') {
+      formData.append('gouvernorat_id', this.produitUtilisateur.gouvernorat_id);
     } else {
-      return this.produitUtilisateurService.createProduitUtilisateur(formData).subscribe(
-        data => this.handleSubmitResponse(data),
-        error => this.handleError(error)
-      );
+      formData.append('gouvernorat_id', '0');
+      formData.append('autre_gouvernorat', this.produitUtilisateur.autre_gouvernorat);
+
+    }
+    if (this.produitUtilisateur.delegation_id) {
+      formData.append('delegation_id', this.produitUtilisateur.delegation_id);
+    } else {
+      formData.append('delegation_id', '0');
+      formData.append('autre_delegation', this.produitUtilisateur.autre_delegation);
+
+    }
+    if (this.produitUtilisateur.modele_id) {
+      formData.append('modele_id', this.produitUtilisateur.modele_id);
+    } else {
+      formData.append('modele_id', '0');
+      formData.append('autre_modele', this.produitUtilisateur.autre_modele);
+    }
+    if (this.marqueId == 0) {
+      formData.append('autre_marque', this.produitUtilisateur.autre_marque);
+    }
+    formData.append('etat', '1');
+    if (this.produitUtilisateur.id) {
+      if (autoriseAcion) {
+        return this.produitUtilisateurService.updateProduitUtilisateur(this.produitUtilisateur.id, formData).subscribe(
+          data => this.handleUpdateResponse(data),
+          error => this.handleError(error)
+        );
+      }
+    } else {
+      if (autoriseAcion) {
+        return this.produitUtilisateurService.createProduitUtilisateur(formData).subscribe(
+          data => this.handleSubmitResponse(data),
+          error => this.handleError(error)
+        );
+      }
     }
   }
 
@@ -213,20 +263,23 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
   public onFileSelect(event): any {
     this.selectedFile = <File[]>event.target.files;
   }
+
   public findDelegation(): any {
-    if (!this.first){
-      this.produitUtilisateur.delegation_id=null;
+    if (!this.first) {
+      this.produitUtilisateur.delegation_id = null;
     }
-    this.first=false;
-    this.delegationService.delegationSearchWithCriteria({'gouvernorat_id':this.produitUtilisateur.gouvernorat_id}).subscribe(
+    this.first = false;
+    this.delegationService.delegationSearchWithCriteria({'gouvernorat_id': this.produitUtilisateur.gouvernorat_id}).subscribe(
       data => this.handleGetDelegationResponse(data),
       error => this.handleError(error)
     );
   }
+
   public handleGetGouvernoratResponse(data): any {
     this.listGouvernorat = data;
     this.findDelegation();
   }
+
   public handleGetDelegationResponse(data): any {
     this.listDelegation = data;
   }

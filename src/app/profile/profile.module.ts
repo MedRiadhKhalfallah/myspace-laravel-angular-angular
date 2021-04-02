@@ -5,7 +5,6 @@ import {ProfileEditComponent} from "./profile-edit/profile-edit.component";
 import {ProfileViewComponent} from "./profile-view/profile-view.component";
 import {FormsModule} from "@angular/forms";
 import {ModalModule} from "ngx-bootstrap/modal";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {VerificationMailComponent} from "./verification-mail/verification-mail.component";
 
@@ -20,7 +19,6 @@ import {VerificationMailComponent} from "./verification-mail/verification-mail.c
     ProfileRoutingModule,
     FormsModule,
     ModalModule,
-    BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
 
   ]

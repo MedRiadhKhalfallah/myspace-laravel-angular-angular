@@ -28,7 +28,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="adminRole">
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label for="etat">Etat</label>
@@ -38,6 +38,15 @@
                         <option value="en traitement">En traitement</option>
                         <option value="terminé">Terminé</option>
                       </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="etatDisabled">Etat</label>
+                      <input class="form-control" id="etatDisabled" name="etatDisabled" type="text"
+                             [value]="reclamation.etat" disabled/>
                     </div>
                   </div>
                 </div>

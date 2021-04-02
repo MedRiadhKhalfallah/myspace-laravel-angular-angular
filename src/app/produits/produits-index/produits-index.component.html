@@ -10,7 +10,15 @@
     <li class="breadcrumb-item active" aria-current="page" routerLink="produits">Produits</li>
   </ol>
 </nav>
-<app-produits-search (searchProduit)="loadData($event)"></app-produits-search>
+<app-produits-search (searchProduit)="loadData($event)"
+                     [sousCategorie_id]="sousCategorie_id"
+                     [categorie_id]="categorie_id"
+                     [marque_id]="marque_id"
+                     [modele_id]="modele_id"
+                     [delegation_id]="delegation_id"
+                     [gouvernorat_id]="gouvernorat_id"
+></app-produits-search>
+
 <br>
 <app-produits-list *ngIf="!loading || !first" [produitList]="produitList"></app-produits-list>
 <br>

@@ -9,6 +9,7 @@ import {EditComponent} from "./role/edit/edit.component";
 import {UserComponent} from "./user/user.component";
 import {FormsModule} from "@angular/forms";
 import {ModalModule} from "ngx-bootstrap/modal";
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {ModalModule} from "ngx-bootstrap/modal";
     AdminRoutingModule,
     FormsModule,
     ModalModule,
+    BsDatepickerModule.forRoot(),
   ]
 })
 export class AdminModule { }

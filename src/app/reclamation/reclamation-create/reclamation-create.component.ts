@@ -24,11 +24,42 @@ export class ReclamationCreateComponent implements OnInit {
   public errors;
   public loading = false;
   public selectedFile: File = null;
+  public rolesString: string;
+  public roles = null;
+  public adminRole;
+  public utilisateurRole;
+  public adminSocieteRole;
 
   constructor(private reclamationService: ReclamationService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
+    this.rolesString = localStorage.getItem('roles');
+    if (this.rolesString) {
+      this.roles = this.rolesString.split(",");
+    }
+
+    if (Array.isArray(this.roles)) {
+      if (this.roles.indexOf('admin') !== -1) {
+        this.adminRole = true;
+      }
+      if (this.roles.indexOf('utilisateur') !== -1) {
+        this.utilisateurRole = true;
+      }
+      if (this.roles.indexOf('admin_societe') !== -1) {
+        this.adminSocieteRole = true;
+      }
+    } else {
+      if (this.roles === 'admin') {
+        this.adminRole = true;
+      } else if (this.roles === 'utilisateur') {
+        this.utilisateurRole = true;
+      } else if (this.roles === 'admin_societe') {
+        this.adminSocieteRole = true;
+      }
+
+    }
+
     if (!this.reclamation) {
       this.reclamation = new class implements ReclamationType {
         id: string;
@@ -38,6 +69,7 @@ export class ReclamationCreateComponent implements OnInit {
         description: string
       };
       this.reclamation.reference = String(Date.now());
+      this.reclamation.etat='en attend';
     }
   }
   ngOnChanges(changes: SimpleChanges): void {

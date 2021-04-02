@@ -68,29 +68,54 @@
                         <option *ngFor="let marque of marqueListe" [value]="marque.id">
                           {{marque.nom}}
                         </option>
+                        <option [value]="'0'">Autre</option>
                       </select>
                       <ul *ngIf="marque.invalid && (marque.dirty || marque.touched)" class="alert alert-danger">
                         <li *ngIf="marque.errors.required">
                           Ce champ est obligatoire
                         </li>
                       </ul>
+                      <div *ngIf="marqueId=='0'" style="margin-top: 10px;">
+                      <input  class="form-control" id="autre_marque" name="autre_marque" type="text" placeholder="autre_marque"
+                              [(ngModel)]="produitUtilisateur.autre_marque" required #autreMarque="ngModel"/>
+                      <ul *ngIf="autreMarque.invalid && (autreMarque.dirty || autreMarque.touched)" class="alert alert-danger">
+                        <li *ngIf="autreMarque.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                    </div>
+
                     </div>
                   </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label for="modele">Modele *</label>
-                      <select class="form-control" id="modele" name="modele"
-                              [(ngModel)]="produitUtilisateur.modele_id" required
-                              #modele="ngModel" [disabled]="!marqueId">
-                        <option *ngFor="let modele of modeleListe" [value]="modele.id">
-                          {{modele.nom}}
-                        </option>
-                      </select>
-                      <ul *ngIf="modele.invalid && (modele.dirty || modele.touched)" class="alert alert-danger">
-                        <li *ngIf="modele.errors.required">
-                          Ce champ est obligatoire
-                        </li>
-                      </ul>
+                      <div *ngIf="marqueId != '0'">
+                        <select class="form-control" id="modele" name="modele"
+                                [(ngModel)]="produitUtilisateur.modele_id" required
+                                #modele="ngModel" [disabled]="!marqueId">
+                          <option *ngFor="let modele of modeleListe" [value]="modele.id">
+                            {{modele.nom}}
+                          </option>
+                          <option [value]="'0'">Autre</option>
+                        </select>
+                        <ul *ngIf="modele.invalid && (modele.dirty || modele.touched)" class="alert alert-danger">
+                          <li *ngIf="modele.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+                      <div *ngIf="produitUtilisateur.modele_id=='0' || marqueId=='0'"
+                           style="margin-top: 10px;">
+                        <input  class="form-control" id="autre_modele" name="autre_modele" type="text" placeholder="autre_modele"
+                                [(ngModel)]="produitUtilisateur.autre_modele" required #autre_modele="ngModel"/>
+                        <ul *ngIf="autre_modele.invalid && (autre_modele.dirty || autre_modele.touched)" class="alert alert-danger">
+                          <li *ngIf="autre_modele.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -104,29 +129,54 @@
                     <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
                       {{gouvernorat.nom}}
                     </option>
+                    <option [value]="'0'">Autre</option>
                   </select>
                   <ul *ngIf="gouvernorat.invalid && (gouvernorat.dirty || gouvernorat.touched)" class="alert alert-danger">
                     <li *ngIf="gouvernorat.errors.required">
                       Ce champ est obligatoire
                     </li>
                   </ul>
+                  <div *ngIf="produitUtilisateur.gouvernorat_id=='0'" style="margin-top: 10px;">
+                    <input  class="form-control" id="autre_gouvernorat" name="autre_gouvernorat" type="text" placeholder="autre_gouvernorat"
+                            [(ngModel)]="produitUtilisateur.autre_gouvernorat" required #autre_gouvernorat="ngModel"/>
+                    <ul *ngIf="autre_gouvernorat.invalid && (autre_gouvernorat.dirty || autre_gouvernorat.touched)" class="alert alert-danger">
+                      <li *ngIf="autre_gouvernorat.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                    </ul>
+                  </div>
+
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
                   <label for="delegation">Delegation *</label>
-                  <select class="form-control" id="delegation" name="delegation" [(ngModel)]="produitUtilisateur.delegation_id"
-                          #delegation="ngModel"  required>
-                    <option [value]=""></option>
-                    <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
-                      {{delegation.nom}}
-                    </option>
-                  </select>
-                  <ul *ngIf="delegation.invalid && (delegation.dirty || delegation.touched)" class="alert alert-danger">
-                    <li *ngIf="delegation.errors.required">
-                      Ce champ est obligatoire
-                    </li>
-                  </ul>
+                  <div *ngIf="produitUtilisateur.gouvernorat_id != '0'">
+                    <select class="form-control" id="delegation" name="delegation" [(ngModel)]="produitUtilisateur.delegation_id"
+                            #delegation="ngModel"  required>
+                      <option [value]=""></option>
+                      <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
+                        {{delegation.nom}}
+                      </option>
+                      <option [value]="'0'">Autre</option>
+                    </select>
+                    <ul *ngIf="delegation.invalid && (delegation.dirty || delegation.touched)" class="alert alert-danger">
+                      <li *ngIf="delegation.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                    </ul>
+                  </div>
+                  <div *ngIf="produitUtilisateur.delegation_id=='0' || produitUtilisateur.gouvernorat_id == '0'"
+                  style="margin-top: 10px;">
+                    <input  class="form-control" id="autre_delegation" name="autre_delegation" type="text" placeholder="autre_delegation"
+                            [(ngModel)]="produitUtilisateur.autre_delegation" required #autre_delegation="ngModel"/>
+                    <ul *ngIf="autre_delegation.invalid && (autre_delegation.dirty || autre_delegation.touched)" class="alert alert-danger">
+                      <li *ngIf="autre_delegation.errors.required">
+                        Ce champ est obligatoire
+                      </li>
+                    </ul>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -232,8 +282,12 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="form-group">
-                      <label for="selectedFile">Image</label>
-                      <input id="selectedFile" name="selectedFile" type="file" multiple (change)="onFileSelect($event)">
+                      <label for="selectedFile">Images *</label>
+                      <input class="form-control-file" id="selectedFile" name="selectedFile" type="file" multiple (change)="onFileSelect($event)" required>
+                      <p style="color: #a5a5a5;
+                             font-size: 10px;">
+                        (*) nombre maximum d'images est 5
+                      </p>
                     </div>
                   </div>
                 </div>

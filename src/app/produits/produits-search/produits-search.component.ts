@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MarqueService} from "../../marque/service/marque.service";
 import {CategorieService} from "../../categorie/service/categorie.service";
 import {GouvernoratService} from "../../services/gouvernorat.service";
@@ -12,6 +12,13 @@ import {DelegationService} from "../../services/delegation.service";
 export class ProduitsSearchComponent implements OnInit {
 
   @Output() searchProduit: EventEmitter<any> = new EventEmitter<any>();
+  @Input() sousCategorie_id;
+  @Input() categorie_id;
+  @Input() marque_id;
+  @Input() modele_id;
+  @Input() delegation_id;
+  @Input() gouvernorat_id;
+
   public error;
   public errors;
   public loading = false;
@@ -53,6 +60,25 @@ export class ProduitsSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.categorie_id){
+      this.categoryId=this.categorie_id;
+      if(this.sousCategorie_id){
+        this.form.sous_category_id=this.sousCategorie_id;
+      }
+    }
+    if(this.marque_id){
+      this.marqueId=this.marque_id;
+      if(this.modele_id){
+        this.form.modele_id=this.modele_id;
+      }
+    }
+    if(this.gouvernorat_id){
+      this.form.gouvernorat_id=this.gouvernorat_id;
+      if(this.delegation_id){
+        this.form.delegation_id=this.delegation_id;
+      }
+    }
+
     this.gouvernoratService.gouvernoratSearchWithCriteria({}).subscribe(
       data => this.handleGetGouvernoratResponse(data),
       error => this.handleError(error)
