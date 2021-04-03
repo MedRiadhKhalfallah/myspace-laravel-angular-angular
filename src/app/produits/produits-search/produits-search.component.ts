@@ -27,8 +27,6 @@ export class ProduitsSearchComponent implements OnInit {
   public marqueListe = [];
   public loadingSousCategorie = false;
   public sousCategorieListe = [];
-  public categoryId;
-  public marqueId;
   public categorieListe = [];
   Nouveau = 'Nouveau';
   Utilise = 'Utilisé';
@@ -42,11 +40,11 @@ export class ProduitsSearchComponent implements OnInit {
     'prix_min': null,
     'prix_max': null,
     'facilite': null,
-    'marque': null,
+    'marque_id': null,
     'modele_id': null,
     'etat_produit': null,
-    'category': null,
     'sous_category_id': null,
+    'category_id': null,
     'delegation_id': null,
     'gouvernorat_id': null,
     'limit': 10,
@@ -61,13 +59,13 @@ export class ProduitsSearchComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.categorie_id){
-      this.categoryId=this.categorie_id;
+      this.form.category_id=this.categorie_id;
       if(this.sousCategorie_id){
         this.form.sous_category_id=this.sousCategorie_id;
       }
     }
     if(this.marque_id){
-      this.marqueId=this.marque_id;
+      this.form.marque_id=this.marque_id;
       if(this.modele_id){
         this.form.modele_id=this.modele_id;
       }
@@ -113,8 +111,8 @@ export class ProduitsSearchComponent implements OnInit {
     this.form.sous_category_id = null;
     this.form.limit = 10;
     this.form.offset = 0;
-    this.categoryId = null;
-    this.marqueId = null;
+    this.form.category_id = null;
+    this.form.marque_id = null;
   }
 
   public findDelegation(): any {
@@ -137,14 +135,14 @@ export class ProduitsSearchComponent implements OnInit {
 
   public findSousCategorie(): any {
     this.categorieListe.forEach(categorie => {
-      if(this.categoryId == categorie.id){
+      if(this.form.category_id == categorie.id){
         this.sousCategorieListe=categorie.sousCategories
       }
     });
   }
   public findModele(): any {
     this.marqueListe.forEach(marque => {
-      if(this.marqueId == marque.id){
+      if(this.form.marque_id == marque.id){
         this.modeleListe=marque.modeles
       }
     });

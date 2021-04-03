@@ -76,14 +76,18 @@ export class HomeComponent implements OnInit {
     }
     this.loading = true;
     var myDate = this.datePipe.transform(new Date(), 'yyyy-MM');
+/*
     this.societeService.societeTopSearch({'top': 10, 'date_top': myDate + '-00'}).subscribe(
       data => this.handleGetTopSocieteResponse(data),
       error => this.handleGetSocieteError(error)
     );
+*/
+/*
     return this.societeService.societeMapSearch({}).subscribe(
       data => this.handleGetSocieteResponse(data),
       error => this.handleGetSocieteError(error)
     );
+*/
   }
 
   public handleGetTopSocieteResponse(data): any {

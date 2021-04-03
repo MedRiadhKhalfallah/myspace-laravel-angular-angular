@@ -12,11 +12,13 @@ export interface ProduitUtilisateurType {
   description: string,
   prix: string,
   modele_id: string,
+  marque_id: string,
   gouvernorat_id: string,
   delegation_id: string,
   adresse: string,
   complement_adresse: string,
   sous_category_id: string,
+  category_id: string,
   reference: string,
   etat_produit: string,
   etat: number,
@@ -46,8 +48,6 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
   public marqueListe = [];
   public loadingSousCategorie = false;
   public sousCategorieListe = [];
-  public categoryId;
-  public marqueId;
   public categorieListe = [];
   public selectedFile: File[] = null;
   Nouveau = 'Nouveau';
@@ -69,8 +69,8 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
   ngOnInit(): void {
     if (this.produitUtilisateur) {
       console.log(this.produitUtilisateur);
-      this.categoryId = this.produitUtilisateur.sous_category.category.id;
-      this.marqueId = this.produitUtilisateur.modele.marque.id;
+      this.produitUtilisateur.category_id = this.produitUtilisateur.sous_category.category.id;
+      this.produitUtilisateur.marque_id = this.produitUtilisateur.modele.marque.id;
     } else {
       this.produitUtilisateur = new class implements ProduitUtilisateurType {
         description: string;
@@ -78,9 +78,11 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
         etat_produit: string;
         id: string;
         modele_id: string;
+        marque_id: string;
         prix: string;
         reference: string;
         sous_category_id: string;
+        category_id: string;
         titre: string;
         gouvernorat_id: string;
         delegation_id: string;
@@ -112,7 +114,7 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
 
   public findSousCategorie(): any {
     this.categorieListe.forEach(categorie => {
-      if (this.categoryId == categorie.id) {
+      if (this.produitUtilisateur.category_id == categorie.id) {
         this.sousCategorieListe = categorie.sousCategories
       }
     });
@@ -120,7 +122,7 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
 
   public findModele(): any {
     this.marqueListe.forEach(marque => {
-      if (this.marqueId == marque.id) {
+      if (this.produitUtilisateur.marque_id == marque.id) {
         this.modeleListe = marque.modeles
       }
     });
@@ -174,6 +176,7 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
     }
     formData.append('prix', this.produitUtilisateur.prix);
     formData.append('sous_category_id', this.produitUtilisateur.sous_category_id);
+    formData.append('category_id', this.produitUtilisateur.category_id);
     formData.append('titre', this.produitUtilisateur.titre);
     formData.append('adresse', this.produitUtilisateur.adresse);
     formData.append('quantite', "1");
@@ -205,7 +208,10 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
       formData.append('modele_id', '0');
       formData.append('autre_modele', this.produitUtilisateur.autre_modele);
     }
-    if (this.marqueId == 0) {
+    if (this.produitUtilisateur.marque_id) {
+      formData.append('marque_id', this.produitUtilisateur.marque_id);
+    } else {
+      formData.append('marque_id', '0');
       formData.append('autre_marque', this.produitUtilisateur.autre_marque);
     }
     formData.append('etat', '1');

@@ -21,7 +21,6 @@ export class NewProduitViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newProduit = {};
     var newProduitId = this.route.snapshot.paramMap.get('id');
     if (newProduitId) {
       this.loading = true;

@@ -45,7 +45,7 @@
               <div class="form-group">
                 <label for="modele">Marque</label>
                 <select class="form-control" id="marque" name="marque"
-                        [(ngModel)]="marqueId" (change)="findModele()">
+                        [(ngModel)]="form.marque_id" (change)="findModele()">
                   <option *ngFor="let marque of marqueListe" [value]="marque.id">
                     {{marque.nom}}
                   </option>
@@ -58,7 +58,7 @@
               <div class="form-group">
                 <label for="modele">Modele</label>
                 <select class="form-control" id="modele" name="modele"
-                        [(ngModel)]="form.modele_id" [disabled]="!marqueId">
+                        [(ngModel)]="form.modele_id" [disabled]="!form.marque_id">
                   <option *ngFor="let modele of modeleListe" [value]="modele.id">
                     {{modele.nom}}
                   </option>
@@ -85,7 +85,7 @@
               <div class="form-group">
                 <label for="sousCategorie">Categorie</label>
                 <select class="form-control" id="categorie" name="categorie"
-                        [(ngModel)]="categoryId" (change)='findSousCategorie()'>
+                        [(ngModel)]="form.category_id" (change)='findSousCategorie()'>
                   <option *ngFor="let categorie of categorieListe" [value]="categorie.id">
                     {{categorie.nom}}
                   </option>
@@ -97,7 +97,7 @@
               <div class="form-group">
                 <label for="sousCategorie">Sous categorie</label>
                 <select class="form-control" id="sousCategorie" name="sousCategorie"
-                        [(ngModel)]="form.sous_category_id" [disabled]="!categoryId">
+                        [(ngModel)]="form.sous_category_id" [disabled]="!form.category_id">
                   <option *ngFor="let sousCategorie of sousCategorieListe" [value]="sousCategorie.id">
                     {{sousCategorie.nom}}
                   </option>

@@ -25,7 +25,7 @@
                     <div class="form-group">
                       <label for="sousCategorie">Categorie *</label>
                       <select class="form-control" id="categorie" name="categorie"
-                              [(ngModel)]="categoryId" required
+                              [(ngModel)]="produitUtilisateur.category_id" required
                               #categorie="ngModel" (change)='findSousCategorie()'>
                         <option *ngFor="let categorie of categorieListe" [value]="categorie.id">
                           {{categorie.nom}}
@@ -44,7 +44,7 @@
                       <label for="sousCategorie">Sous categorie *</label>
                       <select class="form-control" id="sousCategorie" name="sousCategorie"
                               [(ngModel)]="produitUtilisateur.sous_category_id" required
-                              #sousCategorie="ngModel" [disabled]="!categoryId">
+                              #sousCategorie="ngModel" [disabled]="!produitUtilisateur.category_id">
                         <option *ngFor="let sousCategorie of sousCategorieListe" [value]="sousCategorie.id">
                           {{sousCategorie.nom}}
                         </option>
@@ -63,7 +63,7 @@
                     <div class="form-group">
                       <label for="modele">Marque *</label>
                       <select class="form-control" id="marque" name="marque"
-                              [(ngModel)]="marqueId" required
+                              [(ngModel)]="produitUtilisateur.marque_id" required
                               #marque="ngModel" (change)="findModele()">
                         <option *ngFor="let marque of marqueListe" [value]="marque.id">
                           {{marque.nom}}
@@ -75,7 +75,7 @@
                           Ce champ est obligatoire
                         </li>
                       </ul>
-                      <div *ngIf="marqueId=='0'" style="margin-top: 10px;">
+                      <div *ngIf="produitUtilisateur.marque_id=='0'" style="margin-top: 10px;">
                       <input  class="form-control" id="autre_marque" name="autre_marque" type="text" placeholder="autre_marque"
                               [(ngModel)]="produitUtilisateur.autre_marque" required #autreMarque="ngModel"/>
                       <ul *ngIf="autreMarque.invalid && (autreMarque.dirty || autreMarque.touched)" class="alert alert-danger">
@@ -90,10 +90,10 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label for="modele">Modele *</label>
-                      <div *ngIf="marqueId != '0'">
+                      <div *ngIf="produitUtilisateur.marque_id != '0'">
                         <select class="form-control" id="modele" name="modele"
                                 [(ngModel)]="produitUtilisateur.modele_id" required
-                                #modele="ngModel" [disabled]="!marqueId">
+                                #modele="ngModel" [disabled]="!produitUtilisateur.marque_id">
                           <option *ngFor="let modele of modeleListe" [value]="modele.id">
                             {{modele.nom}}
                           </option>
@@ -105,7 +105,7 @@
                           </li>
                         </ul>
                       </div>
-                      <div *ngIf="produitUtilisateur.modele_id=='0' || marqueId=='0'"
+                      <div *ngIf="produitUtilisateur.modele_id=='0' || produitUtilisateur.marque_id=='0'"
                            style="margin-top: 10px;">
                         <input  class="form-control" id="autre_modele" name="autre_modele" type="text" placeholder="autre_modele"
                                 [(ngModel)]="produitUtilisateur.autre_modele" required #autre_modele="ngModel"/>
