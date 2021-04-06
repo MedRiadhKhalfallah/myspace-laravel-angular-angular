@@ -27,7 +27,18 @@ export interface ProduitUtilisateurType {
   autre_marque,
   autre_modele,
   autre_gouvernorat,
-  autre_delegation
+  autre_delegation,
+  typeTransaction,
+  chambres,
+  superficie,
+  couleur,
+  typeCarrosserie,
+  boite,
+  cylindre,
+  kilometrage,
+  annee,
+  carburant,
+  puissanceFiscale
 }
 
 @Component({
@@ -53,6 +64,8 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
   Nouveau = 'Nouveau';
   Utilise = 'Utilisé';
   Reconditionne = 'Reconditionné';
+  Vendre = 'Vendre';
+  Louer = 'Louer';
   public first = true;
   public listGouvernorat = [];
   public listDelegation = [];
@@ -94,6 +107,18 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
         autre_modele;
         autre_gouvernorat;
         autre_delegation;
+        typeTransaction;
+        chambres;
+        superficie;
+        couleur;
+        typeCarrosserie;
+        boite;
+        cylindre;
+        kilometrage;
+        annee;
+        carburant;
+        puissanceFiscale;
+
       };
     }
     this.loadingModele = true;
@@ -181,6 +206,51 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
     formData.append('adresse', this.produitUtilisateur.adresse);
     formData.append('quantite', "1");
     formData.append('prix_achat', "0");
+
+    if (this.produitUtilisateur.typeTransaction) {
+      formData.append('typeTransaction', this.produitUtilisateur.typeTransaction);
+    }
+
+    if (this.produitUtilisateur.chambres) {
+      formData.append('chambres', this.produitUtilisateur.chambres);
+    }
+
+    if (this.produitUtilisateur.superficie) {
+      formData.append('superficie', this.produitUtilisateur.superficie);
+    }
+    if (this.produitUtilisateur.couleur) {
+      formData.append('couleur', this.produitUtilisateur.couleur);
+    }
+
+    if (this.produitUtilisateur.typeCarrosserie) {
+      formData.append('typeCarrosserie', this.produitUtilisateur.typeCarrosserie);
+    }
+
+    if (this.produitUtilisateur.boite) {
+      formData.append('boite', this.produitUtilisateur.boite);
+    }
+
+    if (this.produitUtilisateur.cylindre) {
+      formData.append('cylindre', this.produitUtilisateur.cylindre);
+    }
+    if (this.produitUtilisateur.kilometrage) {
+      formData.append('kilometrage', this.produitUtilisateur.kilometrage);
+    }
+
+    if (this.produitUtilisateur.annee) {
+      formData.append('annee', this.produitUtilisateur.annee);
+    }
+
+    if (this.produitUtilisateur.carburant) {
+      formData.append('carburant', this.produitUtilisateur.carburant);
+    }
+
+
+    if (this.produitUtilisateur.puissanceFiscale) {
+      formData.append('puissanceFiscale', this.produitUtilisateur.puissanceFiscale);
+    }
+
+
     if (this.produitUtilisateur.complement_adresse) {
       formData.append('complement_adresse', this.produitUtilisateur.complement_adresse);
     }
@@ -208,11 +278,11 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
       formData.append('modele_id', '0');
       formData.append('autre_modele', this.produitUtilisateur.autre_modele);
     }
-    if (this.produitUtilisateur.marque_id) {
-      formData.append('marque_id', this.produitUtilisateur.marque_id);
-    } else {
+    if (this.produitUtilisateur.marque_id == '0') {
       formData.append('marque_id', '0');
       formData.append('autre_marque', this.produitUtilisateur.autre_marque);
+    } else {
+      formData.append('marque_id', this.produitUtilisateur.marque_id);
     }
     formData.append('etat', '1');
     if (this.produitUtilisateur.id) {

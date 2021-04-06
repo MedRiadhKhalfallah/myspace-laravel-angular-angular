@@ -20,6 +20,7 @@
             <div class="card-body bg-light">
 
               <form #produitUtilisateurCreateForm=ngForm (ngSubmit)="onSubmit()">
+                <h5 class="fs-0">Information produit</h5>
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group">
@@ -59,171 +60,8 @@
                   </div>
                 </div>
                 <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                      <label for="modele">Marque *</label>
-                      <select class="form-control" id="marque" name="marque"
-                              [(ngModel)]="produitUtilisateur.marque_id" required
-                              #marque="ngModel" (change)="findModele()">
-                        <option *ngFor="let marque of marqueListe" [value]="marque.id">
-                          {{marque.nom}}
-                        </option>
-                        <option [value]="'0'">Autre</option>
-                      </select>
-                      <ul *ngIf="marque.invalid && (marque.dirty || marque.touched)" class="alert alert-danger">
-                        <li *ngIf="marque.errors.required">
-                          Ce champ est obligatoire
-                        </li>
-                      </ul>
-                      <div *ngIf="produitUtilisateur.marque_id=='0'" style="margin-top: 10px;">
-                      <input  class="form-control" id="autre_marque" name="autre_marque" type="text" placeholder="autre_marque"
-                              [(ngModel)]="produitUtilisateur.autre_marque" required #autreMarque="ngModel"/>
-                      <ul *ngIf="autreMarque.invalid && (autreMarque.dirty || autreMarque.touched)" class="alert alert-danger">
-                        <li *ngIf="autreMarque.errors.required">
-                          Ce champ est obligatoire
-                        </li>
-                      </ul>
-                    </div>
-
-                    </div>
-                  </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                      <label for="modele">Modele *</label>
-                      <div *ngIf="produitUtilisateur.marque_id != '0'">
-                        <select class="form-control" id="modele" name="modele"
-                                [(ngModel)]="produitUtilisateur.modele_id" required
-                                #modele="ngModel" [disabled]="!produitUtilisateur.marque_id">
-                          <option *ngFor="let modele of modeleListe" [value]="modele.id">
-                            {{modele.nom}}
-                          </option>
-                          <option [value]="'0'">Autre</option>
-                        </select>
-                        <ul *ngIf="modele.invalid && (modele.dirty || modele.touched)" class="alert alert-danger">
-                          <li *ngIf="modele.errors.required">
-                            Ce champ est obligatoire
-                          </li>
-                        </ul>
-                      </div>
-                      <div *ngIf="produitUtilisateur.modele_id=='0' || produitUtilisateur.marque_id=='0'"
-                           style="margin-top: 10px;">
-                        <input  class="form-control" id="autre_modele" name="autre_modele" type="text" placeholder="autre_modele"
-                                [(ngModel)]="produitUtilisateur.autre_modele" required #autre_modele="ngModel"/>
-                        <ul *ngIf="autre_modele.invalid && (autre_modele.dirty || autre_modele.touched)" class="alert alert-danger">
-                          <li *ngIf="autre_modele.errors.required">
-                            Ce champ est obligatoire
-                          </li>
-                        </ul>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="gouvernorat">Gouvernorat *</label>
-                  <select class="form-control" id="gouvernorat" name="gouvernorat"
-                          [(ngModel)]="produitUtilisateur.gouvernorat_id" required
-                          #gouvernorat="ngModel" (change)='findDelegation()'>
-                    <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
-                      {{gouvernorat.nom}}
-                    </option>
-                    <option [value]="'0'">Autre</option>
-                  </select>
-                  <ul *ngIf="gouvernorat.invalid && (gouvernorat.dirty || gouvernorat.touched)" class="alert alert-danger">
-                    <li *ngIf="gouvernorat.errors.required">
-                      Ce champ est obligatoire
-                    </li>
-                  </ul>
-                  <div *ngIf="produitUtilisateur.gouvernorat_id=='0'" style="margin-top: 10px;">
-                    <input  class="form-control" id="autre_gouvernorat" name="autre_gouvernorat" type="text" placeholder="autre_gouvernorat"
-                            [(ngModel)]="produitUtilisateur.autre_gouvernorat" required #autre_gouvernorat="ngModel"/>
-                    <ul *ngIf="autre_gouvernorat.invalid && (autre_gouvernorat.dirty || autre_gouvernorat.touched)" class="alert alert-danger">
-                      <li *ngIf="autre_gouvernorat.errors.required">
-                        Ce champ est obligatoire
-                      </li>
-                    </ul>
-                  </div>
-
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="delegation">Delegation *</label>
-                  <div *ngIf="produitUtilisateur.gouvernorat_id != '0'">
-                    <select class="form-control" id="delegation" name="delegation" [(ngModel)]="produitUtilisateur.delegation_id"
-                            #delegation="ngModel"  required>
-                      <option [value]=""></option>
-                      <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
-                        {{delegation.nom}}
-                      </option>
-                      <option [value]="'0'">Autre</option>
-                    </select>
-                    <ul *ngIf="delegation.invalid && (delegation.dirty || delegation.touched)" class="alert alert-danger">
-                      <li *ngIf="delegation.errors.required">
-                        Ce champ est obligatoire
-                      </li>
-                    </ul>
-                  </div>
-                  <div *ngIf="produitUtilisateur.delegation_id=='0' || produitUtilisateur.gouvernorat_id == '0'"
-                  style="margin-top: 10px;">
-                    <input  class="form-control" id="autre_delegation" name="autre_delegation" type="text" placeholder="autre_delegation"
-                            [(ngModel)]="produitUtilisateur.autre_delegation" required #autre_delegation="ngModel"/>
-                    <ul *ngIf="autre_delegation.invalid && (autre_delegation.dirty || autre_delegation.touched)" class="alert alert-danger">
-                      <li *ngIf="autre_delegation.errors.required">
-                        Ce champ est obligatoire
-                      </li>
-                    </ul>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="adresse">Adresse *</label>
-                  <input class="form-control" id="adresse" name="adresse" type="text" [(ngModel)]="produitUtilisateur.adresse"
-                         required minlength="3" maxlength="255"
-                         #adresse="ngModel">
-                  <ul *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)" class="alert alert-danger">
-                    <li *ngIf="adresse.errors.pattern">
-                      Adresse doit contenire que de carectere alphabitique et des chiffres.
-                    </li>
-                    <li *ngIf="adresse.errors.required">
-                      Ce champ est obligatoire
-                    </li>
-                    <li *ngIf="adresse.errors.minlength">
-                      Nom doit comporter au moins 3 caractères.
-                    </li>
-                    <li *ngIf="adresse.errors.maxlength">
-                      Adresse doit contenir au maximum 255 caractères.
-                    </li>
-                  </ul>
-
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label for="complement_adresse">Complément d'adresse</label>
-                  <input class="form-control" id="complement_adresse" name="complement_adresse" type="text"
-                         [(ngModel)]="produitUtilisateur.complement_adresse"
-                         placeholder="Appartement, étage, porte, couloir"
-                         maxlength="255" #complement_adresse="ngModel">
-                  <ul *ngIf="complement_adresse.invalid && (complement_adresse.dirty || complement_adresse.touched)"
-                      class="alert alert-danger">
-                    <li *ngIf="complement_adresse.errors.maxlength">
-                      Complément d'adresse doit contenir au maximum 255 caractères.
-                    </li>
-                  </ul>
-
-                </div>
-              </div>
-            </div>
-              <div class="row">
                   <div class="col-lg-6">
-                    <div class="form-group">
+                  <div class="form-group">
                       <label for="titre">Titre *</label>
                       <input class="form-control" id="titre" name="titre" type="text" placeholder="Titre"
                              [(ngModel)]="produitUtilisateur.titre"
@@ -241,22 +79,8 @@
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <label for="reference">Référence *</label>
-                      <input class="form-control" id="reference" name="reference" type="text" placeholder="Référence"
-                             [(ngModel)]="produitUtilisateur.reference" required #reference="ngModel"/>
-                      <ul *ngIf="reference.invalid && (reference.dirty || reference.touched)" class="alert alert-danger">
-                        <li *ngIf="reference.errors.required">
-                          Ce champ est obligatoire
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="form-group">
-                      <label for="prix">Prix *</label>
-                      <input class="form-control" id="prix" name="prix" type="number" placeholder="Titre"
+                      <label for="prix">Prix (TND)*</label>
+                      <input class="form-control" id="prix" name="prix" type="number" placeholder="9999"
                              [(ngModel)]="produitUtilisateur.prix" required #prix="ngModel"/>
                       <ul *ngIf="prix.invalid && (prix.dirty || prix.touched)" class="alert alert-danger">
                         <li *ngIf="prix.errors.required">
@@ -267,23 +91,11 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label for="etat_produit">État produit *</label>
-                      <select class="form-control" [(ngModel)]="produitUtilisateur.etat_produit"
-                              name="etat_produit" id="etat_produit" required>
-                        <option [ngValue]="Nouveau">Nouveau</option>
-                        <option [ngValue]="Utilise">Utilisé</option>
-                        <option [ngValue]="Reconditionne">Reconditionné</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
                   <div class="col-lg-12">
                     <div class="form-group">
                       <label for="selectedFile">Images *</label>
-                      <input class="form-control-file" id="selectedFile" name="selectedFile" type="file" multiple (change)="onFileSelect($event)" required>
+                      <input class="form-control-file" id="selectedFile" name="selectedFile" type="file" multiple
+                             (change)="onFileSelect($event)" required>
                       <p style="color: #a5a5a5;
                              font-size: 10px;">
                         (*) nombre maximum d'images est 5
@@ -299,12 +111,375 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- adresse-->
+                <hr class="border border-dashed my-4" />
+                <h5 class="fs-0">Adresse</h5>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="gouvernorat">Gouvernorat *</label>
+                      <select class="form-control" id="gouvernorat" name="gouvernorat"
+                              [(ngModel)]="produitUtilisateur.gouvernorat_id" required
+                              #gouvernorat="ngModel" (change)='findDelegation()'>
+                        <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
+                          {{gouvernorat.nom}}
+                        </option>
+                        <option [value]="'0'">Autre</option>
+                      </select>
+                      <ul *ngIf="gouvernorat.invalid && (gouvernorat.dirty || gouvernorat.touched)"
+                          class="alert alert-danger">
+                        <li *ngIf="gouvernorat.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                      </ul>
+                      <div *ngIf="produitUtilisateur.gouvernorat_id=='0'" style="margin-top: 10px;">
+                        <input class="form-control" id="autre_gouvernorat" name="autre_gouvernorat" type="text"
+                               placeholder="autre_gouvernorat"
+                               [(ngModel)]="produitUtilisateur.autre_gouvernorat" required
+                               #autre_gouvernorat="ngModel"/>
+                        <ul *ngIf="autre_gouvernorat.invalid && (autre_gouvernorat.dirty || autre_gouvernorat.touched)"
+                            class="alert alert-danger">
+                          <li *ngIf="autre_gouvernorat.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="delegation">Delegation *</label>
+                      <div *ngIf="produitUtilisateur.gouvernorat_id != '0'">
+                        <select class="form-control" id="delegation" name="delegation"
+                                [(ngModel)]="produitUtilisateur.delegation_id"
+                                #delegation="ngModel" required>
+                          <option [value]=""></option>
+                          <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
+                            {{delegation.nom}}
+                          </option>
+                          <option [value]="'0'">Autre</option>
+                        </select>
+                        <ul *ngIf="delegation.invalid && (delegation.dirty || delegation.touched)"
+                            class="alert alert-danger">
+                          <li *ngIf="delegation.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+                      <div *ngIf="produitUtilisateur.delegation_id=='0' || produitUtilisateur.gouvernorat_id == '0'"
+                           style="margin-top: 10px;">
+                        <input class="form-control" id="autre_delegation" name="autre_delegation" type="text"
+                               placeholder="autre_delegation"
+                               [(ngModel)]="produitUtilisateur.autre_delegation" required #autre_delegation="ngModel"/>
+                        <ul *ngIf="autre_delegation.invalid && (autre_delegation.dirty || autre_delegation.touched)"
+                            class="alert alert-danger">
+                          <li *ngIf="autre_delegation.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="adresse">Adresse *</label>
+                      <input class="form-control" id="adresse" name="adresse" type="text"
+                             [(ngModel)]="produitUtilisateur.adresse"
+                             required minlength="3" maxlength="255"
+                             #adresse="ngModel">
+                      <ul *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)" class="alert alert-danger">
+                        <li *ngIf="adresse.errors.pattern">
+                          Adresse doit contenire que de carectere alphabitique et des chiffres.
+                        </li>
+                        <li *ngIf="adresse.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                        <li *ngIf="adresse.errors.minlength">
+                          Nom doit comporter au moins 3 caractères.
+                        </li>
+                        <li *ngIf="adresse.errors.maxlength">
+                          Adresse doit contenir au maximum 255 caractères.
+                        </li>
+                      </ul>
+
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="complement_adresse">Complément d'adresse</label>
+                      <input class="form-control" id="complement_adresse" name="complement_adresse" type="text"
+                             [(ngModel)]="produitUtilisateur.complement_adresse"
+                             placeholder="Appartement, étage, porte, couloir"
+                             maxlength="255" #complement_adresse="ngModel">
+                      <ul *ngIf="complement_adresse.invalid && (complement_adresse.dirty || complement_adresse.touched)"
+                          class="alert alert-danger">
+                        <li *ngIf="complement_adresse.errors.maxlength">
+                          Complément d'adresse doit contenir au maximum 255 caractères.
+                        </li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!--                immoble-->
+                <div *ngIf="produitUtilisateur.category_id == '1'">
+                  <hr class="border border-dashed my-4" />
+                  <h5 class="fs-0">information complémentaire</h5>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="etat_produit">Type de transaction *</label>
+                        <select class="form-control" [(ngModel)]="produitUtilisateur.typeTransaction"
+                                name="typeTransaction" id="typeTransaction" required>
+                          <option [ngValue]="Louer">À Louer</option>
+                          <option [ngValue]="Vendre">À Vendre</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="chambres">Chambres *</label>
+                        <input class="form-control" id="chambres" name="chambres" type="number" placeholder="9"
+                               [(ngModel)]="produitUtilisateur.chambres" required #chambres="ngModel"/>
+                        <ul *ngIf="chambres.invalid && (chambres.dirty || chambres.touched)" class="alert alert-danger">
+                          <li *ngIf="chambres.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="superficie">Superficie (m²) *</label>
+                        <input class="form-control" id="superficie" name="superficie" type="number"
+                               placeholder="999"
+                               [(ngModel)]="produitUtilisateur.superficie" required #superficie="ngModel"/>
+                        <ul *ngIf="superficie.invalid && (superficie.dirty || superficie.touched)"
+                            class="alert alert-danger">
+                          <li *ngIf="superficie.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--vehicule-->
+                <div *ngIf="produitUtilisateur.category_id == '2'">
+                  <hr class="border border-dashed my-4" />
+                  <h5 class="fs-0">information complémentaire</h5>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="modele">Marque *</label>
+                        <select class="form-control" id="marque" name="marque"
+                                [(ngModel)]="produitUtilisateur.marque_id" required
+                                #marque="ngModel" (change)="findModele()">
+                          <option *ngFor="let marque of marqueListe" [value]="marque.id">
+                            {{marque.nom}}
+                          </option>
+                          <option [value]="'0'">Autre</option>
+                        </select>
+                        <ul *ngIf="marque.invalid && (marque.dirty || marque.touched)" class="alert alert-danger">
+                          <li *ngIf="marque.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                        <div *ngIf="produitUtilisateur.marque_id=='0'" style="margin-top: 10px;">
+                          <input class="form-control" id="autre_marque" name="autre_marque" type="text"
+                                 placeholder="autre_marque"
+                                 [(ngModel)]="produitUtilisateur.autre_marque" required #autreMarque="ngModel"/>
+                          <ul *ngIf="autreMarque.invalid && (autreMarque.dirty || autreMarque.touched)"
+                              class="alert alert-danger">
+                            <li *ngIf="autreMarque.errors.required">
+                              Ce champ est obligatoire
+                            </li>
+                          </ul>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="modele">Modele *</label>
+                        <div *ngIf="produitUtilisateur.marque_id != '0'">
+                          <select class="form-control" id="modele" name="modele"
+                                  [(ngModel)]="produitUtilisateur.modele_id" required
+                                  #modele="ngModel" [disabled]="!produitUtilisateur.marque_id">
+                            <option *ngFor="let modele of modeleListe" [value]="modele.id">
+                              {{modele.nom}}
+                            </option>
+                            <option [value]="'0'">Autre</option>
+                          </select>
+                          <ul *ngIf="modele.invalid && (modele.dirty || modele.touched)" class="alert alert-danger">
+                            <li *ngIf="modele.errors.required">
+                              Ce champ est obligatoire
+                            </li>
+                          </ul>
+                        </div>
+                        <div *ngIf="produitUtilisateur.modele_id=='0' || produitUtilisateur.marque_id=='0'"
+                             style="margin-top: 10px;">
+                          <input class="form-control" id="autre_modele" name="autre_modele" type="text"
+                                 placeholder="autre_modele"
+                                 [(ngModel)]="produitUtilisateur.autre_modele" required #autre_modele="ngModel"/>
+                          <ul *ngIf="autre_modele.invalid && (autre_modele.dirty || autre_modele.touched)"
+                              class="alert alert-danger">
+                            <li *ngIf="autre_modele.errors.required">
+                              Ce champ est obligatoire
+                            </li>
+                          </ul>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="reference">Référence *</label>
+                        <input class="form-control" id="reference" name="reference" type="text" placeholder="Référence"
+                               [(ngModel)]="produitUtilisateur.reference" required #reference="ngModel"/>
+                        <ul *ngIf="reference.invalid && (reference.dirty || reference.touched)"
+                            class="alert alert-danger">
+                          <li *ngIf="reference.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="etat_produit">État produit *</label>
+                        <select class="form-control" [(ngModel)]="produitUtilisateur.etat_produit"
+                                name="etat_produit" id="etat_produit" required>
+                          <option [ngValue]="Nouveau">Nouveau</option>
+                          <option [ngValue]="Utilise">Utilisé</option>
+                          <option [ngValue]="Reconditionne">Reconditionné</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!--véhicule-->
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="etat_produit">Couleur du véhicule *</label>
+                        <select class="form-control" [(ngModel)]="produitUtilisateur.couleur"
+                                name="couleur" id="couleur" required>
+                          <option [ngValue]="Louer">À Louer</option>
+                          <option [ngValue]="Vendre">À Vendre</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="etat_produit">Type de carrosserie *</label>
+                        <select class="form-control" [(ngModel)]="produitUtilisateur.typeCarrosserie"
+                                name="typeCarrosserie" id="typeCarrosserie" required>
+                          <option [ngValue]="Louer">À Louer</option>
+                          <option [ngValue]="Vendre">À Vendre</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="etat_produit">Boite *</label>
+                        <select class="form-control" [(ngModel)]="produitUtilisateur.boite"
+                                name="boite" id="boite" required>
+                          <option [ngValue]="Louer">À Louer</option>
+                          <option [ngValue]="Vendre">À Vendre</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="etat_produit">Cylindrée *</label>
+                        <select class="form-control" [(ngModel)]="produitUtilisateur.cylindre"
+                                name="cylindre" id="cylindre" required>
+                          <option [ngValue]="Louer">À Louer</option>
+                          <option [ngValue]="Vendre">À Vendre</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="kilometrage">Kilométrage (KM)*</label>
+                        <input class="form-control" id="kilometrage" name="kilometrage" type="number"
+                               placeholder="99999"
+                               [(ngModel)]="produitUtilisateur.kilometrage" required #kilometrage="ngModel"/>
+                        <ul *ngIf="kilometrage.invalid && (kilometrage.dirty || kilometrage.touched)"
+                            class="alert alert-danger">
+                          <li *ngIf="kilometrage.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="annee">Année *</label>
+                        <input class="form-control" id="annee" name="annee" type="number" placeholder="9999"
+                               [(ngModel)]="produitUtilisateur.annee" maxlength="4" required #annee="ngModel"/>
+                        <ul *ngIf="annee.invalid && (annee.dirty || annee.touched)" class="alert alert-danger">
+                          <li *ngIf="annee.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                          <li *ngIf="annee.errors.maxlength">
+                            Complément d'adresse doit contenir au maximum 4 chiffre.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="etat_produit">Carburant *</label>
+                        <select class="form-control" [(ngModel)]="produitUtilisateur.carburant"
+                                name="carburant" id="carburant" required>
+                          <option [ngValue]="Louer">À Louer</option>
+                          <option [ngValue]="Vendre">À Vendre</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="puissanceFiscale">Puissance fiscale *</label>
+                        <input class="form-control" id="puissanceFiscale" name="puissanceFiscale" type="number"
+                               placeholder="99"
+                               [(ngModel)]="produitUtilisateur.puissanceFiscale" required #puissanceFiscale="ngModel"/>
+                        <ul *ngIf="puissanceFiscale.invalid && (puissanceFiscale.dirty || puissanceFiscale.touched)"
+                            class="alert alert-danger">
+                          <li *ngIf="puissanceFiscale.errors.required">
+                            Ce champ est obligatoire
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
                 <button class="btn btn-warning mb-3 float-right" type="submit"
                         [disabled]="produitUtilisateurCreateForm.invalid || loading">
                   Enregistrer
                   <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
                         aria-hidden="true"></span>
                 </button>
+
               </form>
             </div>
           </div>
