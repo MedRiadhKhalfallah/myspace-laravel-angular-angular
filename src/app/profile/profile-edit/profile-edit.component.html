@@ -1,5 +1,4 @@
-<!--<app-loading *ngIf="loading"></app-loading>-->
-
+<app-loading [message]="loadingMessage" *ngIf="loading"></app-loading>
 <div *ngIf="!loading" class="content">
   <div class="row">
     <div class="col-12">
@@ -214,11 +213,6 @@
             <div *ngIf="errorPassword" class="div">
               <ul class="alert alert-danger fa-ul">
                 <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{errorPassword}}</li>
-              </ul>
-            </div>
-            <div *ngIf="successPassword" class="div">
-              <ul class="alert alert-success fa-ul">
-                <li><span class="fa-li"><i class="fas rounded-circle"></i></span>{{errorPassword}}</li>
               </ul>
             </div>
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ModeleType} from "../../modele/modele-create/modele-create.component";
 
 @Component({
   selector: 'app-loading',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./loading.component.css']
 })
 export class LoadingComponent implements OnInit {
+  @Input() message;
 
   constructor() { }
 

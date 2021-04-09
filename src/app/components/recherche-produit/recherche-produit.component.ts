@@ -34,7 +34,7 @@ export class RechercheProduitComponent implements OnInit {
   search() {
     if (this.searchObject.length > 2) {
       this.loading = true;
-      let obj = {'titre': this.searchObject,'societe_id':this.societeId};
+      let obj = {'titre': this.searchObject,'societe_id':1};
       return this.newProduitService.newProduitSearchWithCriteria(obj).subscribe(
         data => this.handleGetNewProduitResponse(data),
         error => this.handleGetNewProduitError(error)

@@ -1,0 +1,43 @@
+<div class="card-header">
+  <div class="row align-items-center justify-content-between">
+
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tbody>
+        <tr>
+          <th scope="row">Nom notification</th>
+          <td><span *ngIf="notification.nom">{{notification.nom}}</span></td>
+        </tr>
+        <tr *ngIf="notification.titre">
+          <th scope="row">Titre</th>
+          <td>{{notification.titre}}</td>
+        </tr>
+        <tr *ngIf="notification.prix_min">
+          <th scope="row">Prix min</th>
+          <td>{{notification.prix_min}}</td>
+        </tr>
+        <tr *ngIf="notification.prix_max">
+          <th scope="row">Prix max</th>
+          <td>{{notification.prix_max}}</td>
+        </tr>
+        <tr *ngIf="notification.sous_category">
+          <th scope="row">Sous category</th>
+          <td>{{notification.sous_category.nom}}</td>
+        </tr>
+        <tr *ngIf="notification.sous_category && notification.sous_category.category">
+          <th scope="row">Category</th>
+          <td>{{notification.sous_category.category.nom}}</td>
+        </tr>
+        <tr *ngIf="notification.delegation">
+          <th scope="row">Delegation</th>
+          <td>{{notification.delegation.nom}}</td>
+        </tr>
+        <tr *ngIf="notification.gouvernorat">
+          <th scope="row">Gouvernorat</th>
+          <td>{{notification.gouvernorat.nom}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

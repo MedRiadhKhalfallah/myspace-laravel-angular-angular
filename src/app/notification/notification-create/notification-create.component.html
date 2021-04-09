@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="col-12">
+    <div *ngIf="error" class="div">
+      <ul class="alert alert-danger fa-ul">
+        <li><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{error}}</li>
+      </ul>
+    </div>
+    <div *ngIf="errors" class="div">
+      <ul *ngFor="let item of errors | keyvalue" class="alert alert-danger fa-ul">
+        - {{ item.key }}
+        <li *ngFor="let val of item.value"><span class="fa-li"><i class="fas fa-exclamation-triangle"></i></span>{{val}}
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="row no-gutters">
+        <div class="col-lg-12 pr-lg-2">
+          <div class="card mb-3">
+            <div class="card-body bg-light">
+              <form #notificationCreateForm=ngForm (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="nom">Nom notification *</label>
+                      <input class="form-control" id="nom" name="nom" type="text" placeholder="Nom"
+                             [(ngModel)]="notification.nom"
+                             required minlength="3"
+                             #nom="ngModel"/>
+                      <ul *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="alert alert-danger">
+                        <li *ngIf="nom.errors.required">
+                          Ce champ est obligatoire
+                        </li>
+                        <li *ngIf="nom.errors.minlength">
+                          Nom doit comporter au moins 3 caractères.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <hr class="border border-dashed my-4" />
+                <h5 class="fs-0">Information produit</h5>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="sousCategorie">Categorie</label>
+                      <select class="form-control" id="categorie" name="categorie"
+                              [(ngModel)]="notification.category_id" (change)='findSousCategorie()'>
+                        <option *ngFor="let categorie of categorieListe" [value]="categorie.id">
+                          {{categorie.nom}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="sousCategorie">Sous categorie</label>
+                      <select class="form-control" id="sousCategorie" name="sousCategorie"
+                              [(ngModel)]="notification.sous_category_id" [disabled]="!notification.category_id">
+                        <option *ngFor="let sousCategorie of sousCategorieListe" [value]="sousCategorie.id">
+                          {{sousCategorie.nom}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="titre">Titre </label>
+                      <input class="form-control" id="titre" name="titre" type="text" placeholder="Titre"
+                             [(ngModel)]="notification.titre"/>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="prix_min">Prix min (TND)</label>
+                      <input class="form-control" id="prix_min" name="prix_min" type="number" placeholder="9999"
+                             [(ngModel)]="notification.prix_min"/>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="prix_max">Prix max (TND)</label>
+                      <input class="form-control" id="prix_max" name="prix_max" type="number" placeholder="9999"
+                             [(ngModel)]="notification.prix_max"/>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- adresse-->
+                <hr class="border border-dashed my-4" />
+                <h5 class="fs-0">Adresse</h5>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="gouvernorat">Gouvernorat </label>
+                      <select class="form-control" id="gouvernorat" name="gouvernorat"
+                              [(ngModel)]="notification.gouvernorat_id"
+                               (change)='findDelegation()'>
+                        <option *ngFor="let gouvernorat of listGouvernorat" [value]="gouvernorat.id">
+                          {{gouvernorat.nom}}
+                        </option>
+                        <option [value]="'0'">Autre</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="delegation">Delegation </label>
+                      <div *ngIf="notification.gouvernorat_id != 0">
+                        <select class="form-control" id="delegation" name="delegation"
+                                [(ngModel)]="notification.delegation_id">
+                          <option [value]=""></option>
+                          <option *ngFor="let delegation of listDelegation" [value]="delegation.id">
+                            {{delegation.nom}}
+                          </option>
+                          <option [value]="'0'">Autre</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-warning mb-3 float-right" type="submit"
+                        [disabled]="notificationCreateForm.invalid || loading">
+                  Enregistrer
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

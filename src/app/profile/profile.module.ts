@@ -7,6 +7,7 @@ import {FormsModule} from "@angular/forms";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {VerificationMailComponent} from "./verification-mail/verification-mail.component";
+import {SharedComponentsModule} from "../shared-components/shared-components.module";
 
 
 @NgModule({
@@ -14,13 +15,14 @@ import {VerificationMailComponent} from "./verification-mail/verification-mail.c
   exports: [
     ProfileEditComponent,ProfileViewComponent
   ],
-  imports: [
-    CommonModule,
-    ProfileRoutingModule,
-    FormsModule,
-    ModalModule,
-    BsDatepickerModule.forRoot(),
+    imports: [
+        CommonModule,
+        ProfileRoutingModule,
+        FormsModule,
+        ModalModule,
+        BsDatepickerModule.forRoot(),
+        SharedComponentsModule,
 
-  ]
+    ]
 })
 export class ProfileModule { }

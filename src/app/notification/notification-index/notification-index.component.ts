@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {Router} from "@angular/router";
-import {ProduitUtilisateurService} from "../service/produit-utilisateur.service";
+import {NotificationService} from "../service/notification.service";
 
 @Component({
-  selector: 'app-produit-utilisateur-index',
-  templateUrl: './produit-utilisateur-index.component.html',
-  styleUrls: ['./produit-utilisateur-index.component.css']
+  selector: 'app-notification-index',
+  templateUrl: './notification-index.component.html',
+  styleUrls: ['./notification-index.component.css']
 })
-export class ProduitUtilisateurIndexComponent implements OnInit {
+export class NotificationIndexComponent implements OnInit {
 
-  public produitUtilisateurList = [];
+  public notificationList = [];
   public error;
   public searchobject = {'limit': 10, 'offset': 0};
   public first = true;
@@ -18,10 +18,9 @@ export class ProduitUtilisateurIndexComponent implements OnInit {
   public loading = false;
   public loadingShowMore = false;
   public showCreate = false;
-  public loadingMessage;
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
-  constructor(private produitUtilisateurService: ProduitUtilisateurService,
+  constructor(private notificationService: NotificationService,
               private router: Router) {
   }
 
@@ -52,9 +51,9 @@ export class ProduitUtilisateurIndexComponent implements OnInit {
     this.loading = false;
     this.first = false;
     if (this.loadingShowMore) {
-      this.produitUtilisateurList = this.produitUtilisateurList.concat(data);
+      this.notificationList = this.notificationList.concat(data);
     } else {
-      this.produitUtilisateurList = data;
+      this.notificationList = data;
     }
     if (data.length < this.searchobject.limit) {
       this.disableShowMore = true;
@@ -66,18 +65,17 @@ export class ProduitUtilisateurIndexComponent implements OnInit {
 
   public showMore(): any {
     this.loadingShowMore = true;
-    this.searchobject.offset = this.produitUtilisateurList.length;
+    this.searchobject.offset = this.notificationList.length;
     this.loadData(this.searchobject);
   }
 
   public loadData(searchobject: any): any {
     this.hideChildModal();
     this.loading = true;
-    this.loadingMessage="Chargement list des produits. Merci de patienter ..."
     if (Object.keys(searchobject).length != 0) {
       this.searchobject = searchobject;
     }
-    this.produitUtilisateurService.produitUtilisateurSearchWithCriteria(this.searchobject).subscribe(
+    this.notificationService.notificationSearchWithCriteria(this.searchobject).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );

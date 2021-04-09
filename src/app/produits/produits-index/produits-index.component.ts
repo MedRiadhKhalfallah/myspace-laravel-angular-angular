@@ -24,6 +24,7 @@ export class ProduitsIndexComponent implements OnInit {
   public modele_id;
   public delegation_id;
   public gouvernorat_id;
+  public loadingMessage;
 
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
 
@@ -101,6 +102,7 @@ export class ProduitsIndexComponent implements OnInit {
 
   public loadData(searchobject: any): any {
     this.loading = true;
+    this.loadingMessage="loading list des produits. Merci de patienter ..."
     if (Object.keys(searchobject).length != 0) {
       this.searchobject = searchobject;
     }

@@ -18,6 +18,7 @@ export class ProfileEditComponent implements OnInit {
   public loadingPassword = false;
   public loadingDesactiverProfile = false;
   public loadingSendMail = false;
+  public loadingMessage;
   public formPassword = {
     id: null,
     oldPassword: null,
@@ -79,6 +80,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   public loadData(): any {
+    this.loadingMessage='Chargement profile ...';
     this.loading = true;
     this.profileService.getProfile().subscribe(
       data => this.handleResponse(data),
@@ -96,6 +98,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   public onSubmit(): any {
+    this.loadingMessage='Chargement profile';
     this.loadingUpdate = true;
     return this.profileService.updateProfile(this.profile).subscribe(
       data => this.handleSubmitResponse(data),
@@ -149,8 +152,6 @@ export class ProfileEditComponent implements OnInit {
         progressBar: true,
         progressAnimation: 'increasing'
       });
-
-    this.successPassword = 'mot de passe a jour';
   }
 
   public handleSubmitDePasseError(error): any {
@@ -182,6 +183,7 @@ export class ProfileEditComponent implements OnInit {
   public onFileSelect(event): any {
     this.selectedFile = <File>event.target.files[0];
     this.loading = true;
+    this.loadingMessage='Téléchargement photo profile merci de patienter ...';
     const formData: FormData = new FormData();
     formData.append('selectedFile', this.selectedFile, this.selectedFile.name);
     return this.profileService.updateImageProfile(this.profile.id, formData).subscribe(
@@ -209,6 +211,7 @@ export class ProfileEditComponent implements OnInit {
 
   public onFileCovertureSelect(event): any {
     this.selectedFile = <File>event.target.files[0];
+    this.loadingMessage='Téléchargement photo coverture merci de patienter ...';
     this.loading = true;
     const formData: FormData = new FormData();
     formData.append('selectedFile', this.selectedFile, this.selectedFile.name);

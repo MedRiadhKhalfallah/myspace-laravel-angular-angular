@@ -11,8 +11,8 @@ export interface ProduitUtilisateurType {
   titre: string,
   description: string,
   prix: string,
-  modele_id: string,
-  marque_id: string,
+  modele_id: number,
+  marque_id: number,
   gouvernorat_id: string,
   delegation_id: string,
   adresse: string,
@@ -90,8 +90,8 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
         etat: number;
         etat_produit: string;
         id: string;
-        modele_id: string;
-        marque_id: string;
+        modele_id: number;
+        marque_id: number;
         prix: string;
         reference: string;
         sous_category_id: string;
@@ -272,17 +272,18 @@ export class ProduitUtilisateurCreateComponent implements OnInit {
       formData.append('autre_delegation', this.produitUtilisateur.autre_delegation);
 
     }
-    if (this.produitUtilisateur.modele_id) {
-      formData.append('modele_id', this.produitUtilisateur.modele_id);
-    } else {
+    if (this.produitUtilisateur.modele_id == 0) {
       formData.append('modele_id', '0');
       formData.append('autre_modele', this.produitUtilisateur.autre_modele);
+    } else if(this.produitUtilisateur.modele_id > 0) {
+      formData.append('modele_id', this.produitUtilisateur.modele_id.toString());
     }
-    if (this.produitUtilisateur.marque_id == '0') {
+
+    if (this.produitUtilisateur.marque_id == 0) {
       formData.append('marque_id', '0');
       formData.append('autre_marque', this.produitUtilisateur.autre_marque);
-    } else {
-      formData.append('marque_id', this.produitUtilisateur.marque_id);
+    } else if(this.produitUtilisateur.marque_id > 0) {
+      formData.append('marque_id', this.produitUtilisateur.marque_id.toString());
     }
     formData.append('etat', '1');
     if (this.produitUtilisateur.id) {

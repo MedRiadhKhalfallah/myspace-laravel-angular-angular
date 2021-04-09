@@ -23,7 +23,7 @@
       </div>
       <div class="col-lg-6">
         <h5>{{newProduit.titre}}</h5>
-        <p class="fs--1"><strong>Référence :</strong> {{newProduit.reference}}</p>
+<!--        <p class="fs&#45;&#45;1" *ngIf="newProduit.reference"><strong>Référence :</strong> {{newProduit.reference}}</p>-->
         <p class="fs--1"><strong>Description:</strong> {{newProduit.description}}</p>
         <div
           *ngIf="newProduit.paiement_facilite_3_mois || newProduit.paiement_facilite_6_mois || newProduit.paiement_facilite_12_mois">
@@ -56,8 +56,8 @@
         <p class="fs--1" *ngIf="newProduit.quantite>0">Stock: <strong class="text-success">Disponible</strong></p>
         <p class="fs--1" *ngIf="newProduit.quantite<=0">Stock: <strong class="text-danger">En rupture de stock</strong>
         </p>
-        <hr>
-        <div class="row">
+        <hr *ngIf="newProduit.modele">
+        <div class="row" *ngIf="newProduit.modele">
           <div class="col-lg-2" *ngIf="newProduit.modele.marque.id!=0">
             <img class="rounded-circle" style="width: 70px; height: 70px" src="{{newProduit.modele.marque.image_path}}"
                  alt="{{newProduit.modele.marque.nom}}"/>

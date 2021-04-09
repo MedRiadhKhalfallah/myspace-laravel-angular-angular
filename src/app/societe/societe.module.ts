@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { SocieteRoutingModule } from './societe-routing.module';
 import {SocieteService} from "./service/societe.service";
-import {RechercheProduitComponent} from "./recherche-produit/recherche-produit.component";
 import {SocieteRechercheAvanceComponent} from "./societe-recherche-avance/societe-recherche-avance.component";
 import {SocietePayementComponent} from "./societe-payement/societe-payement.component";
 import {SocieteMapComponent} from "./societe-map/societe-map.component";
@@ -23,7 +22,7 @@ import {SharedComponentsModule} from "../shared-components/shared-components.mod
 @NgModule({
   declarations: [SocieteCreateComponent, SocieteIndexComponent, SocieteListComponent,
     SocieteSearchComponent, SocieteViewComponent, SocieteMapComponent, SocietePayementComponent,
-    SocieteRechercheAvanceComponent, RechercheProduitComponent, RechercheSocieteComponent],
+    SocieteRechercheAvanceComponent, RechercheSocieteComponent],
   imports: [
     CommonModule,
     SocieteRoutingModule,
@@ -35,9 +34,9 @@ import {SharedComponentsModule} from "../shared-components/shared-components.mod
     SharedComponentsModule,
 
   ],
-  exports: [
-    RechercheSocieteComponent
-  ],
+    exports: [
+        RechercheSocieteComponent
+    ],
   providers: [SocieteService]
 })
 export class SocieteModule { }

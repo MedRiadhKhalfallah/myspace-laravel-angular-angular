@@ -27,6 +27,8 @@ import {FooterComponent} from './components/footer/footer.component';
 //***************
 import {TarificationComponent} from './tarification/tarification/tarification.component';
 import {PaymentComponent} from './tarification/payment/payment.component';
+import {RechercheProduitComponent} from "./components/recherche-produit/recherche-produit.component";
+import {SharedComponentsModule} from "./shared-components/shared-components.module";
 //***************
 Sentry.init({
   dsn: "https://3f420d2efbf54340867b84407039ad5f@o517250.ingest.sentry.io/5668649",
@@ -50,6 +52,7 @@ Sentry.init({
     FooterComponent,
     TarificationComponent,
     PaymentComponent,
+    RechercheProduitComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,7 @@ Sentry.init({
     ToastrModule.forRoot(), // ToastrModule added
     // LeafletMarkerClusterModule,
     NgxPrintModule,
+    SharedComponentsModule
   ],
   providers: [
     {

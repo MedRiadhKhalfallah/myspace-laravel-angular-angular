@@ -61,7 +61,7 @@
                 </div>
                 <div class="row">
                   <div class="col-lg-6">
-                  <div class="form-group">
+                    <div class="form-group">
                       <label for="titre">Titre *</label>
                       <input class="form-control" id="titre" name="titre" type="text" placeholder="Titre"
                              [(ngModel)]="produitUtilisateur.titre"
@@ -95,7 +95,7 @@
                     <div class="form-group">
                       <label for="selectedFile">Images *</label>
                       <input class="form-control-file" id="selectedFile" name="selectedFile" type="file" multiple
-                             (change)="onFileSelect($event)" required>
+                             (change)="onFileSelect($event)" accept="image/*" required>
                       <p style="color: #a5a5a5;
                              font-size: 10px;">
                         (*) nombre maximum d'images est 5
@@ -113,7 +113,7 @@
                 </div>
 
                 <!-- adresse-->
-                <hr class="border border-dashed my-4" />
+                <hr class="border border-dashed my-4"/>
                 <h5 class="fs-0">Adresse</h5>
                 <div class="row">
                   <div class="col-lg-6">
@@ -229,14 +229,14 @@
 
                 <!--                immoble-->
                 <div *ngIf="produitUtilisateur.category_id == '1'">
-                  <hr class="border border-dashed my-4" />
+                  <hr class="border border-dashed my-4"/>
                   <h5 class="fs-0">information complémentaire</h5>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="etat_produit">Type de transaction *</label>
+                        <label for="etat_produit">Type de transaction</label>
                         <select class="form-control" [(ngModel)]="produitUtilisateur.typeTransaction"
-                                name="typeTransaction" id="typeTransaction" required>
+                                name="typeTransaction" id="typeTransaction">
                           <option [ngValue]="Louer">À Louer</option>
                           <option [ngValue]="Vendre">À Vendre</option>
                         </select>
@@ -246,28 +246,16 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="chambres">Chambres *</label>
+                        <label for="chambres">Chambres</label>
                         <input class="form-control" id="chambres" name="chambres" type="number" placeholder="9"
-                               [(ngModel)]="produitUtilisateur.chambres" required #chambres="ngModel"/>
-                        <ul *ngIf="chambres.invalid && (chambres.dirty || chambres.touched)" class="alert alert-danger">
-                          <li *ngIf="chambres.errors.required">
-                            Ce champ est obligatoire
-                          </li>
-                        </ul>
+                               [(ngModel)]="produitUtilisateur.chambres"/>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="superficie">Superficie (m²) *</label>
+                        <label for="superficie">Superficie (m²)</label>
                         <input class="form-control" id="superficie" name="superficie" type="number"
-                               placeholder="999"
-                               [(ngModel)]="produitUtilisateur.superficie" required #superficie="ngModel"/>
-                        <ul *ngIf="superficie.invalid && (superficie.dirty || superficie.touched)"
-                            class="alert alert-danger">
-                          <li *ngIf="superficie.errors.required">
-                            Ce champ est obligatoire
-                          </li>
-                        </ul>
+                               placeholder="999" [(ngModel)]="produitUtilisateur.superficie"/>
                       </div>
                     </div>
                   </div>
@@ -275,7 +263,7 @@
 
                 <!--vehicule-->
                 <div *ngIf="produitUtilisateur.category_id == '2'">
-                  <hr class="border border-dashed my-4" />
+                  <hr class="border border-dashed my-4"/>
                   <h5 class="fs-0">information complémentaire</h5>
                   <div class="row">
                     <div class="col-lg-6">
@@ -287,14 +275,14 @@
                           <option *ngFor="let marque of marqueListe" [value]="marque.id">
                             {{marque.nom}}
                           </option>
-                          <option [value]="'0'">Autre</option>
+                          <option [value]="0">Autre</option>
                         </select>
                         <ul *ngIf="marque.invalid && (marque.dirty || marque.touched)" class="alert alert-danger">
                           <li *ngIf="marque.errors.required">
                             Ce champ est obligatoire
                           </li>
                         </ul>
-                        <div *ngIf="produitUtilisateur.marque_id=='0'" style="margin-top: 10px;">
+                        <div *ngIf="produitUtilisateur.marque_id==0" style="margin-top: 10px;">
                           <input class="form-control" id="autre_marque" name="autre_marque" type="text"
                                  placeholder="autre_marque"
                                  [(ngModel)]="produitUtilisateur.autre_marque" required #autreMarque="ngModel"/>
@@ -311,14 +299,14 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label for="modele">Modele *</label>
-                        <div *ngIf="produitUtilisateur.marque_id != '0'">
+                        <div *ngIf="produitUtilisateur.marque_id != 0">
                           <select class="form-control" id="modele" name="modele"
                                   [(ngModel)]="produitUtilisateur.modele_id" required
                                   #modele="ngModel" [disabled]="!produitUtilisateur.marque_id">
                             <option *ngFor="let modele of modeleListe" [value]="modele.id">
                               {{modele.nom}}
                             </option>
-                            <option [value]="'0'">Autre</option>
+                            <option [value]="0">Autre</option>
                           </select>
                           <ul *ngIf="modele.invalid && (modele.dirty || modele.touched)" class="alert alert-danger">
                             <li *ngIf="modele.errors.required">
@@ -326,7 +314,7 @@
                             </li>
                           </ul>
                         </div>
-                        <div *ngIf="produitUtilisateur.modele_id=='0' || produitUtilisateur.marque_id=='0'"
+                        <div *ngIf="produitUtilisateur.modele_id==0 || produitUtilisateur.marque_id==0"
                              style="margin-top: 10px;">
                           <input class="form-control" id="autre_modele" name="autre_modele" type="text"
                                  placeholder="autre_modele"
@@ -345,22 +333,9 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="reference">Référence *</label>
-                        <input class="form-control" id="reference" name="reference" type="text" placeholder="Référence"
-                               [(ngModel)]="produitUtilisateur.reference" required #reference="ngModel"/>
-                        <ul *ngIf="reference.invalid && (reference.dirty || reference.touched)"
-                            class="alert alert-danger">
-                          <li *ngIf="reference.errors.required">
-                            Ce champ est obligatoire
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label for="etat_produit">État produit *</label>
+                        <label for="etat_produit">État produit</label>
                         <select class="form-control" [(ngModel)]="produitUtilisateur.etat_produit"
-                                name="etat_produit" id="etat_produit" required>
+                                name="etat_produit" id="etat_produit">
                           <option [ngValue]="Nouveau">Nouveau</option>
                           <option [ngValue]="Utilise">Utilisé</option>
                           <option [ngValue]="Reconditionne">Reconditionné</option>
@@ -372,9 +347,9 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="etat_produit">Couleur du véhicule *</label>
+                        <label for="etat_produit">Couleur du véhicule</label>
                         <select class="form-control" [(ngModel)]="produitUtilisateur.couleur"
-                                name="couleur" id="couleur" required>
+                                name="couleur" id="couleur">
                           <option [ngValue]="Louer">À Louer</option>
                           <option [ngValue]="Vendre">À Vendre</option>
                         </select>
@@ -382,9 +357,9 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="etat_produit">Type de carrosserie *</label>
+                        <label for="etat_produit">Type de carrosserie</label>
                         <select class="form-control" [(ngModel)]="produitUtilisateur.typeCarrosserie"
-                                name="typeCarrosserie" id="typeCarrosserie" required>
+                                name="typeCarrosserie" id="typeCarrosserie">
                           <option [ngValue]="Louer">À Louer</option>
                           <option [ngValue]="Vendre">À Vendre</option>
                         </select>
@@ -394,9 +369,9 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="etat_produit">Boite *</label>
+                        <label for="etat_produit">Boite</label>
                         <select class="form-control" [(ngModel)]="produitUtilisateur.boite"
-                                name="boite" id="boite" required>
+                                name="boite" id="boite">
                           <option [ngValue]="Louer">À Louer</option>
                           <option [ngValue]="Vendre">À Vendre</option>
                         </select>
@@ -404,9 +379,9 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="etat_produit">Cylindrée *</label>
+                        <label for="etat_produit">Cylindrée</label>
                         <select class="form-control" [(ngModel)]="produitUtilisateur.cylindre"
-                                name="cylindre" id="cylindre" required>
+                                name="cylindre" id="cylindre">
                           <option [ngValue]="Louer">À Louer</option>
                           <option [ngValue]="Vendre">À Vendre</option>
                         </select>
@@ -416,27 +391,18 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="kilometrage">Kilométrage (KM)*</label>
+                        <label for="kilometrage">Kilométrage (KM)</label>
                         <input class="form-control" id="kilometrage" name="kilometrage" type="number"
                                placeholder="99999"
-                               [(ngModel)]="produitUtilisateur.kilometrage" required #kilometrage="ngModel"/>
-                        <ul *ngIf="kilometrage.invalid && (kilometrage.dirty || kilometrage.touched)"
-                            class="alert alert-danger">
-                          <li *ngIf="kilometrage.errors.required">
-                            Ce champ est obligatoire
-                          </li>
-                        </ul>
+                               [(ngModel)]="produitUtilisateur.kilometrage"/>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="annee">Année *</label>
+                        <label for="annee">Année</label>
                         <input class="form-control" id="annee" name="annee" type="number" placeholder="9999"
-                               [(ngModel)]="produitUtilisateur.annee" maxlength="4" required #annee="ngModel"/>
+                               [(ngModel)]="produitUtilisateur.annee" maxlength="4" #annee="ngModel"/>
                         <ul *ngIf="annee.invalid && (annee.dirty || annee.touched)" class="alert alert-danger">
-                          <li *ngIf="annee.errors.required">
-                            Ce champ est obligatoire
-                          </li>
                           <li *ngIf="annee.errors.maxlength">
                             Complément d'adresse doit contenir au maximum 4 chiffre.
                           </li>
@@ -447,9 +413,9 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="etat_produit">Carburant *</label>
+                        <label for="etat_produit">Carburant </label>
                         <select class="form-control" [(ngModel)]="produitUtilisateur.carburant"
-                                name="carburant" id="carburant" required>
+                                name="carburant" id="carburant">
                           <option [ngValue]="Louer">À Louer</option>
                           <option [ngValue]="Vendre">À Vendre</option>
                         </select>
@@ -457,21 +423,14 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label for="puissanceFiscale">Puissance fiscale *</label>
+                        <label for="puissanceFiscale">Puissance fiscale</label>
                         <input class="form-control" id="puissanceFiscale" name="puissanceFiscale" type="number"
                                placeholder="99"
-                               [(ngModel)]="produitUtilisateur.puissanceFiscale" required #puissanceFiscale="ngModel"/>
-                        <ul *ngIf="puissanceFiscale.invalid && (puissanceFiscale.dirty || puissanceFiscale.touched)"
-                            class="alert alert-danger">
-                          <li *ngIf="puissanceFiscale.errors.required">
-                            Ce champ est obligatoire
-                          </li>
-                        </ul>
+                               [(ngModel)]="produitUtilisateur.puissanceFiscale"/>
                       </div>
                     </div>
                   </div>
                 </div>
-
 
                 <button class="btn btn-warning mb-3 float-right" type="submit"
                         [disabled]="produitUtilisateurCreateForm.invalid || loading">
@@ -479,7 +438,7 @@
                   <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
                         aria-hidden="true"></span>
                 </button>
-
+                <span *ngIf="loading">Le téléchargement des photos peut prendre quelques instants. Merci de patienter ...</span>
               </form>
             </div>
           </div>

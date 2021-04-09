@@ -218,9 +218,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="produit-utilisateur" *ngIf="loggedIn && utilisateurRole">
+            <a class="nav-link" routerLink="/produit-utilisateur" *ngIf="loggedIn && utilisateurRole">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                 class="fas fa-file-invoice-dollar"></span></span><span class="nav-link-text">Produit utilisateur</span></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/notification" *ngIf="loggedIn && utilisateurRole">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                class="fas fa-file-invoice-dollar"></span></span><span class="nav-link-text">Notification</span></div>
             </a>
           </li>
         </ul>
@@ -338,6 +344,8 @@
 
 
 <!--      <app-recherche-societe *ngIf="routeHome"></app-recherche-societe>-->
+      <app-recherche-produit></app-recherche-produit>
+
       <ng-snotify></ng-snotify>
       <router-outlet (activate)='onActivate($event)'></router-outlet>
 

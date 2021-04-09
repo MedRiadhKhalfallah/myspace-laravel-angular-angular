@@ -38,7 +38,7 @@
                                         *ngIf="!newProduit.url_externe">{{newProduit.titre}}</a></h5>
                     <h5 class="fs-0"><a class="text-dark" href="{{newProduit.url_externe}}" target="_blank"
                                         *ngIf="newProduit.url_externe">{{newProduit.titre}}</a></h5>
-                    <p class="fs--1 mb-3">{{newProduit.modele.nom}}</p>
+                    <p class="fs--1 mb-3">{{newProduit.sous_category.nom}}</p>
                     <h5 class="d-flex align-items-center" *ngIf="newProduit.prix_sold">
                       <span class="text-warning mr-2">{{newProduit.prix_sold}} DT</span>
                       <span class="mr-1 fs--1 text-500"><del class="mr-1">{{newProduit.prix}} DT</del></span>

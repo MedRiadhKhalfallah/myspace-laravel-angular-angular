@@ -8,8 +8,8 @@ import {VerificationMailComponent} from "./verification-mail/verification-mail.c
 
 const routes: Routes = [
   {path: '', component: ProfileEditComponent, canActivate: [AfterLoginService]},
-  {path: ':id', component: ProfileViewComponent, canActivate: [BeforeLoginService]},
   {path: 'response-mail-verification', component: VerificationMailComponent},
+  {path: ':id', component: ProfileViewComponent},
 ];
 
 @NgModule({
