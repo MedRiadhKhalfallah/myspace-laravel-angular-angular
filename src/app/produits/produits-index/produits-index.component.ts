@@ -24,6 +24,7 @@ export class ProduitsIndexComponent implements OnInit {
   public modele_id;
   public delegation_id;
   public gouvernorat_id;
+  public titre;
   public loadingMessage;
 
   @ViewChild('childModal', {static: true}) childModal: ModalDirective;
@@ -53,16 +54,23 @@ export class ProduitsIndexComponent implements OnInit {
       this.modele_id = params['modele'];
       this.delegation_id = params['delegation'];
       this.gouvernorat_id = params['gouvernorat'];
+      this.titre = params['titre'];
 
     });
     if (this.sousCategorie_id) {
       this.loadData({'sous_category_id': this.sousCategorie_id,'limit': 10,
         'offset': 0});
-    } else if (this.modele_id) {
+    } else if (this.categorie_id) {
+      this.loadData({'category_id': this.categorie_id,'limit': 10,
+        'offset': 0});
+    }else if (this.modele_id) {
       this.loadData({'modele_id': this.modele_id,'limit': 10,
         'offset': 0});
     } else if (this.delegation_id) {
       this.loadData({'delegation_id': this.delegation_id,'limit': 10,
+        'offset': 0});
+    }else if (this.titre) {
+      this.loadData({'titre': this.titre,'limit': 10,
         'offset': 0});
     } else {
       this.loadData({});

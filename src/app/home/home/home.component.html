@@ -6,10 +6,43 @@
   <ng-template carouselSlide><img src="../../assets/img/illustrations/repaire-phone-2.jpg"></ng-template>
 </owl-carousel-o>
 <br>
+<br>
 
 <app-list-produit [searchObject]="{'limit': 6, 'offset': 0}"
                   [titre]="'Tous les produits'"
                   [url]="'/produit'"
+></app-list-produit>
+<app-list-produit [searchObject]="{'limit': 3, 'offset': 0,'category_id':1}"
+                  [titre]="'Immobilier'"
+                  [url]="'/produit?category=1'"
+></app-list-produit>
+<app-list-produit [searchObject]="{'limit': 3, 'offset': 0,'category_id':2}"
+                  [titre]="'Véhicules'"
+                  [url]="'/produit?category=2'"
+></app-list-produit>
+<app-list-produit [searchObject]="{'limit': 3, 'offset': 0,'category_id':3}"
+                  [titre]="'Pour la Maison et Jardin'"
+                  [url]="'/produit?category=3'"
+></app-list-produit>
+<app-list-produit [searchObject]="{'limit': 3, 'offset': 0,'category_id':4}"
+                  [titre]="'Loisirs et Divertissement'"
+                  [url]="'/produit?category=4'"
+></app-list-produit>
+<app-list-produit [searchObject]="{'limit': 3, 'offset': 0,'category_id':5}"
+                  [titre]="'Informatique et Multimedia'"
+                  [url]="'/produit?category=5'"
+></app-list-produit>
+<app-list-produit [searchObject]="{'limit': 3, 'offset': 0,'category_id':6}"
+                  [titre]="'Emploi et Services'"
+                  [url]="'/produit?category=6'"
+></app-list-produit>
+<app-list-produit [searchObject]="{'limit': 3, 'offset': 0,'category_id':7}"
+                  [titre]="'Habillement et Bien Etre'"
+                  [url]="'/produit?category=7'"
+></app-list-produit>
+<app-list-produit [searchObject]="{'limit': 3, 'offset': 0,'category_id':8}"
+                  [titre]="'Entreprises'"
+                  [url]="'/produit?category=8'"
 ></app-list-produit>
 
 <!--
@@ -96,7 +129,7 @@
           <h2>
             Rejoindre Notre Réseau professionnel
           </h2>
-          <a routerLink="/authentification/signup" class="btn btn-primary btn-sm mt-3" >
+          <a routerLink="/authentification/signup" class="btn btn-primary btn-sm mt-3">
             <span class="fas fa-chevron-left mr-1" data-fa-transform="shrink-4 down-1"></span>
             Rejoindre le Réseau!
           </a>

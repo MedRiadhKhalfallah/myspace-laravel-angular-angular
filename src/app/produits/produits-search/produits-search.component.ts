@@ -18,6 +18,7 @@ export class ProduitsSearchComponent implements OnInit {
   @Input() modele_id;
   @Input() delegation_id;
   @Input() gouvernorat_id;
+  @Input() titre;
 
   public error;
   public errors;
@@ -75,6 +76,9 @@ export class ProduitsSearchComponent implements OnInit {
       if(this.delegation_id){
         this.form.delegation_id=this.delegation_id;
       }
+    }
+    if(this.titre){
+      this.form.titre=this.titre;
     }
 
     this.gouvernoratService.gouvernoratSearchWithCriteria({}).subscribe(
